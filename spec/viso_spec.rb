@@ -12,6 +12,16 @@ describe Viso do
     Viso.tap { |app| app.set :environment, :test }
   end
 
+  def assert_cached_for(duration)
+    assert { headers['Vary']          == 'Accept' }
+    assert { headers['Cache-Control'] == "public, max-age=#{ duration }" }
+  end
+
+  def headers
+    last_response.headers
+  end
+
+
   it 'redirects the home page to the CloudApp product page' do
     EM.synchrony do
       VCR.use_cassette 'default_domain_details',
@@ -19,11 +29,8 @@ describe Viso do
         get '/'
         EM.stop
 
+        assert_cached_for 3600
         assert { last_response.redirect? }
-
-        headers = last_response.headers
-        assert { headers['Cache-Control'] == 'public, max-age=3600' }
-        assert { headers['Vary']          == 'Accept' }
         assert { headers['Location']      == 'http://getcloudapp.com' }
       end
     end
@@ -35,11 +42,8 @@ describe Viso do
         get '/'
         EM.stop
 
+        assert_cached_for 3600
         assert { last_response.redirect? }
-
-        headers = last_response.headers
-        assert { headers['Cache-Control'] == 'public, max-age=3600' }
-        assert { headers['Vary']          == 'Accept' }
         assert { headers['Location']      == 'http://hhgproject.org' }
       end
     end
@@ -62,11 +66,8 @@ describe Viso do
       get '/hhgttg/chapter1.txt'
       EM.stop
 
+      assert_cached_for 900
       assert { last_response.redirect? }
-
-      headers = last_response.headers
-      assert { headers['Cache-Control'] == 'public, max-age=900' }
-      assert { headers['Vary']          == 'Accept' }
       assert { headers['Location']      == 'http://api.cld.me/hhgttg/chapter1.txt' }
     end
   end
@@ -77,11 +78,8 @@ describe Viso do
         get '/hhgttg'
         EM.stop
 
+        assert_cached_for 900
         assert { last_response.redirect? }
-
-        headers = last_response.headers
-        assert { headers['Cache-Control'] == 'public, max-age=900' }
-        assert { headers['Vary']          == 'Accept' }
         assert { headers['Location']      == 'http://api.cld.me/hhgttg' }
       end
     end
@@ -93,11 +91,8 @@ describe Viso do
         get '/hhgttg/content'
         EM.stop
 
+        assert_cached_for 900
         assert { last_response.redirect? }
-
-        headers = last_response.headers
-        assert { headers['Cache-Control'] == 'public, max-age=900' }
-        assert { headers['Vary']          == 'Accept' }
         assert { headers['Location']      == 'http://api.cld.me/hhgttg/content' }
       end
     end
@@ -109,11 +104,8 @@ describe Viso do
         get '/hhgttg'
         EM.stop
 
+        assert_cached_for 900
         assert { last_response.ok? }
-
-        headers = last_response.headers
-        assert { headers['Cache-Control'] == 'public, max-age=900' }
-        assert { headers['Vary']          == 'Accept' }
 
         image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
         assert { last_response.body.include?(image_tag) }
@@ -127,11 +119,8 @@ describe Viso do
         get '/hhgttg/o'
         EM.stop
 
+        assert_cached_for 900
         assert { last_response.ok? }
-
-        headers = last_response.headers
-        assert { headers['Cache-Control'] == 'public, max-age=900' }
-        assert { headers['Vary']          == 'Accept' }
 
         image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
         assert { last_response.body.include?(image_tag) }
@@ -145,11 +134,8 @@ describe Viso do
         get '/hhgttg'
         EM.stop
 
+        assert_cached_for 900
         assert { last_response.ok? }
-
-        headers = last_response.headers
-        assert { headers['Cache-Control'] == 'public, max-age=900' }
-        assert { headers['Vary']          == 'Accept' }
 
         assert { last_response.body.include?('<body id="other">') }
         deny   { last_response.body.include?("<img") }
@@ -172,11 +158,8 @@ describe Viso do
         get '/hhgttg'
         EM.stop
 
+        assert_cached_for 900
         assert { last_response.ok? }
-
-        headers = last_response.headers
-        assert { headers['Cache-Control'] == 'public, max-age=900' }
-        assert { headers['Vary']          == 'Accept' }
 
         assert { last_response.body.include?('<body id="text">') }
         deny   { last_response.body.include?("<img") }
@@ -202,11 +185,8 @@ describe Viso do
         get '/hhgttg'
         EM.stop
 
+        assert_cached_for 900
         assert { last_response.ok? }
-
-        headers = last_response.headers
-        assert { headers['Cache-Control'] == 'public, max-age=900' }
-        assert { headers['Vary']          == 'Accept' }
         assert { headers['Content-Type']  == 'text/html;charset=utf-8' }
 
         section_tag = '<section class="monsoon" id="content">'
@@ -224,11 +204,8 @@ describe Viso do
         get '/hhgttg'
         EM.stop
 
+        assert_cached_for 900
         assert { last_response.ok? }
-
-        headers = last_response.headers
-        assert { headers['Cache-Control'] == 'public, max-age=900' }
-        assert { headers['Vary']          == 'Accept' }
         assert { headers['Content-Type']  == 'text/html;charset=utf-8' }
 
         section_tag = '<section class="monsoon" id="content">'
@@ -248,11 +225,8 @@ describe Viso do
         drop = Drop.find 'hhgttg'
         EM.stop
 
+        assert_cached_for 900
         assert { last_response.ok? }
-
-        headers = last_response.headers
-        assert { headers['Cache-Control'] == 'public, max-age=900' }
-        assert { headers['Vary']          == 'Accept' }
         assert { headers['Content-Type']  == 'application/json;charset=utf-8' }
 
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
