@@ -152,7 +152,7 @@ describe Viso do
     end
   end
 
-  it 'shows a download button for a text file' do
+  it 'dumps the content of a text drop' do
     EM.synchrony do
       VCR.use_cassette 'text' do
         get '/hhgttg'
