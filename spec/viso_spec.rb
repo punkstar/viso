@@ -29,9 +29,9 @@ describe Viso do
         get '/'
         EM.stop
 
-        assert_cached_for 3600
         assert { last_response.redirect? }
-        assert { headers['Location']      == 'http://getcloudapp.com' }
+        assert { headers['Location'] == 'http://getcloudapp.com' }
+        assert_cached_for 3600
       end
     end
   end
@@ -42,9 +42,9 @@ describe Viso do
         get '/'
         EM.stop
 
-        assert_cached_for 3600
         assert { last_response.redirect? }
-        assert { headers['Location']      == 'http://hhgproject.org' }
+        assert { headers['Location'] == 'http://hhgproject.org' }
+        assert_cached_for 3600
       end
     end
   end
@@ -66,9 +66,9 @@ describe Viso do
       get '/hhgttg/chapter1.txt'
       EM.stop
 
-      assert_cached_for 900
       assert { last_response.redirect? }
-      assert { headers['Location']      == 'http://api.cld.me/hhgttg/chapter1.txt' }
+      assert { headers['Location'] == 'http://api.cld.me/hhgttg/chapter1.txt' }
+      assert_cached_for 900
     end
   end
 
@@ -77,9 +77,9 @@ describe Viso do
       get '/hhgttg/chapter1%2F%3F%23.txt'
       EM.stop
 
-      assert_cached_for 900
       assert { last_response.redirect? }
       assert { headers['Location'] == 'http://api.cld.me/hhgttg/chapter1%2F%3F%23.txt' }
+      assert_cached_for 900
     end
   end
 
@@ -89,9 +89,9 @@ describe Viso do
         get '/hhgttg'
         EM.stop
 
-        assert_cached_for 900
         assert { last_response.redirect? }
-        assert { headers['Location']      == 'http://api.cld.me/hhgttg' }
+        assert { headers['Location'] == 'http://api.cld.me/hhgttg' }
+        assert_cached_for 900
       end
     end
   end
@@ -102,9 +102,9 @@ describe Viso do
         get '/hhgttg/content'
         EM.stop
 
-        assert_cached_for 900
         assert { last_response.redirect? }
-        assert { headers['Location']      == 'http://api.cld.me/hhgttg/content' }
+        assert { headers['Location'] == 'http://api.cld.me/hhgttg/content' }
+        assert_cached_for 900
       end
     end
   end
@@ -115,11 +115,12 @@ describe Viso do
         get '/hhgttg'
         EM.stop
 
-        assert_cached_for 900
         assert { last_response.ok? }
 
         image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
         assert { last_response.body.include?(image_tag) }
+
+        assert_cached_for 900
       end
     end
   end
@@ -130,11 +131,12 @@ describe Viso do
         get '/hhgttg/o'
         EM.stop
 
-        assert_cached_for 900
         assert { last_response.ok? }
 
         image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
         assert { last_response.body.include?(image_tag) }
+
+        assert_cached_for 900
       end
     end
   end
@@ -145,7 +147,6 @@ describe Viso do
         get '/hhgttg'
         EM.stop
 
-        assert_cached_for 900
         assert { last_response.ok? }
 
         assert { last_response.body.include?('<body id="other">') }
@@ -159,6 +160,8 @@ describe Viso do
 
         link = %{<a href="http://cl.ly/hhgttg/Chapter_1.blah">View</a>}
         assert { last_response.body.include?(link) }
+
+        assert_cached_for 900
       end
     end
   end
@@ -169,7 +172,6 @@ describe Viso do
         get '/hhgttg'
         EM.stop
 
-        assert_cached_for 900
         assert { last_response.ok? }
 
         assert { last_response.body.include?('<body id="text">') }
@@ -186,6 +188,8 @@ describe Viso do
 
         content = 'The house stood on a slight rise just on the edge of the village.'
         assert { last_response.body.include? content }
+
+        assert_cached_for 900
       end
     end
   end
@@ -196,15 +200,16 @@ describe Viso do
         get '/hhgttg'
         EM.stop
 
-        assert_cached_for 900
         assert { last_response.ok? }
-        assert { headers['Content-Type']  == 'text/html;charset=utf-8' }
+        assert { headers['Content-Type'] == 'text/html;charset=utf-8' }
 
         section_tag = '<section class="monsoon" id="content">'
         assert { last_response.body.include? section_tag }
 
         content = 'The house stood on a slight rise just on the edge of the village.'
         assert { last_response.body.include? content }
+
+        assert_cached_for 900
       end
     end
   end
@@ -215,15 +220,16 @@ describe Viso do
         get '/hhgttg'
         EM.stop
 
-        assert_cached_for 900
         assert { last_response.ok? }
-        assert { headers['Content-Type']  == 'text/html;charset=utf-8' }
+        assert { headers['Content-Type'] == 'text/html;charset=utf-8' }
 
         section_tag = '<section class="monsoon" id="content">'
         assert { last_response.body.include? section_tag }
 
         content = 'Hello, world!'
         assert { last_response.body.include? content }
+
+        assert_cached_for 900
       end
     end
   end
@@ -236,11 +242,10 @@ describe Viso do
         drop = Drop.find 'hhgttg'
         EM.stop
 
-        assert_cached_for 900
         assert { last_response.ok? }
-        assert { headers['Content-Type']  == 'application/json;charset=utf-8' }
-
+        assert { headers['Content-Type'] == 'application/json;charset=utf-8' }
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
+        assert_cached_for 900
       end
     end
   end
