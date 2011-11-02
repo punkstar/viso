@@ -131,7 +131,10 @@ class Viso < Sinatra::Base
   # The content for a **Drop**. Redirect to the identical path on the API domain
   # where the view counter is incremented and the visitor is redirected to the
   # actual URL of file. Response is cached for 15 minutes.
-  get '/:slug/:filename' do |slug, filename|
+  get %r{^
+        /([^/?#]+)  # Item slug
+        /(.+)       # Filename
+      $}x do |slug, filename|
     cache_control :public, :max_age => 900
     redirect_to_api
   end

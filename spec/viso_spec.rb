@@ -72,6 +72,17 @@ describe Viso do
     end
   end
 
+  it 'redirects file names with an encoded, unfriendly characters to the API' do
+    EM.synchrony do
+      get '/hhgttg/chapter1%2F%3F%23.txt'
+      EM.stop
+
+      assert_cached_for 900
+      assert { last_response.redirect? }
+      assert { headers['Location'] == 'http://api.cld.me/hhgttg/chapter1%2F%3F%23.txt' }
+    end
+  end
+
   it 'redirects a bookmark to the API' do
     EM.synchrony do
       VCR.use_cassette 'bookmark' do
