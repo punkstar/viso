@@ -1,295 +1,81 @@
-require 'helper'
-require 'support/vcr'
-require 'drop'
+require File.expand_path('../../lib/drop', __FILE__)
 
 describe Drop do
 
-  it 'returns a hash of itself' do
-    data = { :name => 'The Guide' }
-    drop = Drop.new data
+  describe '#subscribed?' do
+    it 'is true when subscribed' do
+      drop = Drop.new :subscribed => true
 
-    assert { drop.data == data }
-  end
-
-
-  describe 'a bookmark' do
-    subject do
-      Drop.new :item_type => 'bookmark'
+      drop.should be_subscribed
     end
 
-    it 'is a bookmark' do
-      assert { subject.bookmark? }
-    end
+    it 'is false when not subscribed' do
+      drop = Drop.new :subscribed => false
 
-    %w( code image markdown plain_text text ).each do |type|
-      it "is not a #{ type }" do
-        deny { subject.send("#{ type }?") }
-      end
+      drop.should_not be_subscribed
     end
   end
 
-  describe 'an image' do
-    subject do
-      Drop.new :content_url => 'http://cl.ly/hhgttg/cover.png'
+  describe '#bookmark' do
+    it 'is true when a bookmark' do
+      drop = Drop.new :item_type => 'bookmark'
+
+      drop.should be_bookmark
     end
 
-    it 'is an image' do
-      assert { subject.image? }
-    end
+    it 'is false when an image' do
+      drop = Drop.new :item_type => 'image'
 
-    %w( bookmark code markdown plain_text text ).each do |type|
-      it "is not a #{ type }" do
-        deny { subject.send("#{ type }?") }
-      end
-    end
-
-    it "doesn't have content" do
-      assert { subject.content.nil? }
+      drop.should_not be_bookmark
     end
   end
 
-  describe 'an image with a capital file extension' do
-    subject do
-      Drop.new :content_url => 'http://cl.ly/hhgttg/cover.PNG'
+  describe '#image?' do
+    it 'is true when a PNG' do
+      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.png'
+
+      drop.should be_image
     end
 
-    it 'is an image' do
-      assert { subject.image? }
-    end
-  end
+    it 'is true when a PNG with a capital extension' do
+      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.PNG'
 
-  describe 'a text file' do
-    subject do
-      Drop.new :content_url => 'http://cl.ly/hhgttg/chapter1.txt'
+      drop.should be_image
     end
 
-    it 'is plain text' do
-      assert { subject.plain_text? }
+    it 'is true when a JPG' do
+      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.jpg'
+
+      drop.should be_image
     end
 
-    it 'is text' do
-      assert { subject.text? }
-    end
+    it 'is false when a TIFF' do
+      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.tiff'
 
-    %w( bookmark code image markdown ).each do |type|
-      it "is not a #{ type }" do
-        deny { subject.send("#{ type }?") }
-      end
-    end
-
-    it 'fetches the content' do
-      EM.synchrony do
-        VCR.use_cassette 'text' do
-          assert { subject.content.start_with? 'Chapter 1' }
-
-          EM.stop
-        end
-      end
-    end
-
-    it 'memoizes the content' do
-      EM.synchrony do
-        VCR.use_cassette 'text' do
-          subject.content
-        end
-
-        # Relying on VCR raise an exception if it tries to make an external API
-        # call since it's called outside of a loaded cassette.
-        assert { rescuing { subject.content }.nil? }
-
-        EM.stop
-      end
+      drop.should_not be_image
     end
   end
 
-  %w( md mdown markdown ).each do |markdown_extension|
+  describe '#markdown?' do
+    it 'is true when a MD' do
+      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/chapter1.md'
 
-    describe "a markdown file with the extension #{ markdown_extension }" do
-      subject do
-        Drop.new :content_url => "http://cl.ly/hhgttg/chapter1.#{ markdown_extension }"
-      end
-
-      it 'is markdown' do
-        assert { subject.markdown? }
-      end
-
-      it 'is text' do
-        assert { subject.text? }
-      end
-
-      %w( bookmark code image plain_text ).each do |type|
-        it "is not a #{ type }" do
-          deny { subject.send("#{ type }?") }
-        end
-      end
+      drop.should be_markdown
     end
 
-  end
+    it 'is false when a PNG' do
+      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.png'
 
-  describe 'a markdown file with a capital file extension' do
-    subject do
-      Drop.new :content_url => "http://cl.ly/hhgttg/chapter1.MD"
-    end
-
-    it 'is markdown' do
-      assert { subject.markdown? }
+      drop.should_not be_markdown
     end
   end
 
-  describe 'a markdown file' do
-    subject do
-      Drop.new :content_url => 'http://cl.ly/hhgttg/chapter1.md'
-    end
+  describe '#data' do
+    it 'is a hash of itself' do
+      data = { :name => 'The Guide' }
+      drop = Drop.new data
 
-    it 'fetches and parses the content' do
-      EM.synchrony do
-        VCR.use_cassette 'markdown' do
-          assert { subject.content.start_with? '<h1>Chapter 1</h1>' }
-
-          EM.stop
-        end
-      end
-    end
-  end
-
-  describe 'a code file' do
-    subject do
-      Drop.new :content_url => 'http://cl.ly/hhgttg/hello.rb'
-    end
-
-    it 'is code' do
-      assert { subject.code? }
-    end
-
-    it 'is text' do
-      assert { subject.text? }
-    end
-
-    %w( bookmark image markdown plain_text ).each do |type|
-      it "is not a #{ type }" do
-        deny { subject.send("#{ type }?") }
-      end
-    end
-
-    it 'fetches and highlights the content' do
-      EM.synchrony do
-        VCR.use_cassette 'ruby' do
-          highlighted = '<div class="highlight"><pre><span class="nb">puts</span>'
-          assert { subject.content.start_with? highlighted }
-
-          EM.stop
-        end
-      end
-    end
-
-    it "doesn't highlight large files" do
-      EM.synchrony do
-        VCR.use_cassette 'large_ruby', :erb => true do
-          highlighted = %{<div class="highlight"><pre>puts 'Hello, world!'}
-          assert { subject.content.start_with? highlighted }
-
-          EM.stop
-        end
-      end
-    end
-  end
-
-
-  describe 'an rtf file' do
-    subject do
-      Drop.new :content_url => 'http://cl.ly/hhgttg/chapter1.rtf'
-    end
-
-    %w( bookmark code image markdown plain_text text ).each do |type|
-      it "is not a #{ type }" do
-        deny { subject.send("#{ type }?") }
-      end
-    end
-  end
-
-  describe 'a postscript file' do
-    subject do
-      Drop.new :content_url => 'http://cl.ly/hhgttg/chapter1.ps'
-    end
-
-    %w( bookmark code image markdown plain_text text ).each do |type|
-      it "is not a #{ type }" do
-        deny { subject.send("#{ type }?") }
-      end
-    end
-  end
-
-  describe 'a file without an extension' do
-    subject do
-      Drop.new :content_url => 'http://cl.ly/hhgttg/cover'
-    end
-
-    %w( image bookmark code markdown plain_text text ).each do |type|
-      it "is not a #{ type }" do
-        deny { subject.send("#{ type }?") }
-      end
-    end
-
-    it "doesn't have content" do
-      assert { subject.content.nil? }
-    end
-  end
-
-
-  describe 'subscribed' do
-    subject { Drop.new :subscribed => true }
-
-    it 'is subscribed' do
-      assert { subject.subscribed? }
-    end
-  end
-
-  describe 'unsubscribed' do
-    subject { Drop.new :subscribed => false }
-
-    it 'is not subscribed' do
-      deny { subject.subscribed? }
-    end
-  end
-
-
-  describe 'finding' do
-    it 'finds a bookmark' do
-      EM.synchrony do
-        VCR.use_cassette 'bookmark' do
-          drop = Drop.find 'hhgttg'
-          EM.stop
-
-          assert { drop.is_a? Drop }
-          assert { drop.href         == 'http://my.cl.ly/items/4268562' }
-          assert { drop.redirect_url == 'http://getcloudapp.com/download' }
-          assert { drop.remote_url.nil? }
-        end
-      end
-    end
-
-    it 'finds an image' do
-      EM.synchrony do
-        VCR.use_cassette 'image' do
-          drop = Drop.find 'hhgttg'
-          EM.stop
-
-          assert { drop.is_a? Drop }
-          assert { drop.href       == 'http://my.cl.ly/items/307' }
-          assert { drop.remote_url == 'http://f.cl.ly/items/hhgttg/cover.png'}
-          assert { drop.redirect_url.nil? }
-        end
-      end
-    end
-
-    it 'raises a DropNotFound error' do
-      EM.synchrony do
-        VCR.use_cassette 'nonexistent' do
-          assert { rescuing { Drop.find('hhgttg') }.is_a? Drop::NotFound }
-
-          EM.stop
-        end
-      end
+      drop.data.should == data
     end
   end
 
