@@ -118,6 +118,14 @@ GEM
     rocco (0.8.2)
       mustache
       redcarpet
+    rspec (2.7.0)
+      rspec-core (~> 2.7.0)
+      rspec-expectations (~> 2.7.0)
+      rspec-mocks (~> 2.7.0)
+    rspec-core (2.7.1)
+    rspec-expectations (2.7.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.7.0)
     ruby-hmac (0.4.0)
     ruby2ruby (1.3.1)
       ruby_parser (~> 2.0)
@@ -183,6 +191,7 @@ DEPENDENCIES
   rack-test
   redcarpet
   rocco
+  rspec
   sinatra
   sinatra-contrib!
   thin

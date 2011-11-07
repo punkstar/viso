@@ -20,6 +20,7 @@ gem 'jammit-s3', :git => 'https://github.com/kmamykin/jammit-s3.git'
 gem 'rocco', :group => :development
 
 group :test do
+  gem 'rspec'
   gem 'rack-test'
   gem 'vcr'
   gem 'webmock'
