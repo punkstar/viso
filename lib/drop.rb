@@ -1,9 +1,13 @@
-require 'ostruct'
+class Drop
 
-class Drop < OpenStruct
+  attr_accessor :data
+
+  def initialize(data)
+    @data = data
+  end
 
   def subscribed?
-    subscribed
+    data[:subscribed]
   end
 
   def bookmark?
@@ -30,11 +34,19 @@ class Drop < OpenStruct
         markdown ).include? extension
   end
 
-  def data
-    marshal_dump
+  def plain_text?
+    extension == 'txt'
   end
 
 private
+
+  def item_type
+    data[:item_type]
+  end
+
+  def content_url
+    data[:content_url]
+  end
 
   def extension
     File.extname(content_url)[1..-1].to_s.downcase if content_url

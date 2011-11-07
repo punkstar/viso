@@ -31,44 +31,63 @@ describe Drop do
   end
 
   describe '#image?' do
-    it 'is true when a PNG' do
-      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.png'
+    %w( png jpg gif ).each do |ext|
+      it "is true when a #{ ext.upcase } file" do
+        drop = Drop.new :content_url => "http://cl.ly/hhgttg/cover.#{ ext }"
 
-      drop.should be_image
+        drop.should be_image
+      end
     end
 
-    it 'is true when a PNG with a capital extension' do
+    it 'is true when an image with an upcase extension' do
       drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.PNG'
 
       drop.should be_image
     end
 
-    it 'is true when a JPG' do
-      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.jpg'
+    it 'is false when a TIFF file' do
+      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.tiff'
 
-      drop.should be_image
+      drop.should_not be_image
     end
 
-    it 'is false when a TIFF' do
-      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.tiff'
+    it 'is false when a file without an extension' do
+      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover'
 
       drop.should_not be_image
     end
   end
 
   describe '#markdown?' do
-    it 'is true when a MD' do
-      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/chapter1.md'
+    %w( md mdown markdown ).each do |ext|
+      it "is true when a #{ ext.upcase } file" do
+        drop = Drop.new :content_url => "http://cl.ly/hhgttg/cover.#{ ext }"
 
-      drop.should be_markdown
+        drop.should be_markdown
+      end
     end
 
-    it 'is false when a PNG' do
+    it 'is false when an image' do
       drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.png'
 
       drop.should_not be_markdown
     end
   end
+
+  describe '#plain_text?' do
+    it 'is true when a TXT file' do
+      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/chapter1.txt'
+
+      drop.should be_plain_text
+    end
+
+    it 'is false when a TIFF file' do
+      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.tiff'
+
+      drop.should_not be_plain_text
+    end
+  end
+
 
   describe '#data' do
     it 'is a hash of itself' do
