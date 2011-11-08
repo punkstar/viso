@@ -35,12 +35,6 @@ class Drop
         png ).include? extension
   end
 
-  def markdown?
-    %w( md
-        mdown
-        markdown ).include? extension
-  end
-
   def plain_text?
     extension == 'txt'
   end

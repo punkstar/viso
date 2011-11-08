@@ -1,4 +1,4 @@
-require File.expand_path('../../lib/drop', __FILE__)
+require 'drop'
 
 describe Drop do
 
@@ -39,7 +39,7 @@ describe Drop do
       end
     end
 
-    it 'is true when an image with an upcase extension' do
+    it 'is true when an image with an upper case extension' do
       drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.PNG'
 
       drop.should be_image
@@ -55,22 +55,6 @@ describe Drop do
       drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover'
 
       drop.should_not be_image
-    end
-  end
-
-  describe '#markdown?' do
-    %w( md mdown markdown ).each do |ext|
-      it "is true when a #{ ext.upcase } file" do
-        drop = Drop.new :content_url => "http://cl.ly/hhgttg/cover.#{ ext }"
-
-        drop.should be_markdown
-      end
-    end
-
-    it 'is false when an image' do
-      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.png'
-
-      drop.should_not be_markdown
     end
   end
 

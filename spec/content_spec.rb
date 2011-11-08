@@ -1,15 +1,65 @@
 require 'support/vcr'
-require File.expand_path('../../lib/content', __FILE__)
+require 'content'
 
 describe Content do
 
-  describe '#content' do
+  describe '#raw' do
     subject { Content.new 'http://cl.ly/hhgttg/chapter1.txt' }
 
     it 'fetches content' do
       EM.synchrony do
         VCR.use_cassette 'text' do
-          subject.content.start_with?('Chapter 1').should be_true
+          subject.raw.start_with?('Chapter 1').should be_true
+        end
+
+        EM.stop
+      end
+    end
+
+    it 'memoizes response' do
+      EM.synchrony do
+        VCR.use_cassette('text') { subject.raw }
+
+        # Relying on VCR raise an exception if it tries to make an external API
+        # call since it's called outside of a loaded cassette.
+        lambda { subject.raw }.should_not raise_error
+
+        EM.stop
+      end
+    end
+  end
+
+  describe '#content' do
+    it 'integrates with Raw' do
+      drop = Content.new 'http://cl.ly/hhgttg/chapter1.txt'
+
+      EM.synchrony do
+        VCR.use_cassette 'text' do
+          drop.content.start_with?('Chapter 1').should be_true
+        end
+
+        EM.stop
+      end
+    end
+
+    it 'integrates with Code' do
+      drop = Content.new 'http://cl.ly/hhgttg/hello.rb'
+
+      EM.synchrony do
+        VCR.use_cassette 'ruby' do
+          drop.content.start_with?('<div').should == true
+        end
+
+        EM.stop
+      end
+    end
+
+    it 'integrates with Markdown' do
+      drop = Content.new 'http://cl.ly/hhgttg/chapter1.md'
+
+      EM.synchrony do
+        VCR.use_cassette 'markdown' do
+          drop.content.start_with?('<h1').should == true
         end
 
         EM.stop
