@@ -22,21 +22,21 @@ class Drop
   end
 
   def image?
-    %w( bmp
-        gif
-        ico
-        jp2
-        jpe
-        jpeg
-        jpf
-        jpg
-        jpg2
-        jpgm
-        png ).include? extension
+    %w( .bmp
+        .gif
+        .ico
+        .jp2
+        .jpe
+        .jpeg
+        .jpf
+        .jpg
+        .jpg2
+        .jpgm
+        .png ).include? extension
   end
 
   def plain_text?
-    extension == 'txt'
+    extension == '.txt'
   end
 
 private
@@ -46,7 +46,7 @@ private
   end
 
   def extension
-    File.extname(content_url)[1..-1].to_s.downcase if content_url
+    File.extname(content_url).downcase if content_url
   end
 
 end
