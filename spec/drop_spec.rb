@@ -88,6 +88,23 @@ describe Drop do
     end
   end
 
+  describe '#content' do
+    let(:content_url) { 'http://cl.ly/hhgttg/chapter1.txt' }
+    let(:content)     { 'Chapter 1' }
+
+    before do
+      Content.stub!(:new).
+        with(content_url).
+        and_return(stub(:content => content))
+    end
+
+    it 'delegates content' do
+      drop = Drop.new :content_url => content_url
+
+      drop.content.should == content
+    end
+  end
+
 
   describe '#data' do
     it 'is a hash of itself' do

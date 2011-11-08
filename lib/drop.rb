@@ -1,17 +1,24 @@
+require 'content'
+require 'forwardable'
+
 class Drop
+  extend Forwardable
 
   attr_accessor :data
 
   def initialize(data)
     @data = data
+    @content = Content.new content_url
   end
+
+  def_delegator :@content, :content
 
   def subscribed?
     data[:subscribed]
   end
 
   def bookmark?
-    item_type == 'bookmark'
+    data[:item_type] == 'bookmark'
   end
 
   def image?
@@ -39,10 +46,6 @@ class Drop
   end
 
 private
-
-  def item_type
-    data[:item_type]
-  end
 
   def content_url
     data[:content_url]
