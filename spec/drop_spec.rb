@@ -16,6 +16,33 @@ describe Drop do
     end
   end
 
+  describe '#item_type' do
+    it 'delegates to #data' do
+      item_type = 'bookmark'
+      drop      = Drop.new :item_type => item_type
+
+      drop.item_type.should == item_type
+    end
+  end
+
+  describe '#content_url' do
+    it 'delegates to #data' do
+      content_url = 'http://cl.ly/hhgttg/chapter1.txt'
+      drop        = Drop.new :content_url => content_url
+
+      drop.content_url.should == content_url
+    end
+  end
+
+  describe '#name' do
+    it 'delegates to #data' do
+      name = 'Chapter 1'
+      drop = Drop.new :name => name
+
+      drop.name.should == name
+    end
+  end
+
   describe '#content' do
     let(:content_url) { 'http://cl.ly/hhgttg/chapter1.txt' }
     let(:content)     { 'Chapter 1' }

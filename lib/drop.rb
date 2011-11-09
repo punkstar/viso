@@ -17,6 +17,18 @@ class Drop
     data[:subscribed]
   end
 
+  def item_type
+    data[:item_type]
+  end
+
+  def content_url
+    data[:content_url]
+  end
+
+  def name
+    data[:name]
+  end
+
   def bookmark?
     data[:item_type] == 'bookmark'
   end
@@ -39,11 +51,12 @@ class Drop
     extension == '.txt'
   end
 
-private
-
-  def content_url
-    data[:content_url]
+  def text?
+    !content_url.nil? && (plain_text? || @content.markdown? || @content.code?)
   end
+
+
+private
 
   def extension
     File.extname(content_url).downcase if content_url
