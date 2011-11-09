@@ -8,9 +8,9 @@ class Domain < OpenStruct
   class NotFound < StandardError; end
 
   def self.base_uri
-    @@base_uri
+    @base_uri
   end
-  @@base_uri = ENV.fetch 'CLOUDAPP_DOMAIN', 'api.cld.me'
+  @base_uri = ENV.fetch 'CLOUDAPP_DOMAIN', 'api.cld.me'
 
   def self.find(domain)
     Domain.new Yajl::Parser.parse(fetch_domain_content(domain))
