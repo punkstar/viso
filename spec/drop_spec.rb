@@ -94,12 +94,6 @@ describe Drop do
 
       drop.should_not be_image
     end
-
-    it 'is false when a file without an extension' do
-      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover'
-
-      drop.should_not be_image
-    end
   end
 
   describe '#plain_text?' do
