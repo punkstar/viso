@@ -42,6 +42,14 @@ describe Content::Code do
 
       drop.content.should == 'super content'
     end
+
+    it 'calls #super for large code files' do
+      code = %{puts "Hello world!"\n}
+      drop = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
+      drop.stub!(:raw => code * 2_500)
+
+      drop.content.should == 'super content'
+    end
   end
 
   describe '#code?' do

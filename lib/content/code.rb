@@ -10,7 +10,7 @@ class Content
     RubyPython.configure :python_exe => 'python2.6'
 
     def content
-      return super unless code?
+      return super if !code? || code_too_large?
 
       highlight raw, :lexer => lexer_name
     end
@@ -25,6 +25,10 @@ class Content
       @lexer_name ||= lexer_name_for :filename => @content_url
     rescue RubyPython::PythonError
       false
+    end
+
+    def code_too_large?
+      raw.size >= 50_000
     end
 
   end
