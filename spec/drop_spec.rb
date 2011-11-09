@@ -16,7 +16,24 @@ describe Drop do
     end
   end
 
-  describe '#bookmark' do
+  describe '#content' do
+    let(:content_url) { 'http://cl.ly/hhgttg/chapter1.txt' }
+    let(:content)     { 'Chapter 1' }
+
+    before do
+      Content.stub!(:new).
+        with(content_url).
+        and_return(stub(:content => content))
+    end
+
+    it 'delegates content' do
+      drop = Drop.new :content_url => content_url
+
+      drop.content.should == content
+    end
+  end
+
+  describe '#bookmark?' do
     it 'is true when a bookmark' do
       drop = Drop.new :item_type => 'bookmark'
 
@@ -72,20 +89,33 @@ describe Drop do
     end
   end
 
-  describe '#content' do
-    let(:content_url) { 'http://cl.ly/hhgttg/chapter1.txt' }
-    let(:content)     { 'Chapter 1' }
+  describe '#text?' do
+    it 'is true when a plain text file' do
+      content_url = 'http://cl.ly/hhgttg/chapter1.txt'
 
-    before do
-      Content.stub!(:new).
-        with(content_url).
-        and_return(stub(:content => content))
+      Drop.new(:content_url => content_url).should be_text
     end
 
-    it 'delegates content' do
-      drop = Drop.new :content_url => content_url
+    it 'is true when a markdown file' do
+      content_url = 'http://cl.ly/hhgttg/chapter1.md'
+      response    = stub :code? => false, :markdown? => true
+      Content.stub!(:new).with(content_url).and_return(response)
 
-      drop.content.should == content
+      Drop.new(:content_url => content_url).should be_text
+    end
+
+    it 'is true when a code file' do
+      content_url = 'http://cl.ly/hhgttg/hello.rb'
+      response    = stub :code? => true, :markdown? => false
+      Content.stub!(:new).with(content_url).and_return(response)
+
+      Drop.new(:content_url => content_url).should be_text
+    end
+
+    it 'is false when no content url' do
+      drop = Drop.new :content_url => nil
+
+      drop.should_not be_text
     end
   end
 
