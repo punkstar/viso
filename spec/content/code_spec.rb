@@ -30,12 +30,11 @@ describe Content::Code do
 
 
   describe '#content' do
-    subject { FakeContent.new 'http://cl.ly/hhgttg/hello.rb' }
-
-    it 'fetches content' do
+    it 'syntax highlights content' do
+      drop = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
       code = '<div class="highlight"><pre><span class="nb">puts</span>'
 
-      subject.content.start_with?(code).should == true
+      drop.content.start_with?(code).should == true
     end
 
     it 'calls #super for non-markdown files' do
