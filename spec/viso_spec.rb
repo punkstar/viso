@@ -239,7 +239,7 @@ describe Viso do
       VCR.use_cassette 'text' do
         header 'Accept', 'application/json'
         get    '/hhgttg'
-        drop = Drop.find 'hhgttg'
+        drop = DropFetcher.fetch 'hhgttg'
         EM.stop
 
         assert { last_response.ok? }

@@ -24,6 +24,7 @@ require 'yajl'
 
 require_relative 'jammit_helper'
 require_relative 'drop'
+require_relative 'drop_fetcher'
 require_relative 'domain'
 
 class Viso < Sinatra::Base
@@ -101,7 +102,7 @@ class Viso < Sinatra::Base
           )?
       $}x do |slug|
     begin
-      @drop = find_drop slug
+      @drop = fetch_drop slug
       cache_control :public, :max_age => 900
 
       respond_to do |format|
@@ -147,17 +148,17 @@ class Viso < Sinatra::Base
 
 protected
 
-  # Find and return a **Drop** with the given `slug`. Handle `Drop::NotFound`
-  # errors and render the not found response.
-  def find_drop(slug)
-    Drop.find slug
-  rescue Drop::NotFound
+  # Fetch and return a **Drop** with the given `slug`. Handle
+  # `DropFetcher::NotFound` errors and render the not found response.
+  def fetch_drop(slug)
+    DropFetcher.fetch slug
+  rescue DropFetcher::NotFound
     not_found
   end
 
   # Redirect the current request to the same path on the API domain.
   def redirect_to_api
-    redirect "http://#{ Drop.base_uri }#{ request.path }"
+    redirect "http://#{ DropFetcher.base_uri }#{ request.path }"
   end
 
   def drop_template
