@@ -28,6 +28,7 @@ describe Content::Markdown do
     Object.send :remove_const, :FakeSuper
   end
 
+
   describe '#content' do
     it 'generates markdown' do
       drop = FakeContent.new 'http://cl.ly/hhgttg/chapter1.md'
