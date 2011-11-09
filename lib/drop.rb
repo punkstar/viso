@@ -14,23 +14,23 @@ class Drop
   def_delegator :@content, :content
 
   def subscribed?
-    data[:subscribed]
+    @data[:subscribed]
   end
 
   def item_type
-    data[:item_type]
+    @data[:item_type]
   end
 
   def content_url
-    data[:content_url]
+    @data[:content_url]
   end
 
   def name
-    data[:name]
+    @data[:name]
   end
 
   def bookmark?
-    data[:item_type] == 'bookmark'
+    @data[:item_type] == 'bookmark'
   end
 
   def image?
