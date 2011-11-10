@@ -43,12 +43,27 @@ describe Content::Code do
       drop.content.should == 'super content'
     end
 
-    it 'calls #super for large code files' do
+    it "doesn't highlight large code files" do
       code = %{puts "Hello world!"\n}
       drop = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
       drop.stub!(:raw => code * 2_500)
 
-      drop.content.should == 'super content'
+      escaped_code = "puts &quot;Hello world!&quot;\n"
+      expected = %{<div class="highlight"><pre><code>#{ escaped_code }}
+
+      drop.content[0...expected.size].should == expected
+      drop.content.size.should == 75_053
+    end
+
+    it 'escapes html in large code files' do
+      code = %{<b>HTML</b>}
+      drop = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
+      drop.stub!(:raw => code * 5_000)
+
+      escaped_code = '&lt;b&gt;HTML&lt;&#x2F;b&gt;'
+      expected = %{<div class="highlight"><pre><code>#{ escaped_code }}
+
+      drop.content[0...expected.size].should == expected
     end
   end
 

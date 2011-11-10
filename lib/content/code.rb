@@ -1,3 +1,4 @@
+require 'rack/utils'
 require 'rubypython'
 require 'pygments.rb'
 
@@ -10,12 +11,11 @@ class Content
     RubyPython.configure :python_exe => 'python2.6'
 
     def content
-      return super if !code? || code_too_large?
+      return super unless code?
+      return large_content if code_too_large?
 
       highlight raw, :lexer => lexer_name
     end
-
-  # private
 
     def code?
       lexer_name && !%w( text postscript minid ).include?(lexer_name)
@@ -29,6 +29,14 @@ class Content
 
     def code_too_large?
       raw.size >= 50_000
+    end
+
+    def large_content
+      %{<div class="highlight"><pre><code>#{ escaped_raw }</code></pre></div>}
+    end
+
+    def escaped_raw
+      Rack::Utils.escape_html raw
     end
 
   end
