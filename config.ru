@@ -1,6 +1,7 @@
+$: << 'lib'
+
 require 'rubygems'
 require 'bundler/setup'
-
-require './lib/viso'
+require 'viso'
 
 run Viso

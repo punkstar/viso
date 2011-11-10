@@ -22,10 +22,10 @@ require 'sinatra/base'
 require 'sinatra/respond_with'
 require 'yajl'
 
-require_relative 'jammit_helper'
-require_relative 'drop'
-require_relative 'drop_fetcher'
-require_relative 'domain'
+require 'jammit_helper'
+require 'drop'
+require 'drop_fetcher'
+require 'domain'
 
 class Viso < Sinatra::Base
 
@@ -39,7 +39,7 @@ class Viso < Sinatra::Base
   # `activesupport` that Hoptoad needs.
   configure :production do
     require 'newrelic_rpm'
-    require_relative 'newrelic_instrumentation'
+    require 'newrelic_instrumentation'
 
     if ENV['HOPTOAD_API_KEY']
       require 'active_support'
@@ -63,7 +63,7 @@ class Viso < Sinatra::Base
     require 'new_relic/rack/developer_mode'
     use NewRelic::Rack::DeveloperMode
 
-    require_relative 'newrelic_instrumentation'
+    require 'newrelic_instrumentation'
   end
 
   # Use a fiber pool to serve **Viso** when outside of the test environment.
