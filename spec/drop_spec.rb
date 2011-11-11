@@ -34,6 +34,15 @@ describe Drop do
     end
   end
 
+  describe '#download_url' do
+    it 'delegates to #data' do
+      download_url = 'http://cl.ly/hhgttg/chapter1.txt'
+      drop        = Drop.new :download_url => download_url
+
+      drop.download_url.should == download_url
+    end
+  end
+
   describe '#name' do
     it 'delegates to #data' do
       name = 'Chapter 1'

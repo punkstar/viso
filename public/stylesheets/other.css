@@ -65,15 +65,12 @@
 
 #other #content p a {
   background: url("../images/embed/other/view-button.png");
+  background-position: 0 -27px;
   display: block;
   height: 27px;
   margin: 0 auto 4px auto;
   text-indent: -99999px;
   width: 96px;
-}
-
-#other #content p a.download {
-  background-position: 0 -27px;
 }
 
 #other #content p small {

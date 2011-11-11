@@ -36,5 +36,3 @@ stylesheets:
     - public/stylesheets/other.css
     - public/stylesheets/text.css
     - public/stylesheets/syntax.css
-  ie:
-    - public/stylesheets/ie.css

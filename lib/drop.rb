@@ -25,6 +25,10 @@ class Drop
     @data[:content_url]
   end
 
+  def download_url
+    @data[:download_url]
+  end
+
   def name
     @data[:name]
   end

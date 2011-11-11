@@ -25,20 +25,4 @@ $(function() {
     content.trigger("center");
   });
 
-  // Show the download button when holding only the option modifier key.
-  var altKeyHandler = function(e) {
-                        if ( e.altKey  &&
-                            !e.ctrlKey &&
-                            !e.metaKey &&
-                            !e.shiftKey) {
-                          link.addClass("download");
-                        } else {
-                          link.removeClass("download");
-                        }
-                      };
-
-  viewport
-    .keydown(altKeyHandler)
-    .keyup(altKeyHandler);
-
 });
