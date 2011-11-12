@@ -158,7 +158,7 @@ describe Viso do
         heading = %{<h2>Chapter 1</h2>}
         assert { last_response.body.include?(heading) }
 
-        link = %{<a href="http://cl.ly/hhgttg/Chapter_1.blah">View</a>}
+        link = %{<a href="http://api.cld.me/hhgttg/download/Chapter_1.blah">Download</a>}
         assert { last_response.body.include?(link) }
 
         assert_cached_for 900
