@@ -22,23 +22,9 @@ describe Viso do
   end
 
 
-  it 'redirects the home page to the CloudApp product page' do
+  it "redirects the home page to the domain's home page" do
     EM.synchrony do
-      VCR.use_cassette 'default_domain_details',
-                       :erb => { :domain => 'cl.ly' } do
-        get '/'
-        EM.stop
-
-        assert { last_response.redirect? }
-        assert { headers['Location'] == 'http://getcloudapp.com' }
-        assert_cached_for 3600
-      end
-    end
-  end
-
-  it "redirects the home page of a custom domain to it's home page" do
-    EM.synchrony do
-      VCR.use_cassette 'domain_details', :erb => { :domain => 'example.org' } do
+      VCR.use_cassette 'domain/success', :erb => { :domain => 'example.org' } do
         get '/'
         EM.stop
 

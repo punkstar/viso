@@ -26,6 +26,7 @@ require 'jammit_helper'
 require 'drop'
 require 'drop_fetcher'
 require 'domain'
+require 'domain_fetcher'
 
 class Viso < Sinatra::Base
 
@@ -88,7 +89,7 @@ class Viso < Sinatra::Base
   # for one hour.
   get '/' do
     cache_control :public, :max_age => 3600
-    redirect Domain.find(env['HTTP_HOST']).home_page
+    redirect DomainFetcher.fetch(env['HTTP_HOST']).home_page
   end
 
   # The main responder for a **Drop**. Responds to both JSON and HTML and
