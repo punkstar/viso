@@ -3,8 +3,16 @@ require 'sinatra/respond_with'
 
 module Configuration
 
-  def self.inject(subject)
-    Configurer.new(subject).instance_eval do
+  def self.registered(subject)
+    Configurer.new(subject).inject
+  end
+
+  class Configurer
+    def initialize(subject)
+      @subject = subject
+    end
+
+    def inject
       add_new_relic_instrumentation
       catch_errors_with_hoptoad
       handle_requests_using_fiber_pool
@@ -12,16 +20,6 @@ module Configuration
       register_response_and_view_helpers
       serve_public_assets
       vary_all_responses_on_accept_header
-    end
-  end
-
-  class << self
-    alias_method :registered, :inject
-  end
-
-  class Configurer
-    def initialize(subject)
-      @subject = subject
     end
 
     def add_new_relic_instrumentation
