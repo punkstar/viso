@@ -48,32 +48,7 @@ class Viso < Sinatra::Base
            /o        # Show original image size
          )?
          $}x do |slug|
-    begin
-      @drop = fetch_drop slug
-      cache_control :public, :max_age => 900
-
-      respond_to do |format|
-
-        # Redirect to the bookmark's link, render the image view for an image, or
-        # render the generic download view for everything else.
-        format.html do
-          if @drop.bookmark?
-            redirect_to_api
-          else
-            erb drop_template, :locals => { :body_id => body_id }
-          end
-        end
-
-        # Handle a JSON request for a **Drop**. Return the same data received from
-        # the CloudApp API.
-        format.json do
-          Yajl::Encoder.encode @drop.data
-        end
-      end
-    rescue => e
-      env['async.callback'].call [ 500, {}, 'Internal Server Error' ]
-      HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
-    end
+    fetch_and_render_drop slug
   end
 
   # The content for a **Drop**. Redirect to the identical path on the API domain
@@ -101,6 +76,33 @@ protected
     DropFetcher.fetch slug
   rescue DropFetcher::NotFound
     not_found
+  end
+
+  def fetch_and_render_drop(slug)
+    @drop = fetch_drop slug
+    cache_control :public, :max_age => 900
+
+    respond_to do |format|
+
+      # Redirect to the bookmark's link, render the image view for an image, or
+      # render the generic download view for everything else.
+      format.html do
+        if @drop.bookmark?
+          redirect_to_api
+        else
+          erb drop_template, :locals => { :body_id => body_id }
+        end
+      end
+
+      # Handle a JSON request for a **Drop**. Return the same data received from
+      # the CloudApp API.
+      format.json do
+        Yajl::Encoder.encode @drop.data
+      end
+    end
+  rescue => e
+    env['async.callback'].call [ 500, {}, 'Internal Server Error' ]
+    HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
   end
 
   # Redirect the current request to the same path on the API domain.
