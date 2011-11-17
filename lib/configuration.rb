@@ -3,8 +3,8 @@ require 'sinatra/respond_with'
 
 module Configuration
 
-  def self.inject(base)
-    Configurer.new(base).instance_eval do
+  def self.inject(subject)
+    Configurer.new(subject).instance_eval do
       add_new_relic_instrumentation
       catch_errors_with_hoptoad
       handle_requests_using_fiber_pool
@@ -20,17 +20,17 @@ module Configuration
   end
 
   class Configurer
-    def initialize(base)
-      @base = base
+    def initialize(subject)
+      @subject = subject
     end
 
     def add_new_relic_instrumentation
-      @base.configure :production do
+      @subject.configure :production do
         require 'newrelic_rpm'
         require 'newrelic_instrumentation'
       end
 
-      @base.configure :development do
+      @subject.configure :development do
         require 'new_relic/control'
         NewRelic::Control.instance.init_plugin 'developer_mode' => true,
           :env => 'development'
@@ -43,7 +43,7 @@ module Configuration
     end
 
     def catch_errors_with_hoptoad
-      @base.configure :production do
+      @subject.configure :production do
         if ENV['HOPTOAD_API_KEY']
           require 'active_support'
           require 'active_support/core_ext/object/blank'
@@ -60,26 +60,26 @@ module Configuration
     end
 
     def handle_requests_using_fiber_pool
-      return if @base.test?
+      return if @subject.test?
 
-      @base.configure do
+      @subject.configure do
         require 'rack/fiber_pool'
         use Rack::FiberPool
       end
     end
 
     def register_response_and_view_helpers
-      @base.register Sinatra::RespondWith
-      @base.register JammitHelper
-      @base.helpers { include Rack::Utils }
+      @subject.register Sinatra::RespondWith
+      @subject.register JammitHelper
+      @subject.helpers { include Rack::Utils }
     end
 
     def serve_public_assets
-      @base.set :public, 'public'
+      @subject.set :public, 'public'
     end
 
     def vary_all_responses_on_accept_header
-      @base.before { headers['Vary'] = 'Accept' }
+      @subject.before { headers['Vary'] = 'Accept' }
     end
   end
 
