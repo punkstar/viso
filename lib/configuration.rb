@@ -3,7 +3,7 @@ require 'sinatra/respond_with'
 
 module Configuration
 
-  def self.configure(base)
+  def self.inject(base)
     Configurer.new(base).instance_eval do
       add_new_relic_instrumentation
       catch_errors_with_hoptoad
@@ -16,7 +16,7 @@ module Configuration
   end
 
   class << self
-    alias_method :registered, :configure
+    alias_method :registered, :inject
   end
 
   class Configurer
