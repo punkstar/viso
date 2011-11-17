@@ -19,10 +19,9 @@
 # [rack-fiber_pool]: https://github.com/mperham/rack-fiber_pool
 require 'eventmachine'
 require 'sinatra/base'
-require 'sinatra/respond_with'
 require 'yajl'
 
-require 'jammit_helper'
+require 'configuration'
 require 'drop'
 require 'drop_fetcher'
 require 'domain'
@@ -30,59 +29,7 @@ require 'domain_fetcher'
 
 class Viso < Sinatra::Base
 
-  # Make use of `respond_to` to handle content negotiation.
-  register Sinatra::RespondWith
-  register JammitHelper
-
-  # Load New Relic RPM and Hoptoad in the production and staging environments.
-  # Add your Hoptoad API key to the environment variable `HOPTOAD_API_KEY` and
-  # Hoptoad will catalog your exceptions. Explicitly require some bits from
-  # `activesupport` that Hoptoad needs.
-  configure :production do
-    require 'newrelic_rpm'
-    require 'newrelic_instrumentation'
-
-    if ENV['HOPTOAD_API_KEY']
-      require 'active_support'
-      require 'active_support/core_ext/object/blank'
-      require 'hoptoad_notifier'
-
-      HoptoadNotifier.configure do |config|
-        config.api_key = ENV['HOPTOAD_API_KEY']
-      end
-
-      use HoptoadNotifier::Rack
-      enable :raise_errors
-    end
-  end
-
-  configure :development do
-    require 'new_relic/control'
-    NewRelic::Control.instance.init_plugin 'developer_mode' => true,
-      :env => 'development'
-
-    require 'new_relic/rack/developer_mode'
-    use NewRelic::Rack::DeveloperMode
-
-    require 'newrelic_instrumentation'
-  end
-
-  # Use a fiber pool to serve **Viso** when outside of the test environment.
-  configure do
-    unless test?
-      require 'rack/fiber_pool'
-      use Rack::FiberPool
-    end
-  end
-
-  # Serve static assets from `/public`
-  set :public, 'public'
-
-  # Bring in some helper methods from Rack to aid in escaping HTML.
-  helpers { include Rack::Utils }
-
-  # Cached responses are only valid for a specific accept header.
-  before { headers['Vary'] = 'Accept' }
+  register Configuration
 
   # The home page. Custom domain users have the option to set a home page so
   # ping the API to get the home page for the current domain. Response is cached
@@ -95,13 +42,12 @@ class Viso < Sinatra::Base
   # The main responder for a **Drop**. Responds to both JSON and HTML and
   # response is cached for 15 minutes.
   get %r{^
-        /
-          ([^/?#]+)  # Item slug
-          (?:
-            /  |     # Ignore trailing /
-            /o       # Show original image size
-          )?
-      $}x do |slug|
+         /([^/?#]+)  # Item slug
+         (?:
+           /  |      # Ignore trailing /
+           /o        # Show original image size
+         )?
+         $}x do |slug|
     begin
       @drop = fetch_drop slug
       cache_control :public, :max_age => 900
@@ -134,9 +80,9 @@ class Viso < Sinatra::Base
   # where the view counter is incremented and the visitor is redirected to the
   # actual URL of file. Response is cached for 15 minutes.
   get %r{^
-        /([^/?#]+)  # Item slug
-        /(.+)       # Filename
-      $}x do |slug, filename|
+         /([^/?#]+)  # Item slug
+         /(.+)       # Filename
+         $}x do |slug, filename|
     cache_control :public, :max_age => 900
     redirect_to_api
   end
