@@ -3,30 +3,29 @@ require 'yajl'
 
 class DropPresenter < SimpleDelegator
   def initialize(drop, template)
-    @drop     = drop
     @template = template
 
-    super @drop
+    super drop
   end
 
   def render_html
-    if @drop.bookmark?
+    if bookmark?
       @template.redirect_to_api
     else
-      @template.erb template_name, locals: { drop: @drop, body_id: body_id }
+      @template.erb template_name, locals: { drop: self, body_id: body_id }
     end
   end
 
   def render_json
-    Yajl::Encoder.encode @drop.data
+    Yajl::Encoder.encode data
   end
 
 private
 
   def template_name
-    if @drop.image?
+    if image?
       :image
-    elsif @drop.text?
+    elsif text?
       :text
     else
       :other
@@ -34,9 +33,9 @@ private
   end
 
   def body_id
-    if @drop.image?
+    if image?
       'image'
-    elsif @drop.text?
+    elsif text?
       'text'
     else
       'other'
