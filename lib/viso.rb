@@ -24,6 +24,7 @@ require 'yajl'
 require 'configuration'
 require 'drop'
 require 'drop_fetcher'
+require 'drop_presenter'
 require 'domain'
 require 'domain_fetcher'
 
@@ -67,6 +68,11 @@ class Viso < Sinatra::Base
     not_found '<h1>Not Found</h1>'
   end
 
+  # Redirect the current request to the same path on the API domain.
+  def redirect_to_api
+    redirect "http://#{ DropFetcher.base_uri }#{ request.path }"
+  end
+
 
 protected
 
@@ -79,21 +85,11 @@ protected
   end
 
   def fetch_and_render_drop(slug)
-    drop = fetch_drop slug
+    drop = DropPresenter.new fetch_drop(slug), self
     cache_control :public, :max_age => 900
 
     respond_to do |format|
-
-      # Redirect to the bookmark's link, render the image view for an image, or
-      # render the generic download view for everything else.
-      format.html do
-        if drop.bookmark?
-          redirect_to_api
-        else
-          erb drop_template(drop), :locals => { :drop    => drop,
-                                                :body_id => body_id(drop) }
-        end
-      end
+      format.html { drop.render_html }
 
       # Handle a JSON request for a **Drop**. Return the same data received from
       # the CloudApp API.
@@ -104,31 +100,6 @@ protected
   # rescue => e
   #   env['async.callback'].call [ 500, {}, 'Internal Server Error' ]
   #   HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
-  end
-
-  # Redirect the current request to the same path on the API domain.
-  def redirect_to_api
-    redirect "http://#{ DropFetcher.base_uri }#{ request.path }"
-  end
-
-  def drop_template(drop)
-    if drop.image?
-      :image
-    elsif drop.text?
-      :text
-    else
-      :other
-    end
-  end
-
-  def body_id(drop)
-    if drop.image?
-      'image'
-    elsif drop.text?
-      'text'
-    else
-      'other'
-    end
   end
 
 end
