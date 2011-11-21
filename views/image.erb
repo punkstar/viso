@@ -1,13 +1,13 @@
 <header id="header">
-  <% unless @drop.subscribed? %>
+  <% unless drop.subscribed? %>
     <h1><a href="http://store.getcloudapp.com/">Simple sharing</a></h1>
   <% end %>
 
-  <h2><%= escape_html @drop.name %></h2>
+  <h2><%= escape_html drop.name %></h2>
 
-  <a class="embed" href="<%= @drop.content_url %>">Direct link</a>
+  <a class="embed" href="<%= drop.content_url %>">Direct link</a>
 </header>
 
 <section id="content">
-  <img alt="<%= escape_html @drop.name %>" src="<%= @drop.content_url %>">
+  <img alt="<%= escape_html drop.name %>" src="<%= drop.content_url %>">
 </section>

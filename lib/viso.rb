@@ -79,7 +79,7 @@ protected
   end
 
   def fetch_and_render_drop(slug)
-    @drop = fetch_drop slug
+    drop = fetch_drop slug
     cache_control :public, :max_age => 900
 
     respond_to do |format|
@@ -87,22 +87,23 @@ protected
       # Redirect to the bookmark's link, render the image view for an image, or
       # render the generic download view for everything else.
       format.html do
-        if @drop.bookmark?
+        if drop.bookmark?
           redirect_to_api
         else
-          erb drop_template, :locals => { :body_id => body_id }
+          erb drop_template(drop), :locals => { :drop    => drop,
+                                                :body_id => body_id(drop) }
         end
       end
 
       # Handle a JSON request for a **Drop**. Return the same data received from
       # the CloudApp API.
       format.json do
-        Yajl::Encoder.encode @drop.data
+        Yajl::Encoder.encode drop.data
       end
     end
-  rescue => e
-    env['async.callback'].call [ 500, {}, 'Internal Server Error' ]
-    HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
+  # rescue => e
+  #   env['async.callback'].call [ 500, {}, 'Internal Server Error' ]
+  #   HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
   end
 
   # Redirect the current request to the same path on the API domain.
@@ -110,20 +111,20 @@ protected
     redirect "http://#{ DropFetcher.base_uri }#{ request.path }"
   end
 
-  def drop_template
-    if @drop.image?
+  def drop_template(drop)
+    if drop.image?
       :image
-    elsif @drop.text?
+    elsif drop.text?
       :text
     else
       :other
     end
   end
 
-  def body_id
-    if @drop.image?
+  def body_id(drop)
+    if drop.image?
       'image'
-    elsif @drop.text?
+    elsif drop.text?
       'text'
     else
       'other'

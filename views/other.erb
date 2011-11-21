@@ -1,15 +1,15 @@
 <div class="wrapper">
   <section id="content">
-    <figure class="<%= @drop.item_type %>"></figure>
+    <figure class="<%= drop.item_type %>"></figure>
 
-    <h2><%= escape_html @drop.name %></h2>
+    <h2><%= escape_html drop.name %></h2>
 
     <p>
-      <a href="<%= @drop.download_url %>">Download</a>
+      <a href="<%= drop.download_url %>">Download</a>
     </p>
   </section>
 
-  <% unless @drop.subscribed? %>
+  <% unless drop.subscribed? %>
     <footer id="footer">
       <h1><a href="http://store.getcloudapp.com/">Simple sharing</a></h1>
     </footer>
