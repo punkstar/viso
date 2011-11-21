@@ -91,9 +91,9 @@ protected
       format.html { drop.render_html }
       format.json { drop.render_json }
     end
-  # rescue => e
-  #   env['async.callback'].call [ 500, {}, 'Internal Server Error' ]
-  #   HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
+  rescue => e
+    env['async.callback'].call [ 500, {}, 'Internal Server Error' ]
+    HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
   end
 
 end
