@@ -1,4 +1,5 @@
 require 'delegate'
+require 'yajl'
 
 class DropPresenter < SimpleDelegator
   def initialize(drop, template)
@@ -14,6 +15,10 @@ class DropPresenter < SimpleDelegator
     else
       @template.erb template_name, locals: { drop: @drop, body_id: body_id }
     end
+  end
+
+  def render_json
+    Yajl::Encoder.encode @drop.data
   end
 
 private

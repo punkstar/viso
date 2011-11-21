@@ -19,7 +19,6 @@
 # [rack-fiber_pool]: https://github.com/mperham/rack-fiber_pool
 require 'eventmachine'
 require 'sinatra/base'
-require 'yajl'
 
 require 'configuration'
 require 'drop'
@@ -90,12 +89,7 @@ protected
 
     respond_to do |format|
       format.html { drop.render_html }
-
-      # Handle a JSON request for a **Drop**. Return the same data received from
-      # the CloudApp API.
-      format.json do
-        Yajl::Encoder.encode drop.data
-      end
+      format.json { drop.render_json }
     end
   # rescue => e
   #   env['async.callback'].call [ 500, {}, 'Internal Server Error' ]

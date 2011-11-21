@@ -1,6 +1,7 @@
 require 'drop_presenter'
 
 describe DropPresenter do
+
   describe '#render_html' do
     let(:template) { stub }
     subject { DropPresenter.new drop, template }
@@ -58,4 +59,15 @@ describe DropPresenter do
       end
     end
   end
+
+  describe '#render_json' do
+    let(:template) { stub }
+    let(:drop) { stub data: { key: 'value' } }
+    subject { DropPresenter.new drop, template }
+
+    it 'returns the drop as json' do
+      subject.render_json.should == '{"key":"value"}'
+    end
+  end
+
 end
