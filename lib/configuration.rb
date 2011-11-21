@@ -7,7 +7,7 @@ module Configuration
     Configurer.new(subject).inject
   end
 
-  class Configurer < DelegateClass(Sinatra::Base)
+  class Configurer < SimpleDelegator
     def inject
       add_new_relic_instrumentation
       catch_errors_with_hoptoad
