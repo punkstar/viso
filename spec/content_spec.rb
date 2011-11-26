@@ -29,13 +29,27 @@ describe Content do
     end
   end
 
+  describe '#escaped_raw' do
+    subject { Content.new 'http://cl.ly/hhgttg/hello.rb' }
+
+    it 'escapes raw content' do
+      EM.synchrony do
+        VCR.use_cassette 'ruby' do
+          subject.escaped_raw.should == "puts &#x27;Hello, world!&#x27;\n"
+        end
+
+        EM.stop
+      end
+    end
+  end
+
   describe '#content' do
     it 'integrates with Raw' do
       drop = Content.new 'http://cl.ly/hhgttg/chapter1.txt'
 
       EM.synchrony do
         VCR.use_cassette 'text' do
-          drop.content.start_with?('Chapter 1').should be_true
+          drop.content.start_with?('<pre><code>Chapter 1').should be_true
         end
 
         EM.stop

@@ -17,8 +17,9 @@ describe Content::Code do
       end
 
       def raw
-        'puts "Hello world!"'
+        "puts 'Hello, world!'"
       end
+      alias_method :escaped_raw, :raw
     end
   end
 
@@ -36,33 +37,31 @@ describe Content::Code do
       drop.content.start_with?(code).should == true
     end
 
-    it 'calls #super for non-markdown files' do
+    it 'calls #super for non-code files' do
       drop = FakeContent.new 'http://cl.ly/hhgttg/chapter1.txt'
 
       drop.content.should == 'super content'
     end
 
     it "doesn't highlight large code files" do
-      code = %{puts "Hello world!"\n}
+      code     = "puts 123\n" * 5_556
+      expected = %{<div class="highlight"><pre><code>#{ code }</code></pre></div>}
+
       drop = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
-      drop.stub!(:raw => code * 2_500)
+      drop.stub! :raw => code, :escaped_raw => code
 
-      escaped_code = "puts &quot;Hello world!&quot;\n"
-      expected = %{<div class="highlight"><pre><code>#{ escaped_code }}
-
-      drop.content[0...expected.size].should == expected
-      drop.content.size.should == 75_053
+      drop.content.should == expected
     end
 
     it 'escapes html in large code files' do
-      code = %{<b>HTML</b>}
+      code     = "puts 123\n" * 5_556
+      escaped  = 'escaped'
+      expected = %{<div class="highlight"><pre><code>#{ escaped }</code></pre></div>}
+
       drop = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
-      drop.stub!(:raw => code * 5_000)
+      drop.stub! :raw => code, :escaped_raw => escaped
 
-      escaped_code = '&lt;b&gt;HTML&lt;&#x2F;b&gt;'
-      expected = %{<div class="highlight"><pre><code>#{ escaped_code }}
-
-      drop.content[0...expected.size].should == expected
+      drop.content.should == expected
     end
   end
 

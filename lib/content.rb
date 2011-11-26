@@ -1,6 +1,7 @@
 require 'content/raw'
 require 'content/code'
 require 'content/markdown'
+require 'rack/utils'
 
 class Content
 
@@ -18,6 +19,10 @@ class Content
     # the encoding along with the file is discovered and implemented.
     @raw ||= EM::HttpRequest.new(@content_url).get(:redirects => 3).response.
                force_encoding(Encoding::UTF_8)
+  end
+
+  def escaped_raw
+    Rack::Utils.escape_html raw
   end
 
 end

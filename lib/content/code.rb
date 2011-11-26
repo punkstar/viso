@@ -1,4 +1,3 @@
-require 'rack/utils'
 require 'rubypython'
 require 'pygments.rb'
 
@@ -33,10 +32,6 @@ class Content
 
     def large_content
       %{<div class="highlight"><pre><code>#{ escaped_raw }</code></pre></div>}
-    end
-
-    def escaped_raw
-      Rack::Utils.escape_html raw
     end
 
   end

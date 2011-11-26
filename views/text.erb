@@ -9,9 +9,5 @@
 </header>
 
 <section class="monsoon" id="content">
-  <% if drop.plain_text? %>
-    <pre><code><%= escape_html drop.content %></code></pre>
-  <% else %>
-    <%= drop.content %>
-  <% end %>
+  <%= drop.content %>
 </section>

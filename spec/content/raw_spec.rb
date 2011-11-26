@@ -12,6 +12,7 @@ describe Content::Raw do
       def raw
         'Chapter 1'
       end
+      alias_method :escaped_raw, :raw
     end
   end
 
@@ -19,9 +20,18 @@ describe Content::Raw do
 
   describe '#content' do
     it 'returns raw content' do
-      drop = FakeContent.new 'http://cl.ly/hhgttg/chapter1.txt'
+      drop     = FakeContent.new 'http://cl.ly/hhgttg/chapter1.txt'
+      expected = %{<pre><code>Chapter 1</code></pre>}
 
-      drop.content.should == 'Chapter 1'
+      drop.content.should == expected
+    end
+
+    it 'escapes html in content' do
+      drop = FakeContent.new 'http://cl.ly/hhgttg/chapter1.txt'
+      drop.stub! :escaped_raw => 'escaped'
+      expected = %{<pre><code>escaped</code></pre>}
+
+      drop.content.should == expected
     end
   end
 end

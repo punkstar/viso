@@ -1,7 +1,7 @@
 class Content
   module Raw
     def content
-      raw
+      %{<pre><code>#{ escaped_raw }</code></pre>}
     end
   end
 end
