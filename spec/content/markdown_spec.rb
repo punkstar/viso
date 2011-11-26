@@ -1,4 +1,3 @@
-require 'support/vcr'
 require 'content/markdown'
 
 describe Content::Markdown do

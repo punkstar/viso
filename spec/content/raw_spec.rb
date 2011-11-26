@@ -1,4 +1,3 @@
-require 'support/vcr'
 require 'content/raw'
 
 describe Content::Raw do

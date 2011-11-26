@@ -1,4 +1,3 @@
-require 'support/vcr'
 require 'content/code'
 
 describe Content::Code do
