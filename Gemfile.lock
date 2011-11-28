@@ -51,7 +51,7 @@ GEM
     em-synchrony (1.0.0)
       eventmachine (>= 1.0.0.beta.1)
     eventmachine (1.0.0.beta.4)
-    ffi (1.0.11)
+    ffi (1.0.9)
     file-tail (1.0.7)
       tins (~> 0.3)
     grit (2.4.1)
@@ -182,6 +182,7 @@ DEPENDENCIES
   backports
   em-http-request (~> 1.0)
   em-synchrony (~> 1.0)
+  ffi (= 1.0.9)
   hoptoad_notifier
   jammit-s3!
   newrelic_rpm
