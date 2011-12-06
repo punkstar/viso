@@ -64,7 +64,7 @@ class Viso < Sinatra::Base
 
   # Don't need to return anything special for a 404.
   not_found do
-    not_found '<h1>Not Found</h1>'
+    not_found error_content_for(:not_found)
   end
 
   # Redirect the current request to the same path on the API domain.
@@ -92,8 +92,13 @@ protected
       format.json { drop.render_json }
     end
   rescue => e
-    env['async.callback'].call [ 500, {}, 'Internal Server Error' ]
+    env['async.callback'].call [ 500, {}, error_content_for(:error) ]
     HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
+  end
+
+  def error_content_for(type)
+    type = type.to_s.gsub /_/, '-'
+    File.read File.join(settings.public_folder, "#{ type }.html")
   end
 
 end
