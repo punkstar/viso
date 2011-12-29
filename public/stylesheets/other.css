@@ -61,6 +61,9 @@
   -webkit-font-smoothing: antialiased;
   font-weight: bold;
   margin: 0 0 12px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 #other #content p a {
@@ -71,6 +74,14 @@
   margin: 0 auto 4px auto;
   text-indent: -99999px;
   width: 96px;
+}
+
+#other #content .view {
+  margin-top: 8px;
+}
+
+#other #content .view a {
+  color: #118EDD;
 }
 
 #other #content p small {
