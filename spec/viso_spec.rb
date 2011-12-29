@@ -127,7 +127,7 @@ describe Viso do
     end
   end
 
-  it 'shows a view button for an unknown file' do
+  it 'shows a download button for an unknown file' do
     EM.synchrony do
       VCR.use_cassette 'unknown' do
         get '/hhgttg'
@@ -144,8 +144,11 @@ describe Viso do
         heading = %{<h2>Chapter 1</h2>}
         assert { last_response.body.include?(heading) }
 
-        link = %{<a href="http://api.cld.me/hhgttg/download/Chapter_1.blah">Download</a>}
-        assert { last_response.body.include?(link) }
+        download_link = %{<a href="http://api.cld.me/hhgttg/download/Chapter_1.blah">Download</a>}
+        assert { last_response.body.include?(download_link) }
+
+        view_link = %{<a href="http://cl.ly/hhgttg/Chapter_1.blah">View</a>}
+        assert { last_response.body.include?(view_link) }
 
         assert_cached_for 900
       end
