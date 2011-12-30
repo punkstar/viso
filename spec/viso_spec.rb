@@ -147,7 +147,7 @@ describe Viso do
         download_link = %{<a href="http://api.cld.me/hhgttg/download/Chapter_1.blah">Download</a>}
         assert { last_response.body.include?(download_link) }
 
-        view_link = %{<a href="http://cl.ly/hhgttg/Chapter_1.blah">View</a>}
+        view_link = %{<a href="http://cl.ly/hhgttg/Chapter_1.blah">view</a>}
         assert { last_response.body.include?(view_link) }
 
         assert_cached_for 900
