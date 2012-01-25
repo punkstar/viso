@@ -15,7 +15,7 @@ module Configuration
 
       register_response_and_view_helpers
       vary_all_responses_on_accept_header
-      add_cache_middleware
+      # add_cache_middleware
       serve_public_assets
     end
 
