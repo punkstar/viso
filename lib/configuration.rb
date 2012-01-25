@@ -77,7 +77,7 @@ module Configuration
       configure :production, :development do
         require 'rack/cache'
         url = "memcached://#{ENV['MEMCACHE_USERNAME']}:#{ENV['MEMCACHE_PASSWORD']}@#{ENV['MEMCACHE_SERVERS']}"
-        use Rack::Cache, verbose: true, metastore: url, entitystore: url
+        use Rack::Cache, verbose: false, metastore: url, entitystore: url
       end
     end
 
