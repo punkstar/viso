@@ -9,6 +9,8 @@ class DropPresenter < SimpleDelegator
   end
 
   def render_html
+    cache_response
+
     if bookmark?
       @template.redirect_to_api
     else
@@ -21,6 +23,11 @@ class DropPresenter < SimpleDelegator
   end
 
 private
+
+  def cache_response
+    return if text?
+    @template.cache_control :public, :max_age => 900
+  end
 
   def template_name
     if image?

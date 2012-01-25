@@ -85,7 +85,6 @@ protected
 
   def fetch_and_render_drop(slug)
     drop = DropPresenter.new fetch_drop(slug), self
-    cache_control :public, :max_age => 900
 
     respond_to do |format|
       format.html { drop.render_html }

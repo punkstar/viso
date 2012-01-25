@@ -1,17 +1,19 @@
 source :gemcutter
 gem 'padrino'
 
+gem 'activesupport', '3.1.3'
 gem 'backports'
+gem 'dalli'
 gem 'em-http-request', '~> 1.0'
 gem 'em-synchrony',    '~> 1.0'
 gem 'pygments.rb'
 gem 'rubypython', '0.5.1'
 gem 'ffi', '1.0.9'
 gem 'redcarpet'
+gem 'rack-cache'
 gem 'rack-fiber_pool'
 gem 'sinatra'
-gem 'sinatra-contrib', :git => 'git://github.com/sinatra/sinatra-contrib.git',
-                       :ref => '86c09e6fe026dc753962f434225a195965d7c855'
+gem 'sinatra-contrib'
 gem 'thin'
 gem 'yajl-ruby'
 

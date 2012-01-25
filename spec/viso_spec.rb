@@ -17,6 +17,10 @@ describe Viso do
     assert { headers['Cache-Control'] == "public, max-age=#{ duration }" }
   end
 
+  def assert_not_cached
+    deny { headers.has_key? 'Cache-Control' }
+  end
+
   def headers
     last_response.headers
   end
@@ -43,6 +47,7 @@ describe Viso do
 
         assert { last_response.not_found? }
         assert { last_response.body.include?('Sorry, no drops live here') }
+        assert_not_cached
       end
     end
   end
@@ -178,7 +183,7 @@ describe Viso do
         content = 'The house stood on a slight rise just on the edge of the village.'
         assert { last_response.body.include? content }
 
-        assert_cached_for 900
+        assert_not_cached
       end
     end
   end
@@ -198,7 +203,7 @@ describe Viso do
         content = 'The house stood on a slight rise just on the edge of the village.'
         assert { last_response.body.include? content }
 
-        assert_cached_for 900
+        assert_not_cached
       end
     end
   end
@@ -218,7 +223,7 @@ describe Viso do
         content = 'Hello, world!'
         assert { last_response.body.include? content }
 
-        assert_cached_for 900
+        assert_not_cached
       end
     end
   end
@@ -234,7 +239,7 @@ describe Viso do
         assert { last_response.ok? }
         assert { headers['Content-Type'] == 'application/json;charset=utf-8' }
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
-        assert_cached_for 900
+        assert_not_cached
       end
     end
   end
@@ -275,6 +280,15 @@ describe Viso do
 
         assert { last_response.ok? }
       end
+    end
+  end
+
+  it 'serves static assets' do
+    EM.synchrony do
+      get '/images/favicon.ico'
+      EM.stop
+
+      assert { headers['Cache-Control'] == "public, max-age=31557600" }
     end
   end
 

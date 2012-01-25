@@ -14,8 +14,9 @@ module Configuration
       handle_requests_using_fiber_pool
 
       register_response_and_view_helpers
-      serve_public_assets
       vary_all_responses_on_accept_header
+      add_cache_middleware
+      serve_public_assets
     end
 
     def add_new_relic_instrumentation
@@ -68,12 +69,23 @@ module Configuration
       helpers { include Rack::Utils }
     end
 
-    def serve_public_assets
-      set :public, 'public'
-    end
-
     def vary_all_responses_on_accept_header
       before { headers['Vary'] = 'Accept' }
+    end
+
+    def add_cache_middleware
+      configure :production, :development do
+        require 'rack/cache'
+        url = "memcached://#{ENV['MEMCACHE_USERNAME']}:#{ENV['MEMCACHE_PASSWORD']}@#{ENV['MEMCACHE_SERVERS']}"
+        use Rack::Cache, verbose: true, metastore: url, entitystore: url
+      end
+    end
+
+    # Cache public assets for 1 year.
+    def serve_public_assets
+      set :root, File.expand_path(File.join(File.dirname(settings.app_file), '..'))
+      set :static_cache_control, [ :public, :max_age => 31557600 ]
+      set :public_folder, 'public'
     end
   end
 
