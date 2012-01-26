@@ -27,3 +27,14 @@ DomainFetcher.instance_eval do
     add_method_tracer :fetch_domain_content, 'Custom/DomainFetcher/fetch_domain_content'
   end
 end
+
+class NewRelicInstrumentationMiddleware
+  def initialize(downstream, options = {})
+    @downstream = downstream
+  end
+
+  def call(env)
+    @downstream.call env
+  end
+  include NewRelic::Agent::Instrumentation::Rack
+end

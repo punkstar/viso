@@ -22,7 +22,6 @@ module Configuration
     def add_new_relic_instrumentation
       configure :production do
         require 'newrelic_rpm'
-        require 'newrelic_instrumentation'
       end
 
       configure :development do
@@ -32,8 +31,11 @@ module Configuration
 
         require 'new_relic/rack/developer_mode'
         use NewRelic::Rack::DeveloperMode
+      end
 
+      configure :production, :development do
         require 'newrelic_instrumentation'
+        use NewRelicInstrumentationMiddleware
       end
     end
 
