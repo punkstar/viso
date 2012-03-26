@@ -85,16 +85,7 @@ protected
 
   def fetch_and_render_drop(slug)
     drop = DropPresenter.new fetch_drop(slug), self
-
-    # Check for drops served where the drop's domain doesn't match the accessed
-    # domain. For example, a user using another user's custom domain.
-    unless custom_domain_matches? drop
-      puts [ '*' * 5,
-             drop.data[:url].inspect,
-             env['HTTP_HOST'].inspect,
-             '*' * 5
-           ].join(' ')
-    end
+    check_domain_matches drop
 
     respond_to do |format|
       format.html { drop.render_html }
@@ -108,6 +99,20 @@ protected
   def error_content_for(type)
     type = type.to_s.gsub /_/, '-'
     File.read File.join(settings.public_folder, "#{ type }.html")
+  end
+
+  # Check for drops served where the drop's domain doesn't match the accessed
+  # domain. For example, a user using another user's custom domain.
+  def check_domain_matches(drop)
+    unless custom_domain_matches? drop
+      puts [ '*' * 5,
+             drop.data[:url].inspect,
+             env['HTTP_HOST'].inspect,
+             '*' * 5
+           ].join(' ')
+
+      not_found
+    end
   end
 
   def custom_domain_matches?(drop)

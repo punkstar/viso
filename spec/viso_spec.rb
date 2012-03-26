@@ -12,6 +12,11 @@ describe Viso do
     Viso.tap { |app| app.set :environment, :test }
   end
 
+  def get(uri, params = {}, env = {}, &block)
+    env.merge!('HTTP_HOST' => 'cl.ly') unless env.has_key?('HTTP_HOST')
+    super
+  end
+
   def assert_cached_for(duration)
     assert { headers['Vary']          == 'Accept' }
     assert { headers['Cache-Control'] == "public, max-age=#{ duration }" }
@@ -29,7 +34,7 @@ describe Viso do
   it "redirects the home page to the domain's home page" do
     EM.synchrony do
       VCR.use_cassette 'domain/success', :erb => { :domain => 'example.org' } do
-        get '/'
+        get '/', {}, { 'HTTP_HOST' => 'example.org' }
         EM.stop
 
         assert { last_response.redirect? }
@@ -112,6 +117,48 @@ describe Viso do
         assert { last_response.body.include?(image_tag) }
 
         assert_cached_for 900
+      end
+    end
+  end
+
+  it 'displays an image using a custom domain' do
+    EM.synchrony do
+      VCR.use_cassette 'image_on_custom_domain' do
+        get '/hhgttg', {}, { 'HTTP_HOST' => 'dent.com' }
+        EM.stop
+
+        assert { last_response.ok? }
+
+        image_tag = %{<img alt="cover.png" src="http://dent.com/hhgttg/cover.png">}
+        assert { last_response.body.include?(image_tag) }
+
+        assert_cached_for 900
+      end
+    end
+  end
+
+  it "returns a not found response for drops without a domain accessed on another user's domain" do
+    EM.synchrony do
+      VCR.use_cassette 'image' do
+        get '/hhgttg', {}, { 'HTTP_HOST' => 'custom.com' }
+        EM.stop
+
+        assert { last_response.not_found? }
+        assert { last_response.body.include?('Sorry, no drops live here') }
+        assert_not_cached
+      end
+    end
+  end
+
+  it "returns a not found response for drops on a custom domain accessed on another user's domain" do
+    EM.synchrony do
+      VCR.use_cassette 'image_on_custom_domain' do
+        get '/hhgttg', {}, { 'HTTP_HOST' => 'custom.com' }
+        EM.stop
+
+        assert { last_response.not_found? }
+        assert { last_response.body.include?('Sorry, no drops live here') }
+        assert_not_cached
       end
     end
   end
