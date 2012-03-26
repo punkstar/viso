@@ -17,6 +17,7 @@ module Configuration
       vary_all_responses_on_accept_header
       add_cache_middleware
       serve_public_assets
+      log_to_stdout
     end
 
     def add_new_relic_instrumentation
@@ -90,6 +91,10 @@ module Configuration
       set :root, File.expand_path(File.join(File.dirname(settings.app_file), '..'))
       set :static_cache_control, [ :public, :max_age => 31557600 ]
       set :public_folder, 'public'
+    end
+
+    def log_to_stdout
+      STDOUT.sync = true
     end
   end
 
