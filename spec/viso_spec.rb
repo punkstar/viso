@@ -121,10 +121,26 @@ describe Viso do
     end
   end
 
-  it 'displays an image using a custom domain' do
+  it 'displays an image using its custom domain' do
     EM.synchrony do
       VCR.use_cassette 'image_on_custom_domain' do
         get '/hhgttg', {}, { 'HTTP_HOST' => 'dent.com' }
+        EM.stop
+
+        assert { last_response.ok? }
+
+        image_tag = %{<img alt="cover.png" src="http://dent.com/hhgttg/cover.png">}
+        assert { last_response.body.include?(image_tag) }
+
+        assert_cached_for 900
+      end
+    end
+  end
+
+  it 'displays an image with a custom domain using cl.ly' do
+    EM.synchrony do
+      VCR.use_cassette 'image_on_custom_domain' do
+        get '/hhgttg', {}, { 'HTTP_HOST' => 'cl.ly' }
         EM.stop
 
         assert { last_response.ok? }

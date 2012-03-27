@@ -119,7 +119,7 @@ protected
     expected = URI.parse(drop.data[:url]).host
     actual   = env['HTTP_HOST']
 
-    %w( cl.ly www.cl.ly ).include?(actual) or
+    DropFetcher.default_domains.include?(actual) or
       actual == expected or
       actual.sub(/^www\./, '') == expected
   end
