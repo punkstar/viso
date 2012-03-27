@@ -26,6 +26,31 @@ describe DropFetcher do
     end
   end
 
+  describe '.default_domains' do
+    it 'defaults to cl.ly domains' do
+      DropFetcher.default_domains.should eq(%w( cl.ly www.cl.ly ))
+    end
+
+    context 'overriding' do
+      let(:overridden) { 'override.com www.override.com' }
+      before do
+        @original_default_domains = DropFetcher.default_domains.join(' ')
+        ENV['DEFAULT_DOMAINS'] = overridden
+        load 'lib/drop_fetcher.rb'
+      end
+
+      after do
+        ENV['DEFAULT_DOMAINS'] = @original_default_domains
+        load 'lib/drop_fetcher.rb'
+      end
+
+      it 'is overridden' do
+        DropFetcher.default_domains.
+          should eq(%w( override.com www.override.com ))
+      end
+    end
+  end
+
   describe '.fetch' do
     it 'returns a drop' do
       EM.synchrony do
