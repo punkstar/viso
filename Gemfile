@@ -1,6 +1,7 @@
 source :gemcutter
 gem 'padrino'
 
+gem 'addressable'
 gem 'activesupport', '3.1.3'
 gem 'backports'
 gem 'dalli'
@@ -12,6 +13,7 @@ gem 'ffi', '1.0.9'
 gem 'redcarpet', '~> 1.17'
 gem 'rack-cache'
 gem 'rack-fiber_pool'
+gem 'simpleidn'
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'thin'

@@ -17,8 +17,10 @@
 # [pygments]:        http://pygments.org
 # [eventmachine]:    https://github.com/eventmachine/eventmachine
 # [rack-fiber_pool]: https://github.com/mperham/rack-fiber_pool
+require 'addressable/uri'
 require 'eventmachine'
 require 'sinatra/base'
+require 'simpleidn'
 
 require 'configuration'
 require 'drop'
@@ -116,8 +118,8 @@ protected
   end
 
   def custom_domain_matches?(drop)
-    expected = URI.parse(drop.data[:url]).host
-    actual   = env['HTTP_HOST']
+    expected = SimpleIDN.to_ascii Addressable::URI.parse(drop.data[:url]).host
+    actual   = SimpleIDN.to_ascii env['HTTP_HOST']
 
     DropFetcher.default_domains.include?(actual) or
       actual == expected or

@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'helper'
 require 'rack/test'
 require 'support/vcr'
@@ -175,6 +176,22 @@ describe Viso do
         assert { last_response.not_found? }
         assert { last_response.body.include?('Sorry, no drops live here') }
         assert_not_cached
+      end
+    end
+  end
+
+  it 'displays an image with a unicode custom domain' do
+    EM.synchrony do
+      VCR.use_cassette 'image_on_unicode_custom_domain' do
+        get '/hhgttg', {}, { 'HTTP_HOST' => 'xn--n3h.com' }
+        EM.stop
+
+        assert { last_response.ok? }
+
+        image_tag = %{<img alt="cover.png" src="http://☃.com/hhgttg/cover.png">}
+        assert { last_response.body.include?(image_tag) }
+
+        assert_cached_for 900
       end
     end
   end
