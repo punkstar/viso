@@ -59,11 +59,14 @@ class Drop
     !content_url.nil? && (plain_text? || @content.markdown? || @content.code?)
   end
 
+  def pending?
+    item_type.nil?
+  end
 
 private
 
   def extension
-    File.extname(content_url).downcase if content_url
+    return unless content_url
+    File.extname(content_url).downcase
   end
-
 end

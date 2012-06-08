@@ -6,7 +6,6 @@ require 'support/vcr'
 require 'viso'
 
 describe Viso do
-
   include Rack::Test::Methods
 
   def app
@@ -212,6 +211,56 @@ describe Viso do
     end
   end
 
+  it 'shows a waiting message for pending drops' do
+    EM.synchrony do
+      VCR.use_cassette 'pending' do
+        get '/hhgttg'
+        EM.stop
+
+        assert { last_response.ok? }
+        image_tag = %{<img alt="Waiting..." src="/images/loading-indicator.gif">}
+        assert { last_response.body.include?(image_tag) }
+        assert_not_cached
+      end
+    end
+  end
+
+  it "returns OK for a drop's status" do
+    EM.synchrony do
+      VCR.use_cassette 'image' do
+        get '/hhgttg/status'
+        EM.stop
+
+        assert { last_response.ok? }
+        assert_not_cached
+      end
+    end
+  end
+
+  it "returns No Content for a pending drop's status" do
+    EM.synchrony do
+      VCR.use_cassette 'pending' do
+        get '/hhgttg/status'
+        EM.stop
+
+        assert { last_response.status == 204 }
+        assert_not_cached
+      end
+    end
+  end
+
+  it "returns Gone for a nonexistent drop's status" do
+    EM.synchrony do
+      VCR.use_cassette 'nonexistent' do
+        get '/hhgttg/status'
+        EM.stop
+
+        assert { last_response.status == 404 }
+        assert_not_cached
+      end
+    end
+  end
+
   it 'shows a download button for an unknown file' do
     EM.synchrony do
       VCR.use_cassette 'unknown' do
@@ -371,5 +420,4 @@ describe Viso do
       assert { headers['Cache-Control'] == "public, max-age=31557600" }
     end
   end
-
 end

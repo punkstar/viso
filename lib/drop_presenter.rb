@@ -25,7 +25,7 @@ class DropPresenter < SimpleDelegator
 private
 
   def cache_response
-    return if text?
+    return if text? or pending?
     @template.cache_control :public, :max_age => 900
   end
 
@@ -34,6 +34,9 @@ private
       :image
     elsif text?
       :text
+    elsif pending?
+      puts [ '#' * 5, 'rendering pending', '#' * 5 ].join(' ')
+      :pending
     else
       :other
     end
@@ -44,6 +47,8 @@ private
       'image'
     elsif text?
       'text'
+    elsif pending?
+      'pending'
     else
       'other'
     end

@@ -149,6 +149,16 @@ describe Drop do
     end
   end
 
+  describe '#pending?' do
+    it 'is true when no item type' do
+      Drop.new(:item_type => nil).should be_pending
+    end
+
+    it 'is false with item type' do
+      Drop.new(:item_type => 'bookmark').should_not be_pending
+    end
+  end
+
 
   describe '#data' do
     it 'is a hash of itself' do

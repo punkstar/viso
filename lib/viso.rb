@@ -53,6 +53,13 @@ class Viso < Sinatra::Base
     fetch_and_render_drop slug
   end
 
+  get %r{^
+         /([^/?#]+)  # Item slug
+         /status
+         $}x do |slug|
+    fetch_and_render_status slug
+  end
+
   # The content for a **Drop**. Redirect to the identical path on the API domain
   # where the view counter is incremented and the visitor is redirected to the
   # actual URL of file. Response is cached for 15 minutes.
@@ -96,6 +103,12 @@ protected
   rescue => e
     env['async.callback'].call [ 500, {}, error_content_for(:error) ]
     HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
+  end
+
+  def fetch_and_render_status(slug)
+    puts [ '#' * 5, 'rendering status', '#' * 5 ].join(' ')
+    drop = DropPresenter.new fetch_drop(slug), self
+    status drop.pending? ? 204 : 200
   end
 
   def error_content_for(type)

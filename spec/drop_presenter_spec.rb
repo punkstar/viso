@@ -3,10 +3,18 @@ require 'drop_presenter'
 describe DropPresenter do
 
   describe '#render_html' do
+    let(:drop) { stub :drop, bookmark?: bookmark,
+                             image?:   image,
+                             text?:    text,
+                             pending?: pending }
+    let(:bookmark) { false }
+    let(:image)    { false }
+    let(:text)     { false }
+    let(:pending)  { false }
     subject { DropPresenter.new drop, template }
 
     describe 'a bookmark drop' do
-      let(:drop) { stub bookmark?: true, image?: false, text?: false }
+      let(:bookmark) { true }
       let(:template) do
         stub request:         stub(path: '/slug'),
              cache_control:   nil,
@@ -30,8 +38,22 @@ describe DropPresenter do
       end
     end
 
+    describe 'a pending drop' do
+      let(:pending) { true }
+      let(:content)  { 'content' }
+      let(:template) { stub erb: content }
+
+      it 'renders the erb template' do
+        template.
+          should_receive(:erb).
+          with(:pending, locals: { drop: drop, body_id: 'pending' })
+
+        subject.render_html
+      end
+    end
+
     describe 'an image drop' do
-      let(:drop)     { stub bookmark?: false, image?: true, text?: false }
+      let(:image) { true }
       let(:content)  { 'content' }
       let(:template) { stub erb: content, cache_control: nil }
 
@@ -57,7 +79,7 @@ describe DropPresenter do
     end
 
     describe 'a text drop' do
-      let(:drop)     { stub bookmark?: false, image?: false, text?: true }
+      let(:text) { true }
       let(:content)  { 'content' }
       let(:template) { stub erb: content }
       subject { DropPresenter.new drop, template }
@@ -76,7 +98,6 @@ describe DropPresenter do
     end
 
     describe 'an unknown drop' do
-      let(:drop)     { stub bookmark?: false, image?: false, text?: false }
       let(:content)  { 'content' }
       let(:template) { stub erb: content, cache_control: nil }
 
