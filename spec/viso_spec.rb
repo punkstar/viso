@@ -218,7 +218,7 @@ describe Viso do
         EM.stop
 
         assert { last_response.ok? }
-        image_tag = %{<img alt="Waiting..." src="/images/loading-indicator.gif">}
+        image_tag = %{<div class="button disabled uploading">}
         assert { last_response.body.include?(image_tag) }
         assert_not_cached
       end

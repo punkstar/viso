@@ -30,6 +30,8 @@ javascripts:
     - public/javascripts/vendor/selectivizr-1.0.2.min.js
 
 stylesheets:
+  new_viso:
+    - public/stylesheets/new_screen.css
   viso:
     - public/stylesheets/reset.css
     - public/stylesheets/monsoon.css

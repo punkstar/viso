@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="uft-8">
+  <title><%= escape_html drop.name %></title>
+
+  <meta name="viewport" content="width=device-width">
+
+  <link href="<%= asset_path :img, '/images/favicon.ico' %>" rel="shortcut icon">
+  <%= include_stylesheets :new_viso %>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+  <script>
+    $(function() {
+      $('.menu a').click(function(e){
+        e.preventDefault();
+        $(this).toggleClass('is-active');
+      });
+    });
+  </script>
+
+  <script type="text/javascript" src="http://use.typekit.com/hul1akx.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+
+<body>
+  <header>
+    <h1 style="display: none;">CloudApp</h1>
+
+    <a href="#" class="brand">Start sharing</a>
+
+    <h2><%= escape_html drop.name %><small>.todo</small></h2>
+
+    <ul>
+      <li class="menu">
+        <a href="#">Menu</a>
+
+        <ul class="drop-down">
+          <li><a href="#">Direct Link</a></li>
+          <li><a href="#">Download Link</a></li>
+        </ul>
+      </li>
+    </ul>
+  </header>
+
+  <%= yield %>
+</body>
+</html>

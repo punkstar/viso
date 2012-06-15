@@ -4,7 +4,6 @@ require 'yajl'
 class DropPresenter < SimpleDelegator
   def initialize(drop, template)
     @template = template
-
     super drop
   end
 
@@ -14,7 +13,9 @@ class DropPresenter < SimpleDelegator
     if bookmark?
       @template.redirect_to_api
     else
-      @template.erb template_name, locals: { drop: self, body_id: body_id }
+      print_debug_message
+      @template.erb template_name, layout: layout_name,
+                                   locals: { drop: self, body_id: body_id }
     end
   end
 
@@ -29,29 +30,52 @@ private
     @template.cache_control :public, :max_age => 900
   end
 
+  def layout_name
+    use_new_layout = (beta? || pending?) && (!text? || markdown?)
+    "#{ use_new_layout ? 'new_' : '' }layout".to_sym
+  end
+
   def template_name
-    if image?
-      :image
+    if pending?
+      :new_waiting
+    elsif image?
+      if beta?
+        :new_image
+      else
+        :image
+      end
+    elsif beta? && markdown?
+      :new_markdown
     elsif text?
       :text
-    elsif pending?
-      puts [ '#' * 5, 'rendering pending', '#' * 5 ].join(' ')
-      :pending
     else
-      :other
+      if beta?
+        :new_download
+      else
+        :other
+      end
     end
   end
 
   def body_id
-    if image?
+    if pending?
+      'waiting'
+    elsif image?
       'image'
+    elsif beta? && markdown?
+      'markdown'
     elsif text?
       'text'
-    elsif pending?
-      'pending'
     else
       'other'
     end
   end
 
+  def print_debug_message
+    return unless template_name.to_s.start_with?("new_") ||
+                    layout_name.to_s.start_with?("new_")
+
+    debug = { template: template_name, layout: layout_name }
+    puts [ '#' * 5, "rendering #{ debug.inspect }", '#' * 5 ].join(' ')
+  end
 end
