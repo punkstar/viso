@@ -2,6 +2,23 @@ require 'drop'
 
 describe Drop do
 
+  describe '#beta?' do
+    it 'is true when using a beta mac app' do
+      drop = Drop.new :source => 'Cloud/2.0 beta 22 (Mac OS X 10.7.3)'
+      drop.should be_beta
+    end
+
+    it 'is false when using a released mac app' do
+      drop = Drop.new :source => 'Cloud/1.5.3 CFNetwork/595 Darwin/12.0.0 (x86_64) (MacBook6%2C1)'
+      drop.should_not be_beta
+    end
+
+    it 'is false when no source' do
+      drop = Drop.new :source => nil
+      drop.should_not be_beta
+    end
+  end
+
   describe '#subscribed?' do
     it 'is true when subscribed' do
       drop = Drop.new :subscribed => true

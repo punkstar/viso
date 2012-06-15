@@ -13,6 +13,11 @@ class Drop
 
   def_delegator :@content, :content
 
+  def beta?
+    source = @data.fetch :source, nil
+    source && source.include?('Cloud/2.0 beta')
+  end
+
   def subscribed?
     @data[:subscribed]
   end
