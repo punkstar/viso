@@ -77,7 +77,7 @@ module Configuration
     end
 
     def add_cache_middleware
-      configure :production, :development do
+      configure :production do
         require 'rack/cache'
         url = "memcached://#{ENV['MEMCACHE_USERNAME']}:#{ENV['MEMCACHE_PASSWORD']}@#{ENV['MEMCACHE_SERVERS']}"
         use Rack::Cache, verbose:     true,
