@@ -5,13 +5,11 @@ describe Drop do
   describe '#subscribed?' do
     it 'is true when subscribed' do
       drop = Drop.new :subscribed => true
-
       drop.should be_subscribed
     end
 
     it 'is false when not subscribed' do
       drop = Drop.new :subscribed => false
-
       drop.should_not be_subscribed
     end
   end
@@ -64,7 +62,6 @@ describe Drop do
 
     it 'delegates content' do
       drop = Drop.new :content_url => content_url
-
       drop.content.should == content
     end
   end
@@ -72,13 +69,11 @@ describe Drop do
   describe '#bookmark?' do
     it 'is true when a bookmark' do
       drop = Drop.new :item_type => 'bookmark'
-
       drop.should be_bookmark
     end
 
     it 'is false when an image' do
       drop = Drop.new :item_type => 'image'
-
       drop.should_not be_bookmark
     end
   end
@@ -87,20 +82,17 @@ describe Drop do
     %w( png jpg gif ).each do |ext|
       it "is true when a #{ ext.upcase } file" do
         drop = Drop.new :content_url => "http://cl.ly/hhgttg/cover.#{ ext }"
-
         drop.should be_image
       end
     end
 
     it 'is true when an image with an upper case extension' do
       drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.PNG'
-
       drop.should be_image
     end
 
     it 'is false when a TIFF file' do
       drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.tiff'
-
       drop.should_not be_image
     end
   end
@@ -108,13 +100,11 @@ describe Drop do
   describe '#plain_text?' do
     it 'is true when a TXT file' do
       drop = Drop.new :content_url => 'http://cl.ly/hhgttg/chapter1.txt'
-
       drop.should be_plain_text
     end
 
     it 'is false when a TIFF file' do
       drop = Drop.new :content_url => 'http://cl.ly/hhgttg/cover.tiff'
-
       drop.should_not be_plain_text
     end
   end
@@ -122,7 +112,6 @@ describe Drop do
   describe '#text?' do
     it 'is true when a plain text file' do
       content_url = 'http://cl.ly/hhgttg/chapter1.txt'
-
       Drop.new(:content_url => content_url).should be_text
     end
 
@@ -144,7 +133,6 @@ describe Drop do
 
     it 'is false when no content url' do
       drop = Drop.new :content_url => nil
-
       drop.should_not be_text
     end
   end
