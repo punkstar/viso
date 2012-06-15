@@ -11,7 +11,7 @@ class Drop
     @content = Content.new content_url
   end
 
-  def_delegator :@content, :content
+  def_delegators :@content, :content, :markdown?
 
   def beta?
     source = @data.fetch :source, nil

@@ -126,6 +126,18 @@ describe Drop do
     end
   end
 
+  describe '#markdown?' do
+    it 'is true when a markdown file' do
+      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/chapter1.md'
+      drop.should be_markdown
+    end
+
+    it 'is false when not a markdown file' do
+      drop = Drop.new :content_url => 'http://cl.ly/hhgttg/chapter1.txt'
+      drop.should_not be_markdown
+    end
+  end
+
   describe '#text?' do
     it 'is true when a plain text file' do
       content_url = 'http://cl.ly/hhgttg/chapter1.txt'
