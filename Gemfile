@@ -34,4 +34,7 @@ group :test do
                :branch => 'rb-1.9.3-p0'
 end
 
-gem 'foreman', group: :development
+group :development do
+  gem 'compass'
+  gem 'foreman'
+end
