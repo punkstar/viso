@@ -35,42 +35,47 @@ a:visited {
   @include border-radius($default-border-radius);
   @include box-sizing(border-box);
   display: block;
-  font-weight: bold;
   margin: 0 auto;
   max-width: 300px;
+  overflow: hidden;
   padding: 14px 14px 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
-  small {
-    font-weight: normal;
+  strong {
+    font-weight: bold;
   }
 
   &.primary {
     @include background-image(linear-gradient(#5171B3, #4869AF));
     @include box-shadow(0 1px 0 0 #405F9D);
     background-color: #5171B3;
-    color: #FFF;
+    color: #ACBDDF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
 
-    small {
-      color: #ACBDDF;
+    strong {
+      color: #FFF;
     }
   }
 
   &.disabled {
     @include background-image(linear-gradient(#EAEAEA, #E9E9E9));
     @include box-shadow(0 1px 0px rgba(0, 0, 0, 0.1) inset);
-    color: #9A9A9A;
+    color: #B8B8B8;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+
+    strong {
+      color: #9A9A9A;
+    }
   }
 
-  &.uploading {
+  &.waiting {
     @include background-image(image-url("progress.png"),linear-gradient(#EAEAEA, #E9E9E9));
-    background-repeat: repeat-x, no-repeat;
-
     -webkit-animation-name: progress-background;
     -webkit-animation-timing-function: linear;
     -webkit-animation-duration: 1s;
     -webkit-animation-iteration-count: infinite;
+    background-repeat: repeat-x, no-repeat;
   }
 }
 

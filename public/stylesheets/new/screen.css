@@ -101,16 +101,18 @@ a:visited {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   display: block;
-  font-weight: bold;
   margin: 0 auto;
   max-width: 300px;
+  overflow: hidden;
   padding: 14px 14px 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-/* line 43, ../../../sass/screen.scss */
-.button small {
-  font-weight: normal;
+/* line 45, ../../../sass/screen.scss */
+.button strong {
+  font-weight: bold;
 }
-/* line 47, ../../../sass/screen.scss */
+/* line 49, ../../../sass/screen.scss */
 .button.primary {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5171b3), color-stop(100%, #4869af));
   background-image: -webkit-linear-gradient(#5171b3, #4869af);
@@ -122,14 +124,14 @@ a:visited {
   -moz-box-shadow: 0 1px 0 0 #405f9d;
   box-shadow: 0 1px 0 0 #405f9d;
   background-color: #5171B3;
-  color: #FFF;
+  color: #ACBDDF;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
 }
-/* line 54, ../../../sass/screen.scss */
-.button.primary small {
-  color: #ACBDDF;
+/* line 56, ../../../sass/screen.scss */
+.button.primary strong {
+  color: #FFF;
 }
-/* line 59, ../../../sass/screen.scss */
+/* line 61, ../../../sass/screen.scss */
 .button.disabled {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #eaeaea), color-stop(100%, #e9e9e9));
   background-image: -webkit-linear-gradient(#eaeaea, #e9e9e9);
@@ -140,25 +142,29 @@ a:visited {
   -webkit-box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1) inset;
   -moz-box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1) inset;
   box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1) inset;
-  color: #9A9A9A;
+  color: #B8B8B8;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
 }
-/* line 66, ../../../sass/screen.scss */
-.button.uploading {
+/* line 67, ../../../sass/screen.scss */
+.button.disabled strong {
+  color: #9A9A9A;
+}
+/* line 72, ../../../sass/screen.scss */
+.button.waiting {
   background-image: url('/images/new/progress.png'), -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #eaeaea), color-stop(100%, #e9e9e9));
   background-image: url('/images/new/progress.png'), -webkit-linear-gradient(#eaeaea, #e9e9e9);
   background-image: url('/images/new/progress.png'), -moz-linear-gradient(#eaeaea, #e9e9e9);
   background-image: url('/images/new/progress.png'), -o-linear-gradient(#eaeaea, #e9e9e9);
   background-image: url('/images/new/progress.png'), -ms-linear-gradient(#eaeaea, #e9e9e9);
   background-image: url('/images/new/progress.png'), linear-gradient(#eaeaea, #e9e9e9);
-  background-repeat: repeat-x, no-repeat;
   -webkit-animation-name: progress-background;
   -webkit-animation-timing-function: linear;
   -webkit-animation-duration: 1s;
   -webkit-animation-iteration-count: infinite;
+  background-repeat: repeat-x, no-repeat;
 }
 
-/* line 77, ../../../sass/screen.scss */
+/* line 82, ../../../sass/screen.scss */
 header {
   background-color: #F8F8F8;
   background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #ffffff), color-stop(50%, #f7f7f7), color-stop(100%, #ffffff)), -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #ffffff), color-stop(50%, #f4f4f4), color-stop(100%, #ffffff)), -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #e9e9e9), color-stop(50%, #e1e1e1), color-stop(100%, #e9e9e9)), -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(90%, #ffffff), color-stop(100%, #f2f4f7));
@@ -175,29 +181,29 @@ header {
   position: relative;
   text-shadow: 0 1px 0 #FFF;
 }
-/* line 88, ../../../sass/screen.scss */
+/* line 93, ../../../sass/screen.scss */
 header .brand {
   color: #3974c5;
   left: 16px;
   position: absolute;
 }
-/* line 94, ../../../sass/screen.scss */
+/* line 99, ../../../sass/screen.scss */
 header h2 {
   font-weight: bold;
   text-align: center;
 }
-/* line 98, ../../../sass/screen.scss */
+/* line 103, ../../../sass/screen.scss */
 header h2 small {
   color: #CECECE;
   font-weight: normal;
 }
-/* line 104, ../../../sass/screen.scss */
+/* line 109, ../../../sass/screen.scss */
 header .menu {
   position: absolute;
   right: 26px;
   top: 16px;
 }
-/* line 109, ../../../sass/screen.scss */
+/* line 114, ../../../sass/screen.scss */
 header .menu > a {
   text-indent: 110%;
   white-space: nowrap;
@@ -209,7 +215,7 @@ header .menu > a {
   height: 15px;
   width: 18px;
 }
-/* line 116, ../../../sass/screen.scss */
+/* line 121, ../../../sass/screen.scss */
 header .menu .drop-down {
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
@@ -230,34 +236,34 @@ header .menu .drop-down {
   width: 240px;
   top: 38px;
 }
-/* line 128, ../../../sass/screen.scss */
+/* line 133, ../../../sass/screen.scss */
 header .menu .drop-down li {
   border-top: 1px solid #E9E9E9;
 }
-/* line 131, ../../../sass/screen.scss */
+/* line 136, ../../../sass/screen.scss */
 header .menu .drop-down li a:link, header .menu .drop-down li a:visited {
   display: block;
   font-weight: bold;
   padding: 12px 14px;
 }
-/* line 137, ../../../sass/screen.scss */
+/* line 142, ../../../sass/screen.scss */
 header .menu .drop-down li a:hover {
   background: #FBFBFC;
 }
-/* line 142, ../../../sass/screen.scss */
+/* line 147, ../../../sass/screen.scss */
 header .menu .drop-down li:hover {
   border-bottom: 1px solid #E3E8F0;
   border-top: 1px solid #E3E8F0;
 }
-/* line 146, ../../../sass/screen.scss */
+/* line 151, ../../../sass/screen.scss */
 header .menu .drop-down li:hover:hover + li {
   border-top: none;
 }
-/* line 151, ../../../sass/screen.scss */
+/* line 156, ../../../sass/screen.scss */
 header .menu .drop-down li:first-child {
   border-top: none;
 }
-/* line 154, ../../../sass/screen.scss */
+/* line 159, ../../../sass/screen.scss */
 header .menu .drop-down li:first-child a {
   -moz-border-radius-topleft: 2px;
   -webkit-border-top-left-radius: 2px;
@@ -270,11 +276,11 @@ header .menu .drop-down li:first-child a {
   -o-border-top-right-radius: 2px;
   border-top-right-radius: 2px;
 }
-/* line 160, ../../../sass/screen.scss */
+/* line 165, ../../../sass/screen.scss */
 header .menu .drop-down li:last-child:hover {
   border-bottom: none;
 }
-/* line 164, ../../../sass/screen.scss */
+/* line 169, ../../../sass/screen.scss */
 header .menu .drop-down li:last-child a {
   -moz-border-radius-bottomleft: 2px;
   -webkit-border-bottom-left-radius: 2px;
@@ -288,24 +294,24 @@ header .menu .drop-down li:last-child a {
   border-bottom-right-radius: 2px;
   padding-bottom: 13px;
 }
-/* line 175, ../../../sass/screen.scss */
+/* line 180, ../../../sass/screen.scss */
 header .menu a.is-active + .drop-down {
   display: block;
 }
 
-/* line 182, ../../../sass/screen.scss */
+/* line 187, ../../../sass/screen.scss */
 .wrapper {
   max-width: 640px;
   margin: 33px auto;
   padding: 0 10px;
 }
 
-/* line 189, ../../../sass/screen.scss */
+/* line 194, ../../../sass/screen.scss */
 #download,
 #uploading {
   text-align: center;
 }
-/* line 192, ../../../sass/screen.scss */
+/* line 197, ../../../sass/screen.scss */
 #download .file-type,
 #uploading .file-type {
   -webkit-box-sizing: border-box;
@@ -323,14 +329,14 @@ header .menu a.is-active + .drop-down {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 @media only screen and (min-device-pixel-ratio: 1.5) {
-  /* line 192, ../../../sass/screen.scss */
+  /* line 197, ../../../sass/screen.scss */
   #download .file-type,
   #uploading .file-type {
     background-image: url('/images/new/document@2x.png');
     background-size: 124px 173px;
   }
 }
-/* line 211, ../../../sass/screen.scss */
+/* line 216, ../../../sass/screen.scss */
 #download p,
 #uploading p {
   color: #CECECE;
@@ -338,12 +344,12 @@ header .menu a.is-active + .drop-down {
   margin-top: 11px;
 }
 
-/* line 218, ../../../sass/screen.scss */
+/* line 223, ../../../sass/screen.scss */
 #markdown {
   font-family: "ff-tisa-web-pro";
   line-height: 20px;
 }
-/* line 222, ../../../sass/screen.scss */
+/* line 227, ../../../sass/screen.scss */
 #markdown h1 {
   border-bottom: 1px solid #EEE;
   font-size: 32px;
@@ -351,58 +357,58 @@ header .menu a.is-active + .drop-down {
   margin: 40px 0;
   line-height: 39px;
 }
-/* line 230, ../../../sass/screen.scss */
+/* line 235, ../../../sass/screen.scss */
 #markdown h2, #markdown h3, #markdown h4, #markdown h5 {
   font-weight: bold;
   line-height: 20px;
   margin: 20px 0;
 }
-/* line 236, ../../../sass/screen.scss */
+/* line 241, ../../../sass/screen.scss */
 #markdown h2 {
   font-size: 22px;
 }
-/* line 240, ../../../sass/screen.scss */
+/* line 245, ../../../sass/screen.scss */
 #markdown h3 {
   font-size: 18px;
 }
-/* line 244, ../../../sass/screen.scss */
+/* line 249, ../../../sass/screen.scss */
 #markdown h4 {
   font-size: 16px;
 }
-/* line 248, ../../../sass/screen.scss */
+/* line 253, ../../../sass/screen.scss */
 #markdown h5 {
   font-size: 14px;
 }
-/* line 252, ../../../sass/screen.scss */
+/* line 257, ../../../sass/screen.scss */
 #markdown p {
   line-height: 20px;
   margin: 20px 0;
 }
-/* line 257, ../../../sass/screen.scss */
+/* line 262, ../../../sass/screen.scss */
 #markdown ul, #markdown ol {
   padding-left: 20px;
   margin: 20px 0;
 }
-/* line 262, ../../../sass/screen.scss */
+/* line 267, ../../../sass/screen.scss */
 #markdown ul {
   list-style-type: disc;
 }
-/* line 266, ../../../sass/screen.scss */
+/* line 271, ../../../sass/screen.scss */
 #markdown ol {
   list-style-type: decimal;
 }
-/* line 270, ../../../sass/screen.scss */
+/* line 275, ../../../sass/screen.scss */
 #markdown ul ul, #markdown ol ol {
   margin: 0;
 }
-/* line 274, ../../../sass/screen.scss */
+/* line 279, ../../../sass/screen.scss */
 #markdown code {
   background: #EEE;
   font-family: Monaco, monospace;
   font-size: 12px;
   padding: 2px 4px;
 }
-/* line 281, ../../../sass/screen.scss */
+/* line 286, ../../../sass/screen.scss */
 #markdown pre {
   border: 1px solid;
   border-color: #DDD;
@@ -418,38 +424,38 @@ header .menu a.is-active + .drop-down {
   overflow-x: auto;
   padding: 19px 20px;
 }
-/* line 290, ../../../sass/screen.scss */
+/* line 295, ../../../sass/screen.scss */
 #markdown pre code {
   background: transparent;
   border: none;
 }
-/* line 296, ../../../sass/screen.scss */
+/* line 301, ../../../sass/screen.scss */
 #markdown blockquote {
   border-left: 3px solid #EEE;
   color: #999;
   margin: 20px 0;
   padding-left: 17px;
 }
-/* line 304, ../../../sass/screen.scss */
+/* line 309, ../../../sass/screen.scss */
 #markdown a:link,
 #markdown a:visited {
   color: #3974c5;
   font-weight: normal;
   text-decoration: none;
 }
-/* line 310, ../../../sass/screen.scss */
+/* line 315, ../../../sass/screen.scss */
 #markdown a:hover {
   text-decoration: underline;
 }
-/* line 314, ../../../sass/screen.scss */
+/* line 319, ../../../sass/screen.scss */
 #markdown strong {
   font-weight: bold;
 }
-/* line 318, ../../../sass/screen.scss */
+/* line 323, ../../../sass/screen.scss */
 #markdown em {
   font-style: italic;
 }
-/* line 322, ../../../sass/screen.scss */
+/* line 327, ../../../sass/screen.scss */
 #markdown hr {
   background: #CCC;
   border: 0;
@@ -457,11 +463,11 @@ header .menu a.is-active + .drop-down {
   margin: 29px 0 30px 0;
 }
 
-/* line 331, ../../../sass/screen.scss */
+/* line 336, ../../../sass/screen.scss */
 #image.wrapper {
   max-width: 100%;
 }
-/* line 335, ../../../sass/screen.scss */
+/* line 340, ../../../sass/screen.scss */
 #image img {
   display: block;
   margin: 0 auto;
