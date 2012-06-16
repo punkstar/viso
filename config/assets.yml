@@ -31,7 +31,7 @@ javascripts:
 
 stylesheets:
   new_viso:
-    - public/stylesheets/new_screen.css
+    - public/stylesheets/new/screen.css
   viso:
     - public/stylesheets/reset.css
     - public/stylesheets/monsoon.css

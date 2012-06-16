@@ -1,0 +1,340 @@
+@import "compass";
+@import "compass/reset";
+
+$base-font-size: 14px;
+$base-line-height: 20px;
+
+$default-border-radius: 3px;
+
+$body-background-color: #252525;
+$link-color: #3974C5;
+
+@-webkit-keyframes progress-background {
+  from {
+    background-position: left;
+  }
+  to {
+    background-position: 43px 0;
+  }
+}
+
+body {
+  color: $body-background-color;
+  font-family: Helvetica, Arial, Geneva, sans-serif;
+  font-size: $base-font-size;
+  line-height: 1;
+}
+
+a:link,
+a:visited {
+  color: $link-color;
+  text-decoration: none;
+}
+
+.button {
+  @include border-radius($default-border-radius);
+  @include box-sizing(border-box);
+  display: block;
+  font-weight: bold;
+  margin: 0 auto;
+  max-width: 300px;
+  padding: 14px 14px 13px;
+
+  small {
+    font-weight: normal;
+  }
+
+  &.primary {
+    @include background-image(linear-gradient(#5171B3, #4869AF));
+    @include box-shadow(0 1px 0 0 #405F9D);
+    background-color: #5171B3;
+    color: #FFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+
+    small {
+      color: #ACBDDF;
+    }
+  }
+
+  &.disabled {
+    @include background-image(linear-gradient(#EAEAEA, #E9E9E9));
+    @include box-shadow(0 1px 0px rgba(0, 0, 0, 0.1) inset);
+    color: #9A9A9A;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+  }
+
+  &.uploading {
+    @include background-image(image-url("progress.png"),linear-gradient(#EAEAEA, #E9E9E9));
+    background-repeat: repeat-x, no-repeat;
+
+    -webkit-animation-name: progress-background;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+  }
+}
+
+header {
+  background-color: #F8F8F8;
+  @include background-image(linear-gradient(left, #FFF, #F7F7F7, #FFF), linear-gradient(left, #FFF, #F4F4F4, #FFF), linear-gradient(left, #E9E9E9, #E1E1E1, #E9E9E9), linear-gradient(#FFF 90%, #f2f4f7));
+  background-repeat: no-repeat;
+  background-size: 100% 1px, 100% 2px, 100% 3px, 100%;
+  background-position: center bottom;
+  color: #252525;
+  padding: 16px 16px 19px;
+  position: relative;
+  text-shadow: 0 1px 0 #FFF;
+
+  .brand {
+    color: $link-color;
+    left: 16px;
+    position: absolute;
+  }
+
+  h2 {
+    font-weight: bold;
+    text-align: center;
+
+    small {
+      color: #CECECE;
+      font-weight: normal;
+    }
+  }
+
+  .menu {
+    position: absolute;
+    right: 26px;
+    top: 16px;
+
+    & > a {
+      @include replace-text("menu.png");
+      display: block;
+      height: 15px;
+      width: 18px;
+    }
+
+    .drop-down {
+      @include background-clip(padding-box);
+      @include border-radius($default-border-radius);
+      @include box-shadow(0 3px 8px rgba(0, 0, 0, 0.25));
+      border: 1px solid rgba(100, 100, 100, 0.4);
+      background: #FFF;
+      display: none;
+      position: absolute;
+      right: -10px;
+      width: 240px;
+      top: 38px;
+
+      li {
+        border-top: 1px solid #E9E9E9;
+
+        a:link, a:visited {
+          display: block;
+          font-weight: bold;
+          padding: 12px 14px;
+        }
+
+        a:hover {
+          // background: #F4F6F9;
+          background: #FBFBFC;
+        }
+
+        &:hover {
+          border-bottom: 1px solid #E3E8F0;
+          border-top: 1px solid #E3E8F0;
+
+          &:hover + li {
+            border-top: none;
+          }
+        }
+
+        &:first-child {
+          border-top: none;
+
+          a {
+            @include border-top-radius($default-border-radius - 1);
+          }
+        }
+
+        &:last-child {
+          &:hover {
+            border-bottom: none;
+          }
+
+          a {
+            @include border-bottom-radius($default-border-radius - 1);
+            padding-bottom: 13px;
+          }
+        }
+      }
+    }
+
+    a.is-active {
+      // @include transform(rotate(-90deg));
+
+      & + .drop-down {
+        display: block;
+      }
+    }
+  }
+}
+
+.wrapper {
+  max-width: 640px;
+  margin: 33px auto;
+  padding: 0 10px;
+}
+
+#download,
+#uploading {
+  text-align: center;
+
+  .file-type {
+    @include box-sizing(border-box);
+    background: image-url("document.png") center top no-repeat;
+    color: #EAEAEA;
+    font-size: 32px;
+    -webkit-font-smoothing: antialiased;
+    font-weight: bold;
+    height: 173px;
+    margin-bottom: 33px;
+    padding-top: 70px;
+    text-transform: uppercase;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+    @media only screen and (min-device-pixel-ratio: 1.5) {
+      background-image: image-url("document@2x.png");
+      background-size: 124px 173px;
+    }
+  }
+
+  p {
+    color: #CECECE;
+    font-size: 12px;
+    margin-top: 11px;
+  }
+}
+
+#markdown {
+  font-family: "ff-tisa-web-pro";
+  line-height: $base-line-height;
+
+  h1 {
+    border-bottom: 1px solid #EEE;
+    font-size: 32px;
+    font-weight: 200;
+    margin: 40px 0;
+    line-height: 39px;
+  }
+
+  h2, h3, h4, h5 {
+    font-weight: bold;
+    line-height: $base-line-height;
+    margin: $base-line-height 0;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  h4 {
+    font-size: 16px;
+  }
+
+  h5 {
+    font-size: 14px;
+  }
+
+  p {
+    line-height: $base-line-height;
+    margin: $base-line-height 0;
+  }
+
+  ul, ol {
+    padding-left: 20px;
+    margin: $base-line-height 0;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  ul ul, ol ol {
+    margin: 0;
+  }
+
+  code {
+    background: #EEE;
+    font-family: Monaco, monospace;
+    font-size: 12px;
+    padding: 2px 4px;
+  }
+
+  pre {
+    border: 1px solid;
+    border-color: #DDD;
+    @include border-radius($default-border-radius);
+    @include box-shadow(0 1px 1px rgba(0, 0, 0, .08));
+    margin: $base-line-height 0;
+    overflow-x: auto;
+    padding: 19px 20px;
+
+    code {
+      background: transparent;
+      border: none;
+    }
+  }
+
+  blockquote {
+    border-left: 3px solid #EEE;
+    color: #999;
+    margin: $base-line-height 0;
+    padding-left: 17px;
+  }
+
+  a:link,
+  a:visited {
+    color: $link-color;
+    font-weight: normal;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  hr {
+    background: #CCC;
+    border: 0;
+    height: 1px;
+    margin: 29px 0 30px 0;
+  }
+}
+
+#image {
+  &.wrapper {
+    max-width: 100%;
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
