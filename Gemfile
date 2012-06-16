@@ -33,3 +33,5 @@ group :test do
   gem 'wrong', :git    => 'https://github.com/sconover/wrong.git',
                :branch => 'rb-1.9.3-p0'
 end
+
+gem 'foreman', group: :development
