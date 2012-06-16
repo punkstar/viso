@@ -177,33 +177,43 @@ header {
   background-size: 100% 1px, 100% 2px, 100% 3px, 100%;
   background-position: center bottom;
   color: #252525;
-  padding: 16px 16px 19px;
+  line-height: 18px;
+  padding: 12px 16px 15px;
   position: relative;
   text-shadow: 0 1px 0 #FFF;
 }
-/* line 93, ../../../sass/screen.scss */
+/* line 94, ../../../sass/screen.scss */
 header .brand {
-  color: #3974c5;
+  background: url('/images/new/logo.png') left center no-repeat;
+  color: #5A952F;
   left: 16px;
+  padding-left: 36px;
   position: absolute;
 }
-/* line 99, ../../../sass/screen.scss */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  /* line 94, ../../../sass/screen.scss */
+  header .brand {
+    background-image: url('/images/new/logo@2x.png');
+    background-size: 26px 18px;
+  }
+}
+/* line 107, ../../../sass/screen.scss */
 header h2 {
   font-weight: bold;
   text-align: center;
 }
-/* line 103, ../../../sass/screen.scss */
+/* line 111, ../../../sass/screen.scss */
 header h2 small {
   color: #CECECE;
   font-weight: normal;
 }
-/* line 109, ../../../sass/screen.scss */
+/* line 117, ../../../sass/screen.scss */
 header .menu {
   position: absolute;
   right: 26px;
-  top: 16px;
+  top: 14px;
 }
-/* line 114, ../../../sass/screen.scss */
+/* line 122, ../../../sass/screen.scss */
 header .menu > a {
   text-indent: 110%;
   white-space: nowrap;
@@ -215,7 +225,7 @@ header .menu > a {
   height: 15px;
   width: 18px;
 }
-/* line 121, ../../../sass/screen.scss */
+/* line 129, ../../../sass/screen.scss */
 header .menu .drop-down {
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
@@ -236,34 +246,34 @@ header .menu .drop-down {
   width: 240px;
   top: 38px;
 }
-/* line 133, ../../../sass/screen.scss */
+/* line 141, ../../../sass/screen.scss */
 header .menu .drop-down li {
   border-top: 1px solid #E9E9E9;
 }
-/* line 136, ../../../sass/screen.scss */
+/* line 144, ../../../sass/screen.scss */
 header .menu .drop-down li a:link, header .menu .drop-down li a:visited {
   display: block;
   font-weight: bold;
   padding: 12px 14px;
 }
-/* line 142, ../../../sass/screen.scss */
+/* line 150, ../../../sass/screen.scss */
 header .menu .drop-down li a:hover {
   background: #FBFBFC;
 }
-/* line 147, ../../../sass/screen.scss */
+/* line 155, ../../../sass/screen.scss */
 header .menu .drop-down li:hover {
   border-bottom: 1px solid #E3E8F0;
   border-top: 1px solid #E3E8F0;
 }
-/* line 151, ../../../sass/screen.scss */
+/* line 159, ../../../sass/screen.scss */
 header .menu .drop-down li:hover:hover + li {
   border-top: none;
 }
-/* line 156, ../../../sass/screen.scss */
+/* line 164, ../../../sass/screen.scss */
 header .menu .drop-down li:first-child {
   border-top: none;
 }
-/* line 159, ../../../sass/screen.scss */
+/* line 167, ../../../sass/screen.scss */
 header .menu .drop-down li:first-child a {
   -moz-border-radius-topleft: 2px;
   -webkit-border-top-left-radius: 2px;
@@ -276,11 +286,11 @@ header .menu .drop-down li:first-child a {
   -o-border-top-right-radius: 2px;
   border-top-right-radius: 2px;
 }
-/* line 165, ../../../sass/screen.scss */
+/* line 173, ../../../sass/screen.scss */
 header .menu .drop-down li:last-child:hover {
   border-bottom: none;
 }
-/* line 169, ../../../sass/screen.scss */
+/* line 177, ../../../sass/screen.scss */
 header .menu .drop-down li:last-child a {
   -moz-border-radius-bottomleft: 2px;
   -webkit-border-bottom-left-radius: 2px;
@@ -294,24 +304,24 @@ header .menu .drop-down li:last-child a {
   border-bottom-right-radius: 2px;
   padding-bottom: 13px;
 }
-/* line 180, ../../../sass/screen.scss */
+/* line 188, ../../../sass/screen.scss */
 header .menu a.is-active + .drop-down {
   display: block;
 }
 
-/* line 187, ../../../sass/screen.scss */
+/* line 195, ../../../sass/screen.scss */
 .wrapper {
   max-width: 640px;
   margin: 33px auto;
   padding: 0 10px;
 }
 
-/* line 194, ../../../sass/screen.scss */
+/* line 202, ../../../sass/screen.scss */
 #download,
 #uploading {
   text-align: center;
 }
-/* line 197, ../../../sass/screen.scss */
+/* line 205, ../../../sass/screen.scss */
 #download .file-type,
 #uploading .file-type {
   -webkit-box-sizing: border-box;
@@ -328,15 +338,15 @@ header .menu a.is-active + .drop-down {
   text-transform: uppercase;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
-@media only screen and (min-device-pixel-ratio: 1.5) {
-  /* line 197, ../../../sass/screen.scss */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  /* line 205, ../../../sass/screen.scss */
   #download .file-type,
   #uploading .file-type {
     background-image: url('/images/new/document@2x.png');
     background-size: 124px 173px;
   }
 }
-/* line 216, ../../../sass/screen.scss */
+/* line 224, ../../../sass/screen.scss */
 #download p,
 #uploading p {
   color: #CECECE;
@@ -344,12 +354,12 @@ header .menu a.is-active + .drop-down {
   margin-top: 11px;
 }
 
-/* line 223, ../../../sass/screen.scss */
+/* line 231, ../../../sass/screen.scss */
 #markdown {
   font-family: "ff-tisa-web-pro";
   line-height: 20px;
 }
-/* line 227, ../../../sass/screen.scss */
+/* line 235, ../../../sass/screen.scss */
 #markdown h1 {
   border-bottom: 1px solid #EEE;
   font-size: 32px;
@@ -357,58 +367,58 @@ header .menu a.is-active + .drop-down {
   margin: 40px 0;
   line-height: 39px;
 }
-/* line 235, ../../../sass/screen.scss */
+/* line 243, ../../../sass/screen.scss */
 #markdown h2, #markdown h3, #markdown h4, #markdown h5 {
   font-weight: bold;
   line-height: 20px;
   margin: 20px 0;
 }
-/* line 241, ../../../sass/screen.scss */
+/* line 249, ../../../sass/screen.scss */
 #markdown h2 {
   font-size: 22px;
 }
-/* line 245, ../../../sass/screen.scss */
+/* line 253, ../../../sass/screen.scss */
 #markdown h3 {
   font-size: 18px;
 }
-/* line 249, ../../../sass/screen.scss */
+/* line 257, ../../../sass/screen.scss */
 #markdown h4 {
   font-size: 16px;
 }
-/* line 253, ../../../sass/screen.scss */
+/* line 261, ../../../sass/screen.scss */
 #markdown h5 {
   font-size: 14px;
 }
-/* line 257, ../../../sass/screen.scss */
+/* line 265, ../../../sass/screen.scss */
 #markdown p {
   line-height: 20px;
   margin: 20px 0;
 }
-/* line 262, ../../../sass/screen.scss */
+/* line 270, ../../../sass/screen.scss */
 #markdown ul, #markdown ol {
   padding-left: 20px;
   margin: 20px 0;
 }
-/* line 267, ../../../sass/screen.scss */
+/* line 275, ../../../sass/screen.scss */
 #markdown ul {
   list-style-type: disc;
 }
-/* line 271, ../../../sass/screen.scss */
+/* line 279, ../../../sass/screen.scss */
 #markdown ol {
   list-style-type: decimal;
 }
-/* line 275, ../../../sass/screen.scss */
+/* line 283, ../../../sass/screen.scss */
 #markdown ul ul, #markdown ol ol {
   margin: 0;
 }
-/* line 279, ../../../sass/screen.scss */
+/* line 287, ../../../sass/screen.scss */
 #markdown code {
   background: #EEE;
   font-family: Monaco, monospace;
   font-size: 12px;
   padding: 2px 4px;
 }
-/* line 286, ../../../sass/screen.scss */
+/* line 294, ../../../sass/screen.scss */
 #markdown pre {
   border: 1px solid;
   border-color: #DDD;
@@ -424,38 +434,38 @@ header .menu a.is-active + .drop-down {
   overflow-x: auto;
   padding: 19px 20px;
 }
-/* line 295, ../../../sass/screen.scss */
+/* line 303, ../../../sass/screen.scss */
 #markdown pre code {
   background: transparent;
   border: none;
 }
-/* line 301, ../../../sass/screen.scss */
+/* line 309, ../../../sass/screen.scss */
 #markdown blockquote {
   border-left: 3px solid #EEE;
   color: #999;
   margin: 20px 0;
   padding-left: 17px;
 }
-/* line 309, ../../../sass/screen.scss */
+/* line 317, ../../../sass/screen.scss */
 #markdown a:link,
 #markdown a:visited {
   color: #3974c5;
   font-weight: normal;
   text-decoration: none;
 }
-/* line 315, ../../../sass/screen.scss */
+/* line 323, ../../../sass/screen.scss */
 #markdown a:hover {
   text-decoration: underline;
 }
-/* line 319, ../../../sass/screen.scss */
+/* line 327, ../../../sass/screen.scss */
 #markdown strong {
   font-weight: bold;
 }
-/* line 323, ../../../sass/screen.scss */
+/* line 331, ../../../sass/screen.scss */
 #markdown em {
   font-style: italic;
 }
-/* line 327, ../../../sass/screen.scss */
+/* line 335, ../../../sass/screen.scss */
 #markdown hr {
   background: #CCC;
   border: 0;
@@ -463,11 +473,11 @@ header .menu a.is-active + .drop-down {
   margin: 29px 0 30px 0;
 }
 
-/* line 336, ../../../sass/screen.scss */
+/* line 344, ../../../sass/screen.scss */
 #image.wrapper {
   max-width: 100%;
 }
-/* line 340, ../../../sass/screen.scss */
+/* line 348, ../../../sass/screen.scss */
 #image img {
   display: block;
   margin: 0 auto;
