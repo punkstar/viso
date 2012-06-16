@@ -117,7 +117,7 @@ header {
   .menu {
     position: absolute;
     right: 26px;
-    top: 14px;
+    top: 13px;
 
     & > a {
       @include replace-text("menu.png");

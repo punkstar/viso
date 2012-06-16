@@ -211,7 +211,7 @@ header h2 small {
 header .menu {
   position: absolute;
   right: 26px;
-  top: 14px;
+  top: 13px;
 }
 /* line 122, ../../../sass/screen.scss */
 header .menu > a {
