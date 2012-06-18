@@ -239,6 +239,10 @@ header {
 
   #{headers()} {
     margin: 20px 0 10px;
+
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
   h1 {
