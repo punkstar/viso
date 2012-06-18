@@ -235,24 +235,24 @@ header {
 
 #markdown {
   font-family: "ff-tisa-web-pro";
-  line-height: $base-line-height;
+  line-height: 1.6;
+
+  #{headers()} {
+    margin: 20px 0 10px;
+  }
 
   h1 {
-    border-bottom: 1px solid #EEE;
     font-size: 32px;
-    font-weight: 200;
-    margin: 40px 0;
-    line-height: 39px;
   }
 
   h2, h3, h4, h5 {
     font-weight: bold;
-    line-height: $base-line-height;
-    margin: $base-line-height 0;
   }
 
   h2 {
+    border-bottom: 1px solid #EEE;
     font-size: 22px;
+    // padding-bottom: 6px;
   }
 
   h3 {
@@ -268,13 +268,12 @@ header {
   }
 
   p {
-    line-height: $base-line-height;
-    margin: $base-line-height 0;
+    margin-bottom: 15px;
   }
 
   ul, ol {
     padding-left: 20px;
-    margin: $base-line-height 0;
+    margin-bottom: 15px;
   }
 
   ul {
@@ -290,18 +289,20 @@ header {
   }
 
   code {
-    background: #EEE;
+    @include border-radius($default-border-radius);
+    background: #F8F8F8;
+    border: 1px solid #CCC;
     font-family: Monaco, monospace;
-    font-size: 12px;
-    padding: 2px 4px;
+    font-size: 0.85em;
+    font-weight: normal;
+    padding: 1px 3px;
   }
 
   pre {
-    border: 1px solid;
-    border-color: #DDD;
     @include border-radius($default-border-radius);
-    @include box-shadow(0 1px 1px rgba(0, 0, 0, .08));
-    margin: $base-line-height 0;
+    background: #F8F8F8;
+    border: 1px solid #CCC;
+    margin-bottom: 15px;
     overflow-x: auto;
     padding: 19px 20px;
 
@@ -314,7 +315,7 @@ header {
   blockquote {
     border-left: 3px solid #EEE;
     color: #999;
-    margin: $base-line-height 0;
+    margin-bottom: 15px;
     padding-left: 17px;
   }
 

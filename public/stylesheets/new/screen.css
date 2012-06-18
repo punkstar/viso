@@ -364,24 +364,23 @@ header .menu a.is-active + .drop-down {
 /* line 236, ../../../sass/screen.scss */
 #markdown {
   font-family: "ff-tisa-web-pro";
-  line-height: 20px;
+  line-height: 1.6;
 }
 /* line 240, ../../../sass/screen.scss */
+#markdown h1, #markdown h2, #markdown h3, #markdown h4, #markdown h5, #markdown h6 {
+  margin: 20px 0 10px;
+}
+/* line 244, ../../../sass/screen.scss */
 #markdown h1 {
-  border-bottom: 1px solid #EEE;
   font-size: 32px;
-  font-weight: 200;
-  margin: 40px 0;
-  line-height: 39px;
 }
 /* line 248, ../../../sass/screen.scss */
 #markdown h2, #markdown h3, #markdown h4, #markdown h5 {
   font-weight: bold;
-  line-height: 20px;
-  margin: 20px 0;
 }
-/* line 254, ../../../sass/screen.scss */
+/* line 252, ../../../sass/screen.scss */
 #markdown h2 {
+  border-bottom: 1px solid #EEE;
   font-size: 22px;
 }
 /* line 258, ../../../sass/screen.scss */
@@ -398,81 +397,84 @@ header .menu a.is-active + .drop-down {
 }
 /* line 270, ../../../sass/screen.scss */
 #markdown p {
-  line-height: 20px;
-  margin: 20px 0;
+  margin-bottom: 15px;
 }
-/* line 275, ../../../sass/screen.scss */
+/* line 274, ../../../sass/screen.scss */
 #markdown ul, #markdown ol {
   padding-left: 20px;
-  margin: 20px 0;
+  margin-bottom: 15px;
 }
-/* line 280, ../../../sass/screen.scss */
+/* line 279, ../../../sass/screen.scss */
 #markdown ul {
   list-style-type: disc;
 }
-/* line 284, ../../../sass/screen.scss */
+/* line 283, ../../../sass/screen.scss */
 #markdown ol {
   list-style-type: decimal;
 }
-/* line 288, ../../../sass/screen.scss */
+/* line 287, ../../../sass/screen.scss */
 #markdown ul ul, #markdown ol ol {
   margin: 0;
 }
-/* line 292, ../../../sass/screen.scss */
+/* line 291, ../../../sass/screen.scss */
 #markdown code {
-  background: #EEE;
-  font-family: Monaco, monospace;
-  font-size: 12px;
-  padding: 2px 4px;
-}
-/* line 299, ../../../sass/screen.scss */
-#markdown pre {
-  border: 1px solid;
-  border-color: #DDD;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-  margin: 20px 0;
+  background: #F8F8F8;
+  border: 1px solid #CCC;
+  font-family: Monaco, monospace;
+  font-size: 0.85em;
+  font-weight: normal;
+  padding: 1px 3px;
+}
+/* line 301, ../../../sass/screen.scss */
+#markdown pre {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  background: #F8F8F8;
+  border: 1px solid #CCC;
+  margin-bottom: 15px;
   overflow-x: auto;
   padding: 19px 20px;
 }
-/* line 308, ../../../sass/screen.scss */
+/* line 309, ../../../sass/screen.scss */
 #markdown pre code {
   background: transparent;
   border: none;
 }
-/* line 314, ../../../sass/screen.scss */
+/* line 315, ../../../sass/screen.scss */
 #markdown blockquote {
   border-left: 3px solid #EEE;
   color: #999;
-  margin: 20px 0;
+  margin-bottom: 15px;
   padding-left: 17px;
 }
-/* line 322, ../../../sass/screen.scss */
+/* line 323, ../../../sass/screen.scss */
 #markdown a:link,
 #markdown a:visited {
   color: #3974c5;
   font-weight: normal;
   text-decoration: none;
 }
-/* line 328, ../../../sass/screen.scss */
+/* line 329, ../../../sass/screen.scss */
 #markdown a:hover {
   text-decoration: underline;
 }
-/* line 332, ../../../sass/screen.scss */
+/* line 333, ../../../sass/screen.scss */
 #markdown strong {
   font-weight: bold;
 }
-/* line 336, ../../../sass/screen.scss */
+/* line 337, ../../../sass/screen.scss */
 #markdown em {
   font-style: italic;
 }
-/* line 340, ../../../sass/screen.scss */
+/* line 341, ../../../sass/screen.scss */
 #markdown hr {
   background: #CCC;
   border: 0;
@@ -480,11 +482,11 @@ header .menu a.is-active + .drop-down {
   margin: 29px 0 30px 0;
 }
 
-/* line 349, ../../../sass/screen.scss */
+/* line 350, ../../../sass/screen.scss */
 #image.wrapper {
   max-width: 100%;
 }
-/* line 353, ../../../sass/screen.scss */
+/* line 354, ../../../sass/screen.scss */
 #image img {
   display: block;
   margin: 0 auto;
