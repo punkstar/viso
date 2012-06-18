@@ -429,12 +429,11 @@ header .menu a.is-active + .drop-down {
   border-radius: 3px;
   background: #F8F8F8;
   border: 1px solid #CCC;
-  font-family: Inconsolata, Monaco, monospace;
-  font-size: 1em;
-  font-weight: normal;
+  font-family: Menlo, Monaco, monospace;
+  font-size: 0.857142857em;
   padding: 1px 3px;
 }
-/* line 304, ../../../sass/screen.scss */
+/* line 303, ../../../sass/screen.scss */
 #markdown pre {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -447,55 +446,55 @@ header .menu a.is-active + .drop-down {
   overflow-x: auto;
   padding: 12px;
 }
-/* line 312, ../../../sass/screen.scss */
+/* line 311, ../../../sass/screen.scss */
 #markdown pre code {
   background: transparent;
   border: none;
   padding: 0;
 }
-/* line 319, ../../../sass/screen.scss */
+/* line 318, ../../../sass/screen.scss */
 #markdown blockquote {
   border-left: 3px solid #EEE;
   color: #999;
   margin-bottom: 15px;
   padding-left: 17px;
 }
-/* line 327, ../../../sass/screen.scss */
+/* line 326, ../../../sass/screen.scss */
 #markdown a:link,
 #markdown a:visited {
   color: #3974c5;
   font-weight: normal;
   text-decoration: none;
 }
-/* line 333, ../../../sass/screen.scss */
+/* line 332, ../../../sass/screen.scss */
 #markdown a:hover {
   text-decoration: underline;
 }
-/* line 337, ../../../sass/screen.scss */
+/* line 336, ../../../sass/screen.scss */
 #markdown strong {
   font-weight: bold;
 }
-/* line 341, ../../../sass/screen.scss */
+/* line 340, ../../../sass/screen.scss */
 #markdown em {
   font-style: italic;
 }
-/* line 345, ../../../sass/screen.scss */
+/* line 344, ../../../sass/screen.scss */
 #markdown hr {
   background: #CCC;
   border: 0;
   height: 1px;
   margin: 29px 0 30px 0;
 }
-/* line 352, ../../../sass/screen.scss */
+/* line 351, ../../../sass/screen.scss */
 #markdown img {
   max-width: 100%;
 }
 
-/* line 358, ../../../sass/screen.scss */
+/* line 357, ../../../sass/screen.scss */
 #image.wrapper {
   max-width: 100%;
 }
-/* line 362, ../../../sass/screen.scss */
+/* line 361, ../../../sass/screen.scss */
 #image img {
   display: block;
   margin: 0 auto;
