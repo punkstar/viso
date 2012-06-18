@@ -199,7 +199,7 @@ header {
 
 .wrapper {
   max-width: 640px;
-  margin: 33px auto;
+  margin: 32px auto;
   padding: 0 10px;
 }
 
@@ -307,11 +307,12 @@ header {
     border: 1px solid #CCC;
     margin-bottom: 15px;
     overflow-x: auto;
-    padding: 19px 20px;
+    padding: 12px;
 
     code {
       background: transparent;
       border: none;
+      padding: 0;
     }
   }
 
