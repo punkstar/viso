@@ -295,9 +295,8 @@ header {
     @include border-radius($default-border-radius);
     background: #F8F8F8;
     border: 1px solid #CCC;
-    font-family: Inconsolata, Monaco, monospace;
-    font-size: 1em;
-    font-weight: normal;
+    font-family: Menlo, Monaco, monospace;
+    font-size: 0.857142857em;
     padding: 1px 3px;
   }
 
