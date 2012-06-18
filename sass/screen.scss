@@ -70,7 +70,7 @@ a:visited {
   }
 
   &.waiting {
-    @include background-image(image-url("progress.png"),linear-gradient(#EAEAEA, #E9E9E9));
+    @include background-image(inline-image("progress.png"),linear-gradient(#EAEAEA, #E9E9E9));
     -webkit-animation-name: progress-background;
     -webkit-animation-timing-function: linear;
     -webkit-animation-duration: 1s;
@@ -92,14 +92,14 @@ header {
   text-shadow: 0 1px 0 #FFF;
 
   .brand {
-    background: image-url("logo.png") left center no-repeat;
+    background: inline-image("logo.png") left center no-repeat;
     color: #5A952F;
     left: 16px;
     padding-left: 36px;
     position: absolute;
 
     @media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
-      background-image: image-url("logo@2x.png");
+      background-image: inline-image("logo@2x.png");
       background-size: 26px 18px;
     }
   }
@@ -120,13 +120,14 @@ header {
     top: 13px;
 
     & > a {
-      @include replace-text("menu.png");
+      @include hide-text;
+      background-image: inline-image("menu.png");
       display: block;
       height: 15px;
       width: 18px;
 
       @media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
-        background-image: image-url("menu@2x.png");
+        background-image: inline-image("menu@2x.png");
         background-size: 18px 15px;
       }
     }
@@ -209,7 +210,7 @@ header {
 
   .file-type {
     @include box-sizing(border-box);
-    background: image-url("document.png") center top no-repeat;
+    background: inline-image("document.png") center top no-repeat;
     color: #EAEAEA;
     font-size: 32px;
     -webkit-font-smoothing: antialiased;
@@ -221,7 +222,7 @@ header {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 
     @media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
-      background-image: image-url("document@2x.png");
+      background-image: inline-image("document@2x.png");
       background-size: 124px 173px;
     }
   }
