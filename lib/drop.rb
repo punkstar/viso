@@ -38,6 +38,10 @@ class Drop
     @data[:name]
   end
 
+  def gauge_id
+    @data[:gauge_id]
+  end
+
   def bookmark?
     @data[:item_type] == 'bookmark'
   end

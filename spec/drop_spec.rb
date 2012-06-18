@@ -176,6 +176,14 @@ describe Drop do
     end
   end
 
+  describe '#gauge_id' do
+    it 'delegates to #data' do
+      gauge_id = 'abc123'
+      drop      = Drop.new :gauge_id => gauge_id
+
+      drop.gauge_id.should == gauge_id
+    end
+  end
 
   describe '#data' do
     it 'is a hash of itself' do
