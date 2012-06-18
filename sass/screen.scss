@@ -235,7 +235,7 @@ header {
 
 #markdown {
   font-family: "ff-tisa-web-pro";
-  line-height: 1.6;
+  line-height: 1.571428571;
 
   #{headers()} {
     margin: 20px 0 10px;
@@ -254,7 +254,7 @@ header {
   }
 
   h2 {
-    border-bottom: 1px solid #EEE;
+    border-bottom: 1px solid #E1E1E1;
     font-size: 22px;
   }
 
@@ -295,8 +295,8 @@ header {
     @include border-radius($default-border-radius);
     background: #F8F8F8;
     border: 1px solid #CCC;
-    font-family: Monaco, monospace;
-    font-size: 0.85em;
+    font-family: Inconsolata, Monaco, monospace;
+    font-size: 1em;
     font-weight: normal;
     padding: 1px 3px;
   }
@@ -347,6 +347,10 @@ header {
     border: 0;
     height: 1px;
     margin: 29px 0 30px 0;
+  }
+
+  img {
+    max-width: 100%;
   }
 }
 

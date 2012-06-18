@@ -364,7 +364,7 @@ header .menu a.is-active + .drop-down {
 /* line 236, ../../../sass/screen.scss */
 #markdown {
   font-family: "ff-tisa-web-pro";
-  line-height: 1.6;
+  line-height: 1.571428571;
 }
 /* line 240, ../../../sass/screen.scss */
 #markdown h1, #markdown h2, #markdown h3, #markdown h4, #markdown h5, #markdown h6 {
@@ -384,7 +384,7 @@ header .menu a.is-active + .drop-down {
 }
 /* line 256, ../../../sass/screen.scss */
 #markdown h2 {
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1px solid #E1E1E1;
   font-size: 22px;
 }
 /* line 261, ../../../sass/screen.scss */
@@ -429,8 +429,8 @@ header .menu a.is-active + .drop-down {
   border-radius: 3px;
   background: #F8F8F8;
   border: 1px solid #CCC;
-  font-family: Monaco, monospace;
-  font-size: 0.85em;
+  font-family: Inconsolata, Monaco, monospace;
+  font-size: 1em;
   font-weight: normal;
   padding: 1px 3px;
 }
@@ -486,12 +486,16 @@ header .menu a.is-active + .drop-down {
   height: 1px;
   margin: 29px 0 30px 0;
 }
+/* line 352, ../../../sass/screen.scss */
+#markdown img {
+  max-width: 100%;
+}
 
-/* line 354, ../../../sass/screen.scss */
+/* line 358, ../../../sass/screen.scss */
 #image.wrapper {
   max-width: 100%;
 }
-/* line 358, ../../../sass/screen.scss */
+/* line 362, ../../../sass/screen.scss */
 #image img {
   display: block;
   margin: 0 auto;
