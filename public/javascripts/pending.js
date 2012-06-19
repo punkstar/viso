@@ -1,5 +1,5 @@
 $(function() {
-  if (!$("body#pending").length) { return; }
+  if (!$("section#uploading").length) { return; }
 
   var dropStatusLink = window.location.toString()
                          .split('?')[0]

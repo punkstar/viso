@@ -10,10 +10,11 @@
   <%= include_stylesheets :new_viso %>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <%= include_javascripts :viso %>
 
   <script>
     $(function() {
-      $('.menu a').click(function(e){
+      $('.menu > a').click(function(e){
         e.preventDefault();
         $(this).toggleClass('is-active');
       });
@@ -37,8 +38,8 @@
         <a href="#">Menu</a>
 
         <ul class="drop-down">
-          <li><a href="#">Direct Link</a></li>
-          <li><a href="#">Download Link</a></li>
+          <li><a href="<%= drop.content_url %>">Direct Link</a></li>
+          <li><a href="<%= drop.download_url %>">Download Link</a></li>
         </ul>
       </li>
     </ul>
