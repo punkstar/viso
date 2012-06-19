@@ -1,8 +1,7 @@
 http_path = "/"
 css_dir = "public/stylesheets/new"
 sass_dir = "sass"
-images_dir = "public/images/new"
-http_images_path = "/images/new"
+images_dir = "images/new"
 javascripts_dir = "javascripts/new"
 
 # output_style = :compressed
