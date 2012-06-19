@@ -25,7 +25,7 @@ javascripts:
     - public/javascripts/vendor/modernizr-1.7.min.js
     - public/javascripts/image.js
     - public/javascripts/other.js
-  viso:
+  new_viso:
     - public/javascripts/pending.js
   ie:
     - public/javascripts/vendor/selectivizr-1.0.2.min.js
