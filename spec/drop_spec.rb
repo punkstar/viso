@@ -52,6 +52,60 @@ describe Drop do
     its(:name) { should eq('Chapter 1') }
   end
 
+  describe '#extension' do
+    context 'with a content url' do
+      let(:data)      {{ content_url: 'http://cl.ly/hhgttg/chapter1.txt',
+                         item_type:   'text' }}
+      its(:extension) { should eq('.txt') }
+    end
+
+    context 'with a content url and name' do
+      let(:data)      {{ content_url: 'http://cl.ly/hhgttg/chapter1.txt',
+                         name:        'chapter1.md',
+                         item_type:   'text' }}
+      its(:extension) { should eq('.txt') }
+    end
+
+    context 'with an extensionless content url' do
+      let(:data)      {{ content_url: 'http://cl.ly/hhgttg/chapter1',
+                         item_type:   'text' }}
+      its(:extension) { should be_nil }
+    end
+
+    context 'pending with a name with extension' do
+      let(:data)      {{ content_url: 'http://cl.ly/hhgttg',
+                         name:        'chapter1.txt' }}
+      its(:extension) { should eq('.txt') }
+    end
+
+    context 'pending with a name without extension' do
+      let(:data)      {{ content_url: 'http://cl.ly/hhgttg',
+                         name:        'chapter1' }}
+      its(:extension) { should be_nil }
+    end
+
+    context 'pending without a name' do
+      let(:data)      {{ content_url: 'http://cl.ly/hhgttg' }}
+      its(:extension) { should be_nil }
+    end
+  end
+
+  describe '#basename' do
+    context 'with a name with extension' do
+      let(:data)     {{ name: 'chapter1.txt' }}
+      its(:basename) { should eq('chapter1') }
+    end
+
+    context 'with a name without extension' do
+      let(:data)     {{ name: 'chapter1' }}
+      its(:basename) { should eq('chapter1') }
+    end
+
+    context 'without a name' do
+      its(:basename) { should be_nil }
+    end
+  end
+
   describe '#content' do
     let(:data)        {{ content_url: content_url }}
     let(:content_url) { 'http://cl.ly/hhgttg/chapter1.txt' }

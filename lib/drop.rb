@@ -55,10 +55,20 @@ class Drop
     item_type.nil?
   end
 
-private
+  def basename
+    basename = File.basename(name.to_s, File.extname(name.to_s))
+    basename.empty? ? nil : basename
+  end
 
   def extension
-    return unless content_url
-    File.extname(content_url).downcase
+    extname = File.extname(file_name).downcase
+    extname.empty? ? nil : extname
+  end
+
+private
+
+  def file_name
+    file_name = pending? ? name : content_url
+    file_name.to_s
   end
 end
