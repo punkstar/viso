@@ -29,7 +29,9 @@
   <header>
     <h1 style="display: none;">CloudApp</h1>
 
-    <a href="#" class="brand">Start sharing</a>
+    <% unless drop.subscribed? %>
+      <a href="http://store.getcloudapp.com/?utm_source=viso&utm_medium=ribbon&utm_campaign=viso-2.0" class="brand">Start sharing</a>
+    <% end %>
 
     <h2><%= escape_html drop.basename %><small><%= escape_html drop.extension %></small></h2>
 
