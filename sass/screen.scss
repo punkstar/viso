@@ -80,8 +80,8 @@ a:visited {
 }
 
 header {
-  background-color: #F8F8F8;
   @include background-image(linear-gradient(left, #FFF, #F7F7F7, #FFF), linear-gradient(left, #FFF, #F4F4F4, #FFF), linear-gradient(left, #E9E9E9, #E1E1E1, #E9E9E9), linear-gradient(#FFF 90%, #f2f4f7));
+  background-color: #FFF;
   background-repeat: no-repeat;
   background-size: 100% 1px, 100% 2px, 100% 3px, 100%;
   background-position: center bottom;
