@@ -4,9 +4,9 @@
 $base-font-size: 14px;
 $base-line-height: 20px;
 
-$default-border-radius: 3px;
+$default-border-radius: 4px;
 
-$body-background-color: #252525;
+$base-text-color: #252525;
 $link-color: #3974C5;
 
 @-webkit-keyframes progress-background {
@@ -18,8 +18,12 @@ $link-color: #3974C5;
   }
 }
 
+html {
+  -webkit-text-size-adjust: none;
+}
+
 body {
-  color: $body-background-color;
+  color: $base-text-color;
   font-family: Helvetica, Arial, Geneva, sans-serif;
   font-size: $base-font-size;
   line-height: 1;
@@ -79,128 +83,10 @@ a:visited {
   }
 }
 
-header {
-  @include background-image(linear-gradient(left, #FFF, #F7F7F7, #FFF), linear-gradient(left, #FFF, #F4F4F4, #FFF), linear-gradient(left, #E9E9E9, #E1E1E1, #E9E9E9), linear-gradient(#FFF 90%, #f2f4f7));
-  background-color: #FFF;
-  background-repeat: no-repeat;
-  background-size: 100% 1px, 100% 2px, 100% 3px, 100%;
-  background-position: center bottom;
-  color: #252525;
-  line-height: 18px;
-  padding: 12px 16px 15px;
-  position: relative;
-  text-shadow: 0 1px 0 #FFF;
-
-  .brand {
-    background: image-url("logo.png") left center no-repeat;
-    color: #5A952F;
-    left: 16px;
-    padding-left: 36px;
-    position: absolute;
-
-    @media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
-      background-image: image-url("logo@2x.png");
-      background-size: 26px 18px;
-    }
-  }
-
-  h2 {
-    font-weight: bold;
-    text-align: center;
-
-    small {
-      color: #CECECE;
-      font-weight: normal;
-    }
-  }
-
-  .menu {
-    position: absolute;
-    right: 26px;
-    top: 13px;
-
-    & > a {
-      @include replace-text("menu.png");
-      display: block;
-      height: 15px;
-      width: 18px;
-
-      @media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
-        background-image: image-url("menu@2x.png");
-        background-size: 18px 15px;
-      }
-    }
-
-    .drop-down {
-      @include background-clip(padding-box);
-      @include border-radius($default-border-radius);
-      @include box-shadow(0 3px 8px rgba(0, 0, 0, 0.25));
-      border: 1px solid rgba(100, 100, 100, 0.4);
-      background: #FFF;
-      display: none;
-      position: absolute;
-      right: -10px;
-      width: 240px;
-      top: 38px;
-
-      li {
-        border-top: 1px solid #E9E9E9;
-
-        a:link, a:visited {
-          display: block;
-          font-weight: bold;
-          padding: 12px 14px;
-        }
-
-        a:hover {
-          // background: #F4F6F9;
-          background: #FBFBFC;
-        }
-
-        &:hover {
-          border-bottom: 1px solid #E3E8F0;
-          border-top: 1px solid #E3E8F0;
-
-          &:hover + li {
-            border-top: none;
-          }
-        }
-
-        &:first-child {
-          border-top: none;
-
-          a {
-            @include border-top-radius($default-border-radius - 1);
-          }
-        }
-
-        &:last-child {
-          &:hover {
-            border-bottom: none;
-          }
-
-          a {
-            @include border-bottom-radius($default-border-radius - 1);
-            padding-bottom: 13px;
-          }
-        }
-      }
-    }
-
-    a.is-active {
-      // @include transform(rotate(-90deg));
-
-      & + .drop-down {
-        display: block;
-      }
-    }
-  }
-}
-
 .wrapper {
   max-width: 640px;
   margin: 32px auto;
-  padding: 0 10px;
+  padding: 0 16px;
 }
 
 #download,
@@ -364,3 +250,5 @@ header {
     max-width: 100%;
   }
 }
+
+@import "header";

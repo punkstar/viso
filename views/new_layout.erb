@@ -4,7 +4,7 @@
   <meta charset="uft-8">
   <title><%= escape_html drop.name %></title>
 
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link href="<%= asset_path :img, '/images/favicon.ico' %>" rel="shortcut icon">
   <%= include_stylesheets :new_viso %>
@@ -12,32 +12,23 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <%= include_javascripts :new_viso %>
 
-  <script>
-    $(function() {
-      $('.menu > a').click(function(e){
-        e.preventDefault();
-        $(this).toggleClass('is-active');
-      });
-    });
-  </script>
-
   <script type="text/javascript" src="http://use.typekit.com/hul1akx.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 
 <body>
-  <header>
+  <header id="header">
     <h1 style="display: none;">CloudApp</h1>
 
     <% unless drop.subscribed? %>
       <a href="http://store.getcloudapp.com/?utm_source=viso&utm_medium=ribbon&utm_campaign=viso-2.0" class="brand">Start sharing</a>
     <% end %>
 
-    <h2><%= escape_html drop.basename %><small><%= escape_html drop.extension %></small></h2>
+    <h2><strong><%= escape_html drop.basename %></strong><%= escape_html drop.extension %></h2>
 
-    <ul>
-      <li class="menu">
-        <a href="#">Menu</a>
+    <ul class="menu">
+      <li>
+        <a href="#" class="trigger">Menu</a>
 
         <ul class="drop-down">
           <li><a href="<%= drop.content_url %>">Direct Link</a></li>

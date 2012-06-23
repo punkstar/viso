@@ -26,6 +26,8 @@ javascripts:
     - public/javascripts/image.js
     - public/javascripts/other.js
   new_viso:
+    - public/javascripts/vendor/ios-orientationchange-fix.js
+    - public/javascripts/pop-over.js
     - public/javascripts/pending.js
   ie:
     - public/javascripts/vendor/selectivizr-1.0.2.min.js
