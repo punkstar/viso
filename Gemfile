@@ -28,7 +28,7 @@ gem 'rocco', :group => :development
 group :test do
   gem 'rspec'
   gem 'rack-test'
-  gem 'vcr'
+  gem 'vcr', '~> 1.11'
   gem 'webmock'
   gem 'wrong'
 end
