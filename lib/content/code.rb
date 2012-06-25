@@ -13,7 +13,7 @@ class Content
       return super unless code?
       return large_content if code_too_large?
 
-      highlight raw, :lexer => lexer_name
+      highlight raw, lexer: lexer_name, options: { linenos: true }
     end
 
     def code?
@@ -33,6 +33,5 @@ class Content
     def large_content
       %{<div class="highlight"><pre><code>#{ escaped_raw }</code></pre></div>}
     end
-
   end
 end

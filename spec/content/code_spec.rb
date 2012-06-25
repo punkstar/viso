@@ -34,7 +34,14 @@ describe Content::Code do
       drop = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
       code = '<div class="highlight"><pre><span class="nb">puts</span>'
 
-      drop.content.start_with?(code).should == true
+      drop.content.should include(code)
+    end
+
+    it 'includes line numbers' do
+      drop  = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
+      lines = '<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv">'
+
+      drop.content.should include(lines)
     end
 
     it 'calls #super for non-code files' do
