@@ -118,7 +118,7 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
-    redcarpet (1.17.2)
+    redcarpet (2.1.1)
     rocco (0.8.2)
       mustache
       redcarpet
@@ -210,7 +210,7 @@ DEPENDENCIES
   rack-cache
   rack-fiber_pool
   rack-test
-  redcarpet (~> 1.17)
+  redcarpet (~> 2.1)
   rocco
   rspec
   rubypython (= 0.5.1)
