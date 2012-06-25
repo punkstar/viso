@@ -9,11 +9,15 @@ class Content
     # latest version of python (2.7) on the system. python2.6 seems to work fine.
     RubyPython.configure :python_exe => 'python2.6'
 
+    def self.highlight(code, lexer)
+      Pygments.highlight code, lexer: lexer, options: { linenos: true }
+    end
+
     def content
       return super unless code?
       return large_content if code_too_large?
 
-      highlight raw, lexer: lexer_name, options: { linenos: true }
+      Code.highlight raw, lexer_name
     end
 
     def code?

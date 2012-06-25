@@ -21,9 +21,10 @@ class Content
     end
   end
 
+  # TODO: This is just a spike.
   class PygmentizedHTML < Redcarpet::Render::HTML
     def block_code(code, language)
-      Pygments.highlight(code, lexer: language)
+      Content::Code.highlight code, language
     end
   end
 end
