@@ -31,8 +31,7 @@ private
   end
 
   def layout_name
-    use_new_layout = (beta? || pending?) && (!text? || markdown?)
-    "#{ use_new_layout ? 'new_' : '' }layout".to_sym
+    "#{ (beta? || pending?) ? 'new_' : '' }layout".to_sym
   end
 
   def template_name
@@ -44,10 +43,12 @@ private
       else
         :image
       end
-    elsif beta? && markdown?
-      :new_markdown
     elsif text?
-      :text
+      if beta?
+        :new_markdown
+      else
+        :text
+      end
     else
       if beta?
         :new_download
@@ -62,8 +63,6 @@ private
       'waiting'
     elsif image?
       'image'
-    elsif beta? && markdown?
-      'markdown'
     elsif text?
       'text'
     else

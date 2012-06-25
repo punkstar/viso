@@ -131,7 +131,7 @@ describe DropPresenter do
         it 'renders the erb template' do
           template.
             should_receive(:erb).
-            with(:text, layout: :layout, locals: { drop: drop, body_id: 'text' })
+            with(:new_markdown, layout: :new_layout, locals: { drop: drop, body_id: 'text' })
 
           subject.render_html
         end
@@ -162,7 +162,7 @@ describe DropPresenter do
         it 'renders the new erb template with new layout' do
           template.
             should_receive(:erb).
-            with(:new_markdown, layout: :new_layout, locals: { drop: drop, body_id: 'markdown' })
+            with(:new_markdown, layout: :new_layout, locals: { drop: drop, body_id: 'text' })
 
           subject.render_html
         end
