@@ -107,12 +107,14 @@ describe Drop do
   end
 
   describe '#content' do
-    let(:data)        {{ content_url: content_url }}
+    let(:data)        {{ content_url: content_url, source: 'Cloud/2.0 beta' }}
     let(:content_url) { 'http://cl.ly/hhgttg/chapter1.txt' }
     let(:content)     { 'The house stood on a slight rise...' }
 
     before do
-      Content.stub!(:new).with(content_url).and_return(stub(content: content))
+      Content.stub!(:new).
+        with(content_url, true).
+        and_return(stub(content: content))
     end
 
     its(:content) { should eq(content) }

@@ -9,8 +9,9 @@ class Content
   include Code
   include Markdown
 
-  def initialize(content_url)
-    @content_url = content_url
+  def initialize(content_url, line_numbers = false)
+    @content_url  = content_url
+    @line_numbers = line_numbers
   end
 
   def raw

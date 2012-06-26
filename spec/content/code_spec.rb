@@ -12,8 +12,9 @@ describe Content::Code do
       include FakeSuper
       include Content::Code
 
-      def initialize(content_url)
-        @content_url = content_url
+      def initialize(content_url, line_numbers = true)
+        @content_url  = content_url
+        @line_numbers = line_numbers
       end
 
       def raw
@@ -35,6 +36,13 @@ describe Content::Code do
       code = '<div class="highlight"><pre><span class="nb">puts</span>'
 
       drop.content.should include(code)
+    end
+
+    it 'excludes line numbers' do
+      drop  = FakeContent.new 'http://cl.ly/hhgttg/hello.rb', false
+      lines = '<td class="linenos">'
+
+      drop.content.should_not include(lines)
     end
 
     it 'includes line numbers' do

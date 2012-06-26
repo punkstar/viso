@@ -351,8 +351,21 @@ describe Viso do
 
         content = 'Hello, world!'
         assert { last_response.body.include? content }
+        deny   { last_response.body.include? '<div class="linenodiv">' }
 
         assert_not_cached
+      end
+    end
+  end
+
+  it 'dumps the content of a code drop using a beta client' do
+    EM.synchrony do
+      VCR.use_cassette 'beta_ruby' do
+        get '/hhgttg'
+        EM.stop
+
+        assert { last_response.ok? }
+        assert { last_response.body.include? '<div class="linenodiv">' }
       end
     end
   end
