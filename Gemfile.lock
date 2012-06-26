@@ -108,8 +108,8 @@ GEM
     polyglot (0.3.3)
     predicated (0.2.6)
     proxies (0.2.1)
-    pygments.rb (0.2.13)
-      rubypython (~> 0.5.3)
+    pygments.rb (0.2.3)
+      rubypython (>= 0.5.1)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -136,7 +136,7 @@ GEM
       sexp_processor (~> 3.0)
     ruby_parser (2.0.5)
       sexp_processor (~> 3.0)
-    rubypython (0.5.3)
+    rubypython (0.5.1)
       blankslate (>= 2.1.2.3)
       ffi (~> 1.0.7)
     s3 (0.3.11)
@@ -213,7 +213,7 @@ DEPENDENCIES
   redcarpet (~> 2.1)
   rocco
   rspec
-  rubypython (= 0.5.3)
+  rubypython (= 0.5.1)
   simpleidn
   sinatra
   sinatra-contrib
