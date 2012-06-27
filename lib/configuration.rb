@@ -1,8 +1,8 @@
 require 'jammit_helper'
+require 'metriks'
 require 'sinatra/respond_with'
 
 module Configuration
-
   def self.registered(subject)
     Configurer.new(subject).inject
   end
@@ -18,6 +18,7 @@ module Configuration
       add_cache_middleware
       serve_public_assets
       log_to_stdout
+      record_metrics
     end
 
     def add_new_relic_instrumentation
@@ -96,6 +97,22 @@ module Configuration
     def log_to_stdout
       STDOUT.sync = true
     end
-  end
 
+    def record_metrics
+      configure :development do
+        require 'metriks/reporter/logger'
+        Metriks::Reporter::Logger.new(logger: Logger.new(STDOUT)).start
+      end
+
+      configure :production do
+        user  = ENV['LIBRATO_METRICS_USER']
+        token = ENV['LIBRATO_METRICS_TOKEN']
+        if user && token
+          require 'metriks/reporter/librato_metrics'
+          on_error = ->(e) do STDOUT.puts("LibratoMetrics: #{ e.message }") end
+          Metriks::Reporter::LibratoMetrics.new(user, token, on_error: on_error).start
+        end
+      end
+    end
+  end
 end

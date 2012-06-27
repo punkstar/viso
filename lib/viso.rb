@@ -19,6 +19,7 @@
 # [rack-fiber_pool]: https://github.com/mperham/rack-fiber_pool
 require 'addressable/uri'
 require 'eventmachine'
+require 'metriks'
 require 'sinatra/base'
 require 'simpleidn'
 
@@ -37,8 +38,10 @@ class Viso < Sinatra::Base
   # ping the API to get the home page for the current domain. Response is cached
   # for one hour.
   get '/' do
-    cache_control :public, :max_age => 3600
-    redirect DomainFetcher.fetch(env['HTTP_HOST']).home_page
+    Metriks.timer('root').time do
+      cache_control :public, :max_age => 3600
+      redirect DomainFetcher.fetch(env['HTTP_HOST']).home_page
+    end
   end
 
   # The main responder for a **Drop**. Responds to both JSON and HTML and
