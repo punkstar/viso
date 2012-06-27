@@ -38,10 +38,8 @@ class Viso < Sinatra::Base
   # ping the API to get the home page for the current domain. Response is cached
   # for one hour.
   get '/' do
-    Metriks.timer('root').time do
-      cache_control :public, :max_age => 3600
-      redirect DomainFetcher.fetch(env['HTTP_HOST']).home_page
-    end
+    cache_control :public, :max_age => 3600
+    redirect DomainFetcher.fetch(env['HTTP_HOST']).home_page
   end
 
   # The main responder for a **Drop**. Responds to both JSON and HTML and
@@ -53,7 +51,7 @@ class Viso < Sinatra::Base
            /o        # Show original image size
          )?
          $}x do |slug|
-    Metriks.timer('drop').time do
+    Metriks.timer('viso.drop').time do
       fetch_and_render_drop slug
     end
   end
@@ -62,9 +60,7 @@ class Viso < Sinatra::Base
          /([^/?#]+)  # Item slug
          /status
          $}x do |slug|
-    Metriks.timer('status').time do
-      fetch_and_render_status slug
-    end
+    fetch_and_render_status slug
   end
 
   # The content for a **Drop**. Redirect to the identical path on the API domain
@@ -74,10 +70,8 @@ class Viso < Sinatra::Base
          /([^/?#]+)  # Item slug
          /(.+)       # Filename
          $}x do |slug, filename|
-    Metriks.timer('content').time do
-      cache_control :public, :max_age => 900
-      redirect_to_api
-    end
+    cache_control :public, :max_age => 900
+    redirect_to_api
   end
 
   # Don't need to return anything special for a 404.
@@ -102,12 +96,19 @@ protected
   end
 
   def fetch_and_render_drop(slug)
-    drop = DropPresenter.new fetch_drop(slug), self
-    check_domain_matches drop
+    drop = Metriks.timer('viso.drop.fetch').time do
+      drop = DropPresenter.new fetch_drop(slug), self
+    end
 
-    respond_to do |format|
-      format.html { drop.render_html }
-      format.json { drop.render_json }
+    Metriks.timer('viso.drop.domain').time do
+      check_domain_matches drop
+    end
+
+    Metriks.timer("viso.drop.render.#{ drop.item_type }").time do
+      respond_to do |format|
+        format.html { drop.render_html }
+        format.json { drop.render_json }
+      end
     end
   rescue => e
     env['async.callback'].call [ 500, {}, error_content_for(:error) ]
