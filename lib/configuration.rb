@@ -104,7 +104,8 @@ module Configuration
       if user && token
         require 'metriks/reporter/librato_metrics'
         require 'socket'
-        source = [ Socket.gethostname, $$ ].join(':')
+
+        source   = Socket.gethostname
         on_error = ->(e) do STDOUT.puts("LibratoMetrics: #{ e.message }") end
         Metriks::Reporter::LibratoMetrics.new(user, token,
                                               on_error: on_error,
