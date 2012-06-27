@@ -53,14 +53,18 @@ class Viso < Sinatra::Base
            /o        # Show original image size
          )?
          $}x do |slug|
-    fetch_and_render_drop slug
+    Metriks.timer('drop').time do
+      fetch_and_render_drop slug
+    end
   end
 
   get %r{^
          /([^/?#]+)  # Item slug
          /status
          $}x do |slug|
-    fetch_and_render_status slug
+    Metriks.timer('status').time do
+      fetch_and_render_status slug
+    end
   end
 
   # The content for a **Drop**. Redirect to the identical path on the API domain
@@ -70,8 +74,10 @@ class Viso < Sinatra::Base
          /([^/?#]+)  # Item slug
          /(.+)       # Filename
          $}x do |slug, filename|
-    cache_control :public, :max_age => 900
-    redirect_to_api
+    Metriks.timer('content').time do
+      cache_control :public, :max_age => 900
+      redirect_to_api
+    end
   end
 
   # Don't need to return anything special for a 404.
