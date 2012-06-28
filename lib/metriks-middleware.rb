@@ -10,12 +10,19 @@ module Metriks
 
     def call(env)
       @timer.time do
-        backlog_wait = env['HTTP_X_HEROKU_QUEUE_WAIT_TIME']
-        if backlog_wait
-          @backlog.update backlog_wait.to_i
-        end
+        record_backlog env
         @app.call env
       end
+    end
+
+  protected
+
+    def record_backlog(env)
+      backlog_wait = env['HTTP_X_HEROKU_QUEUE_WAIT_TIME']
+      return unless backlog_wait
+
+      backlog_wait = backlog_wait.to_f / 1000.0
+      @backlog.update backlog_wait
     end
   end
 end
