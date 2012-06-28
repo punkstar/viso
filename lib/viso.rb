@@ -100,9 +100,7 @@ protected
       drop = DropPresenter.new fetch_drop(slug), self
     end
 
-    Metriks.timer('viso.drop.domain').time do
-      check_domain_matches drop
-    end
+    check_domain_matches drop
 
     Metriks.timer("viso.drop.render.#{ drop.item_type }").time do
       respond_to do |format|
