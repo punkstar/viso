@@ -10,6 +10,7 @@ module Configuration
   class Configurer < SimpleDelegator
     def inject
       add_new_relic_instrumentation
+      add_metriks_instrumentation
       catch_errors_with_hoptoad
       handle_requests_using_fiber_pool
 
@@ -39,6 +40,11 @@ module Configuration
         require 'newrelic_instrumentation'
         use NewRelicInstrumentationMiddleware
       end
+    end
+
+    def add_metriks_instrumentation
+      require 'metriks-middleware'
+      use Metriks::Middleware
     end
 
     def catch_errors_with_hoptoad
