@@ -8,7 +8,7 @@ module Metriks
 
     def call(env)
       time_response(env) do
-        record_backlog env
+        record_heroku_status env
         call_downstream env
       end
     end
@@ -25,12 +25,14 @@ module Metriks
       end
     end
 
-    def record_backlog(env)
-      backlog_wait = env['HTTP_X_HEROKU_QUEUE_WAIT_TIME']
-      return unless backlog_wait
+    def record_heroku_status(env)
+      queue_wait   = env['HTTP_X_HEROKU_QUEUE_WAIT_TIME']
+      queue_depth  = env['HTTP_X_HEROKU_QUEUE_DEPTH']
+      dynos_in_use = env['HTTP_X_HEROKU_DYNOS_IN_USE']
 
-      backlog_wait = backlog_wait.to_f / 1000.0
-      backlog_recorder.update(backlog_wait)
+      Metriks.histogram('viso.queue.wait') .update(queue_wait.to_i)   if queue_wait
+      Metriks.histogram('viso.queue.depth').update(queue_depth.to_i)  if queue_depth
+      Metriks.histogram('viso.dynos')      .update(dynos_in_use.to_i) if dynos_in_use
     end
 
     def call_downstream(env)
@@ -39,10 +41,6 @@ module Metriks
 
     def response_timer
       Metriks.timer 'viso'
-    end
-
-    def backlog_recorder
-      Metriks.histogram 'viso.backlog'
     end
   end
 end
