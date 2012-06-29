@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/lmarburger/metriks.git
-  revision: 576d7c1b2593b3f5fe8cdaa201aaf63cf4a6414e
-  branch: librato-reporter
+  revision: 0736a39eb53e516f73cbe3409b9ceaa6776eaa4f
+  branch: production
   specs:
     metriks (0.9.8.4)
       atomic (~> 1.0)
