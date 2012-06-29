@@ -3,19 +3,23 @@ require 'metriks'
 module Metriks
   class Middleware
     def initialize(app)
-      @app = app
-      @timer = Metriks.timer 'viso'
-      @backlog = Metriks.timer 'viso.backlog'
+      @app      = app
+      @response = Metriks.timer 'viso'
+      @backlog  = Metriks.timer 'viso.backlog'
     end
 
     def call(env)
-      @timer.time do
-        record_backlog env
-        @app.call env
-      end
+      prepare_response_timer env
+      record_backlog env
+      call_downstream env
     end
 
   protected
+
+    def prepare_response_timer(env)
+      timer = @response.time
+      env['async.close'].callback do timer.stop end
+    end
 
     def record_backlog(env)
       backlog_wait = env['HTTP_X_HEROKU_QUEUE_WAIT_TIME']
@@ -23,6 +27,10 @@ module Metriks
 
       backlog_wait = backlog_wait.to_f / 1000.0
       @backlog.update backlog_wait
+    end
+
+    def call_downstream(env)
+      @app.call env
     end
   end
 end
