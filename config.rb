@@ -7,4 +7,4 @@ javascripts_dir = "javascripts/new"
 fonts_dir = "public/fonts"
 # output_style = :compressed
 
-# line_comments = false
+line_comments = false
