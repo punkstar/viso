@@ -15,7 +15,7 @@ module Metriks
   protected
 
     def prepare_response_timer(env)
-      timer = Metriks.timer 'viso'
+      timer = Metriks.timer('viso').time
       env['async.close'].callback do timer.stop end
     end
 
