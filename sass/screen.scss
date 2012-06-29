@@ -9,12 +9,12 @@ $default-border-radius: 4px;
 $base-text-color: #252525;
 $link-color: #3974C5;
 
-@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro.eot", eot, "tisa-web-pro.woff", woff));
-@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-italic.eot", eot, "tisa-web-pro-italic.woff", woff), false, normal, italic);
-@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-bold.eot", eot, "tisa-web-pro-bold.woff", woff), false, bold, normal);
-@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-bold-italic.eot", eot, "tisa-web-pro-bold-italic.woff", woff), false, bold, italic);
+@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro.eot", "tisa-web-pro.woff"));
+@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-italic.eot", "tisa-web-pro-italic.woff"), false, normal, italic);
+@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-bold.eot", "tisa-web-pro-bold.woff"), false, bold, normal);
+@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-bold-italic.eot", "tisa-web-pro-bold-italic.woff"), false, bold, italic);
 
-@mixin tisa-web-pro {
+@mixin tisa-web-pro-font-stack {
   font-family: "Tisa Web Pro", Georgia, "Times New Roman", serif;
   font-family: Georgia, "Times New Roman", serif\9; // Target IE < 9
 }
@@ -130,7 +130,7 @@ a:visited {
 }
 
 #markdown {
-  font-family: "Tisa Web Pro", Georgia, "Times New Roman", serif;
+  @include tisa-web-pro-font-stack;
   line-height: 1.571428571;
 
   #{headers()} {
