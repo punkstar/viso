@@ -3,9 +3,7 @@ require 'metriks'
 module Metriks
   class Middleware
     def initialize(app)
-      @app      = app
-      @response = Metriks.timer 'viso'
-      @backlog  = Metriks.timer 'viso.backlog'
+      @app = app
     end
 
     def call(env)
@@ -17,7 +15,7 @@ module Metriks
   protected
 
     def prepare_response_timer(env)
-      timer = @response.time
+      timer = Metriks.timer 'viso'
       env['async.close'].callback do timer.stop end
     end
 
@@ -26,7 +24,7 @@ module Metriks
       return unless backlog_wait
 
       backlog_wait = backlog_wait.to_f / 1000.0
-      @backlog.update backlog_wait
+      Metriks.histogram('viso.backlog').update(backlog_wait)
     end
 
     def call_downstream(env)
