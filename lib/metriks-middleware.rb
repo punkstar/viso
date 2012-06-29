@@ -18,7 +18,7 @@ module Metriks
     def time_response(env, &block)
       if env.has_key? 'async.close'
         context = response_timer.time
-        env['async.close'].callback do p('stop'); context.stop end
+        env['async.close'].callback do context.stop end
         block.call
       else
         response_timer.time &block
