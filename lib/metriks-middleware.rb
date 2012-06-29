@@ -16,13 +16,12 @@ module Metriks
   protected
 
     def time_response(env, &block)
-      timer = Metriks.timer 'viso'
       if env.has_key? 'async.close'
-        timer.time
-        env['async.close'].callback do timer.stop end
+        context = response_timer.time
+        env['async.close'].callback do p('stop'); context.stop end
         block.call
       else
-        timer.time &block
+        response_timer.time &block
       end
     end
 
@@ -31,11 +30,19 @@ module Metriks
       return unless backlog_wait
 
       backlog_wait = backlog_wait.to_f / 1000.0
-      Metriks.histogram('viso.backlog').update(backlog_wait)
+      backlog_recorder.update(backlog_wait)
     end
 
     def call_downstream(env)
       @app.call env
+    end
+
+    def response_timer
+      Metriks.timer 'viso'
+    end
+
+    def backlog_recorder
+      Metriks.histogram 'viso.backlog'
     end
   end
 end
