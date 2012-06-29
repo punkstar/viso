@@ -9,10 +9,15 @@ $default-border-radius: 4px;
 $base-text-color: #252525;
 $link-color: #3974C5;
 
-@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro.eot", eot, "tisa-web-pro.woff", woff));
-@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-italic.eot", eot, "tisa-web-pro-italic.woff", woff), false, normal, italic);
-@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-bold.eot", eot, "tisa-web-pro-bold.woff", woff), false, bold, normal);
-@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-bold-italic.eot", eot, "tisa-web-pro-bold-italic.woff", woff), false, bold, italic);
+// @include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro.eot", eot, "tisa-web-pro.woff", woff));
+// @include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-italic.eot", eot, "tisa-web-pro-italic.woff", woff), false, normal, italic);
+// @include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-bold.eot", eot, "tisa-web-pro-bold.woff", woff), false, bold, normal);
+// @include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-bold-italic.eot", eot, "tisa-web-pro-bold-italic.woff", woff), false, bold, italic);
+
+@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro.woff", woff));
+@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-italic.woff", woff), false, normal, italic);
+@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-bold.woff", woff), false, bold, normal);
+@include font-face("Tisa Web Pro", inline-font-files("tisa-web-pro-bold-italic.woff", woff), false, bold, italic);
 
 @mixin tisa-web-pro-font-stack {
   font-family: "Tisa Web Pro", Georgia, "Times New Roman", serif;
