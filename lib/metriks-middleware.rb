@@ -7,16 +7,23 @@ module Metriks
     end
 
     def call(env)
-      prepare_response_timer env
-      record_backlog env
-      call_downstream env
+      time_response(env) do
+        record_backlog env
+        call_downstream env
+      end
     end
 
   protected
 
-    def prepare_response_timer(env)
-      timer = Metriks.timer('viso').time
-      env['async.close'].callback do timer.stop end
+    def time_response(env, &block)
+      timer = Metriks.timer 'viso'
+      if env.has_key? 'async.close'
+        timer.time
+        env['async.close'].callback do timer.stop end
+        block.call
+      else
+        timer.time &block
+      end
     end
 
     def record_backlog(env)
