@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/lmarburger/metriks.git
-  revision: 0736a39eb53e516f73cbe3409b9ceaa6776eaa4f
+  revision: 2117b9d2b7be94cf35efbd465487239f0a6d82a6
   branch: production
   specs:
     metriks (0.9.8.4)
