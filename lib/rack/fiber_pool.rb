@@ -3,6 +3,7 @@
 # License::   Distributes under the same terms as Ruby
 
 require 'fiber'
+require 'metriks'
 
 class Fiber
 
@@ -54,6 +55,7 @@ class FiberPool
           unless @queue.empty?
             block = @queue.shift
           else
+            Metriks.counter('viso.active-fibers').decrement
             @busy_fibers.delete(Fiber.current.object_id)
             @fibers.unshift Fiber.current
             block = Fiber.yield
@@ -71,6 +73,7 @@ class FiberPool
   def spawn(&block)
     if fiber = @fibers.shift
       fiber[:callbacks] = []
+      Metriks.counter('viso.active-fibers').increment
       @busy_fibers[fiber.object_id] = fiber
       fiber.resume(block)
     else
