@@ -55,8 +55,8 @@ class FiberPool
           unless @queue.empty?
             block = @queue.shift
           else
-            Metriks.counter('viso.active-fibers').decrement
             @busy_fibers.delete(Fiber.current.object_id)
+            Metriks.histogram('viso.active-fibers').update(@busy_fibers.size)
             @fibers.unshift Fiber.current
             block = Fiber.yield
           end
@@ -73,8 +73,8 @@ class FiberPool
   def spawn(&block)
     if fiber = @fibers.shift
       fiber[:callbacks] = []
-      Metriks.counter('viso.active-fibers').increment
       @busy_fibers[fiber.object_id] = fiber
+      Metriks.histogram('viso.active-fibers').update(@busy_fibers.size)
       fiber.resume(block)
     else
       @queue << block
