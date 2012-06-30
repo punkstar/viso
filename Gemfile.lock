@@ -78,6 +78,8 @@ GEM
       atomic (~> 1.0)
       avl_tree (~> 1.1.2)
       hitimes (~> 1.1)
+    metriks-middleware (0.0.1)
+      metriks (~> 0.9.9)
     mime-types (1.19)
     mimemagic (0.1.8)
     multi_json (1.3.6)
@@ -212,6 +214,7 @@ DEPENDENCIES
   hoptoad_notifier
   jammit-s3!
   metriks
+  metriks-middleware
   newrelic_rpm
   padrino
   pygments.rb
