@@ -51,9 +51,9 @@ class Viso < Sinatra::Base
            /o        # Show original image size
          )?
          $}x do |slug|
-    Metriks.timer('viso.drop').time do
+    Metriks.timer('viso.drop').time {
       fetch_and_render_drop slug
-    end
+    }
   end
 
   get %r{^
@@ -96,18 +96,18 @@ protected
   end
 
   def fetch_and_render_drop(slug)
-    drop = Metriks.timer('viso.drop.fetch').time do
+    drop = Metriks.timer('viso.drop.fetch').time {
       drop = DropPresenter.new fetch_drop(slug), self
-    end
+    }
 
     check_domain_matches drop
 
-    Metriks.timer("viso.drop.render.#{ drop.item_type }").time do
-      respond_to do |format|
+    Metriks.timer("viso.drop.render.#{ drop.item_type }").time {
+      respond_to {|format|
         format.html { drop.render_html }
         format.json { drop.render_json }
-      end
-    end
+      }
+    }
   rescue => e
     env['async.callback'].call [ 500, {}, error_content_for(:error) ]
     HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier

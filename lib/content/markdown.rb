@@ -5,10 +5,10 @@ class Content
   module Markdown
     def content
       return super unless markdown?
-      Metriks.timer('viso.markdown').time do
+      Metriks.timer('viso.markdown').time {
         Redcarpet::Markdown.new(PygmentizedHTML,
                                 fenced_code_blocks: true).render(raw)
-      end
+      }
     end
 
     def markdown?

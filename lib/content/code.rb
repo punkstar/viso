@@ -11,9 +11,9 @@ class Content
     RubyPython.configure :python_exe => 'python2.6'
 
     def self.highlight(code, lexer, line_numbers = false)
-      Metriks.timer('viso.pygments').time do
+      Metriks.timer('viso.pygments').time {
         Pygments.highlight code, lexer: lexer, options: { linenos: line_numbers }
-      end
+      }
     end
 
     def content
