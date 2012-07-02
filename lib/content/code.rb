@@ -12,7 +12,8 @@ class Content
 
     def self.highlight(code, lexer, line_numbers = false)
       Metriks.timer('viso.pygments').time {
-        Pygments.highlight code, lexer: lexer, options: { linenos: line_numbers }
+        Pygments.highlight code, lexer: lexer, options: { encoding: 'utf-8',
+                                                          linenos:  line_numbers }
       }
     end
 
