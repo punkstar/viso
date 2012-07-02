@@ -24,7 +24,7 @@ module Configuration
 
     def add_metriks_instrumentation
       require 'metriks/middleware'
-      use Metriks::Middleware, metric_prefix: 'viso'
+      use Metriks::Middleware, name: 'viso'
     end
 
     def add_new_relic_instrumentation
