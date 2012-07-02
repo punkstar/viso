@@ -1,3 +1,4 @@
+require 'metriks'
 require 'rubypython'
 require 'pygments.rb'
 
@@ -10,7 +11,9 @@ class Content
     RubyPython.configure :python_exe => 'python2.6'
 
     def self.highlight(code, lexer, line_numbers = false)
-      Pygments.highlight code, lexer: lexer, options: { linenos: line_numbers }
+      Metriks.timer('viso.pygments').time do
+        Pygments.highlight code, lexer: lexer, options: { linenos: line_numbers }
+      end
     end
 
     def content
@@ -25,9 +28,12 @@ class Content
     end
 
     def lexer_name
+      @timer = Metriks.timer('viso.pygments.lexer_name').time
       @lexer_name ||= lexer_name_for :filename => @content_url
     rescue RubyPython::PythonError
       false
+    ensure
+      @timer.stop
     end
 
     def code_too_large?
