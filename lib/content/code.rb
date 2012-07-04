@@ -10,10 +10,9 @@ class Content
     # latest version of python (2.7) on the system. python2.6 seems to work fine.
     RubyPython.configure :python_exe => 'python2.6'
 
-    def self.highlight(code, lexer, line_numbers = false)
+    def self.highlight(code, lexer)
       Metriks.timer('viso.pygments').time {
-        Pygments.highlight code, lexer: lexer, options: { encoding: 'utf-8',
-                                                          linenos:  line_numbers }
+        Pygments.highlight code, lexer: lexer, options: { encoding: 'utf-8' }
       }
     end
 
@@ -21,7 +20,7 @@ class Content
       return super unless code?
       return large_content if code_too_large?
 
-      Code.highlight raw, lexer_name, @line_numbers
+      Code.highlight raw, lexer_name
     end
 
     def code?

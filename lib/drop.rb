@@ -8,7 +8,7 @@ class Drop
 
   def initialize(data)
     @data    = data
-    @content = Content.new content_url, beta?
+    @content = Content.new content_url
   end
 
   def_delegators :@content, :content, :markdown?, :code?

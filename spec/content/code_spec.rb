@@ -13,9 +13,8 @@ describe Content::Code do
       include FakeSuper
       include Content::Code
 
-      def initialize(content_url, line_numbers = true)
-        @content_url  = content_url
-        @line_numbers = line_numbers
+      def initialize(content_url)
+        @content_url = content_url
       end
 
       def raw
@@ -37,20 +36,6 @@ describe Content::Code do
       code = '<div class="highlight"><pre><span class="nb">puts</span>'
 
       drop.content.should include(code)
-    end
-
-    it 'excludes line numbers' do
-      drop  = FakeContent.new 'http://cl.ly/hhgttg/hello.rb', false
-      lines = '<td class="linenos">'
-
-      drop.content.should_not include(lines)
-    end
-
-    it 'includes line numbers' do
-      drop  = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
-      lines = '<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv">'
-
-      drop.content.should include(lines)
     end
 
     it 'calls #super for non-code files' do
