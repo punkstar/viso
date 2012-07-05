@@ -194,6 +194,8 @@ a:visited {
     @include border-radius($default-border-radius);
     background: #F8F8F8;
     border: 1px solid #CCC;
+    font-family: Menlo, Monaco, monospace;
+    font-size: 0.857142857em;
     margin-bottom: 15px;
     overflow-x: auto;
     padding: 12px;
@@ -201,6 +203,7 @@ a:visited {
     code {
       background: transparent;
       border: none;
+      font-size: 1em;
       padding: 0;
     }
   }
