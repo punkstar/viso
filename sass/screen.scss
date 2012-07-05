@@ -183,7 +183,7 @@ a:visited {
 
   code {
     @include border-radius($default-border-radius);
-    background: #F8F8F8;
+    // background: #F8F8F8;
     border: 1px solid #CCC;
     font-family: Menlo, Monaco, monospace;
     font-size: 0.857142857em;
@@ -192,7 +192,7 @@ a:visited {
 
   pre {
     @include border-radius($default-border-radius);
-    background: #F8F8F8;
+    // background: #F8F8F8;
     border: 1px solid #CCC;
     font-family: Menlo, Monaco, monospace;
     font-size: 0.857142857em;
@@ -263,3 +263,4 @@ a:visited {
 }
 
 @import "header";
+@import "espresso";
