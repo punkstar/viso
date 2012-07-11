@@ -24,6 +24,9 @@ GEM
     activesupport (3.1.3)
       multi_json (~> 1.0)
     addressable (2.2.8)
+    airbrake (3.1.2)
+      activesupport
+      builder
     atomic (1.0.1)
     avl_tree (1.1.3)
     backports (2.6.1)
@@ -60,9 +63,6 @@ GEM
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
     hitimes (1.1.1)
-    hoptoad_notifier (2.4.11)
-      activesupport
-      builder
     http_parser.rb (0.5.3)
     http_router (0.10.2)
       rack (>= 1.0.0)
@@ -203,6 +203,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (= 3.1.3)
   addressable
+  airbrake
   backports
   compass
   dalli
@@ -210,7 +211,6 @@ DEPENDENCIES
   em-synchrony (~> 1.0)
   ffi (= 1.0.9)
   foreman
-  hoptoad_notifier
   jammit-s3!
   metriks
   metriks-middleware

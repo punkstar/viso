@@ -110,7 +110,7 @@ protected
     }
   rescue => e
     env['async.callback'].call [ 500, {}, error_content_for(:error) ]
-    HoptoadNotifier.notify_or_ignore e if defined? HoptoadNotifier
+    Airbrake.notify_or_ignore e if defined? Airbrake
   end
 
   def fetch_and_render_status(slug)

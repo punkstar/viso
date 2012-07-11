@@ -11,7 +11,7 @@ module Configuration
     def inject
       add_metriks_instrumentation
       add_new_relic_instrumentation
-      catch_errors_with_hoptoad
+      catch_errors_with_airbrake
       handle_requests_using_fiber_pool
 
       register_response_and_view_helpers
@@ -47,18 +47,18 @@ module Configuration
       end
     end
 
-    def catch_errors_with_hoptoad
+    def catch_errors_with_airbrake
       configure :production do
-        if ENV['HOPTOAD_API_KEY']
+        if ENV['AIRBRAKE_API_KEY']
           require 'active_support'
           require 'active_support/core_ext/object/blank'
-          require 'hoptoad_notifier'
+          require 'airbrake'
 
-          HoptoadNotifier.configure do |config|
-            config.api_key = ENV['HOPTOAD_API_KEY']
+          Airbrake.configure do |config|
+            config.api_key = ENV['AIRBRAKE_API_KEY']
           end
 
-          use HoptoadNotifier::Rack
+          use Airbrake::Rack
           enable :raise_errors
         end
       end

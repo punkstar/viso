@@ -28,7 +28,7 @@ gem 'rubypython', '0.5.1'
 gem 'activesupport', '3.1.3'
 gem 'ffi', '1.0.9'
 
-gem 'hoptoad_notifier'
+gem 'airbrake'
 gem 'newrelic_rpm'
 
 gem 'jammit-s3', :git => 'https://github.com/kmamykin/jammit-s3.git'
