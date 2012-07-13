@@ -44,7 +44,20 @@ describe Viso do
     end
   end
 
-  it 'returns a not found response for nonexistent drops' do
+  it 'returns a not found response for a nonexistent typed drop' do
+    EM.synchrony do
+      VCR.use_cassette 'nonexistent' do
+        get '/text/hhgttg'
+        EM.stop
+
+        assert { last_response.not_found? }
+        assert { last_response.body.include?('Sorry, no drops live here') }
+        assert_not_cached
+      end
+    end
+  end
+
+  it 'returns a not found response for a nonexistent untyped drop' do
     EM.synchrony do
       VCR.use_cassette 'nonexistent' do
         get '/hhgttg'
@@ -57,7 +70,18 @@ describe Viso do
     end
   end
 
-  it 'redirects the content URL to the API' do
+  it 'redirects a typed content URL to the API' do
+    EM.synchrony do
+      get '/text/hhgttg/chapter1.txt'
+      EM.stop
+
+      assert { last_response.redirect? }
+      assert { headers['Location'] == 'http://api.cld.me/text/hhgttg/chapter1.txt' }
+      assert_cached_for 900
+    end
+  end
+
+  it 'redirects an untyped content URL to the API' do
     EM.synchrony do
       get '/hhgttg/chapter1.txt'
       EM.stop
@@ -105,7 +129,23 @@ describe Viso do
     end
   end
 
-  it 'displays an image drop' do
+  it 'displays a typed image drop' do
+    EM.synchrony do
+      VCR.use_cassette 'image' do
+        get '/image/hhgttg'
+        EM.stop
+
+        assert { last_response.ok? }
+
+        image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
+        assert { last_response.body.include?(image_tag) }
+
+        assert_cached_for 900
+      end
+    end
+  end
+
+  it 'displays an untyped image drop' do
     EM.synchrony do
       VCR.use_cassette 'image' do
         get '/hhgttg'
@@ -289,7 +329,35 @@ describe Viso do
     end
   end
 
-  it 'dumps the content of a text drop' do
+  it 'dumps the content of a typed text drop' do
+    EM.synchrony do
+      VCR.use_cassette 'text' do
+        get '/text/hhgttg'
+        EM.stop
+
+        assert { last_response.ok? }
+
+        assert { last_response.body.include?('<body id="text">') }
+        deny   { last_response.body.include?("<img") }
+
+        title = %{<title>chapter1.txt</title>}
+        assert { last_response.body.include?(title) }
+
+        heading = %{<h2>chapter1.txt</h2>}
+        assert { last_response.body.include?(heading) }
+
+        link = %{<a class="embed" href="http://cl.ly/hhgttg/chapter1.txt">Direct link</a>}
+        assert { last_response.body.include?(link) }
+
+        content = 'The house stood on a slight rise just on the edge of the village.'
+        assert { last_response.body.include? content }
+
+        assert_not_cached
+      end
+    end
+  end
+
+  it 'dumps the content of an untyped text drop' do
     EM.synchrony do
       VCR.use_cassette 'text' do
         get '/hhgttg'
@@ -337,7 +405,27 @@ describe Viso do
     end
   end
 
-  it 'dumps the content of a code drop' do
+  it 'dumps the content of a typed code drop' do
+    EM.synchrony do
+      VCR.use_cassette 'ruby' do
+        get '/code/hhgttg'
+        EM.stop
+
+        assert { last_response.ok? }
+        assert { headers['Content-Type'] == 'text/html;charset=utf-8' }
+
+        section_tag = '<section class="monsoon" id="content">'
+        assert { last_response.body.include? section_tag }
+
+        content = 'Hello, world!'
+        assert { last_response.body.include? content }
+
+        assert_not_cached
+      end
+    end
+  end
+
+  it 'dumps the content of an untyped code drop' do
     EM.synchrony do
       VCR.use_cassette 'ruby' do
         get '/hhgttg'
@@ -357,7 +445,23 @@ describe Viso do
     end
   end
 
-  it 'forwards json response' do
+  it 'forwards typed json response' do
+    EM.synchrony do
+      VCR.use_cassette 'text' do
+        header 'Accept', 'application/json'
+        get    '/text/hhgttg'
+        drop = DropFetcher.fetch 'hhgttg'
+        EM.stop
+
+        assert { last_response.ok? }
+        assert { headers['Content-Type'] == 'application/json;charset=utf-8' }
+        assert { last_response.body == Yajl::Encoder.encode(drop.data) }
+        assert_not_cached
+      end
+    end
+  end
+
+  it 'forwards untyped json response' do
     EM.synchrony do
       VCR.use_cassette 'text' do
         header 'Accept', 'application/json'

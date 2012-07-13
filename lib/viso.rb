@@ -44,13 +44,14 @@ class Viso < Sinatra::Base
 
   # The main responder for a **Drop**. Responds to both JSON and HTML and
   # response is cached for 15 minutes.
-  get %r{^
-         /([^/?#]+)  # Item slug
-         (?:
-           /  |      # Ignore trailing /
-           /o        # Show original image size
-         )?
-         $}x do |slug|
+  get %r{^                         #
+         (?:/(text|code|image))?   # Optional drop type
+         /([^/?#]+)                # Item slug
+         (?:                       #
+           /  |                    # Ignore trailing /
+           /o                      # Show original image size
+         )?                        #
+         $}x do |type, slug|
     Metriks.timer('viso.drop').time {
       fetch_and_render_drop slug
     }
