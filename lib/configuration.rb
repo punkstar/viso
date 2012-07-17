@@ -116,7 +116,7 @@ module Configuration
         Metriks::Reporter::LibratoMetrics.new(user, token,
                                               on_error: on_error,
                                               source:   source).start
-      else
+      elsif development?
         require 'metriks/reporter/logger'
         Metriks::Reporter::Logger.new(logger:   Logger.new(STDOUT),
                                       interval: 10).start
