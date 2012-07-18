@@ -445,7 +445,7 @@ describe Viso do
     end
   end
 
-  it 'forwards typed json response' do
+  it 'returns typed json response' do
     EM.synchrony do
       VCR.use_cassette 'text' do
         header 'Accept', 'application/json'
@@ -461,7 +461,7 @@ describe Viso do
     end
   end
 
-  it 'forwards untyped json response' do
+  it 'returns untyped json response' do
     EM.synchrony do
       VCR.use_cassette 'text' do
         header 'Accept', 'application/json'
@@ -473,6 +473,21 @@ describe Viso do
         assert { headers['Content-Type'] == 'application/json;charset=utf-8' }
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
         assert_not_cached
+      end
+    end
+  end
+
+  it 'returns json response for content link' do
+    EM.synchrony do
+      VCR.use_cassette 'text' do
+        header 'Accept', 'application/json'
+        get    '/text/hhgttg/chapter1.txt'
+        drop = DropFetcher.fetch 'hhgttg'
+        EM.stop
+
+        assert { last_response.redirect? }
+        assert { headers['Location'] == 'http://api.cld.me/text/hhgttg/chapter1.txt' }
+        assert_cached_for 900
       end
     end
   end
