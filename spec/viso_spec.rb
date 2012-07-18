@@ -485,9 +485,10 @@ describe Viso do
         drop = DropFetcher.fetch 'hhgttg'
         EM.stop
 
-        assert { last_response.redirect? }
-        assert { headers['Location'] == 'http://api.cld.me/text/hhgttg/chapter1.txt' }
-        assert_cached_for 900
+        assert { last_response.ok? }
+        assert { headers['Content-Type'] == 'application/json;charset=utf-8' }
+        assert { last_response.body == Yajl::Encoder.encode(drop.data) }
+        assert_not_cached
       end
     end
   end

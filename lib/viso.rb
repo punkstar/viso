@@ -79,8 +79,9 @@ class Viso < Sinatra::Base
       end
       format.json do
         puts [ '$' * 5, 'rendering content as json', '$' * 5 ].join(' ')
-        cache_control :public, :max_age => 900
-        redirect_to_api
+        Metriks.timer('viso.drop').time {
+          fetch_and_render_drop slug
+        }
       end
     }
   end
