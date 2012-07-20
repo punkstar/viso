@@ -33,17 +33,17 @@ describe Drop do
   end
 
   describe '#item_type' do
-    let(:data)      {{ item_type: 'bookmark' }}
+    let(:data) {{ item_type: 'bookmark' }}
     its(:item_type) { should eq('bookmark') }
   end
 
   describe '#content_url' do
-    let(:data)        {{ content_url: 'http://cl.ly/hhgttg/chapter1.txt' }}
+    let(:data) {{ content_url: 'http://cl.ly/hhgttg/chapter1.txt' }}
     its(:content_url) { should eq('http://cl.ly/hhgttg/chapter1.txt') }
   end
 
   describe '#download_url' do
-    let(:data)         {{ download_url: 'http://cl.ly/hhgttg/chapter1.txt' }}
+    let(:data) {{ download_url: 'http://cl.ly/hhgttg/chapter1.txt' }}
     its(:download_url) { should eq('http://cl.ly/hhgttg/chapter1.txt') }
   end
 
