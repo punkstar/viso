@@ -13,13 +13,14 @@ class Drop
 
   def_delegators :@content, :content, :markdown?, :code?
 
-  def subscribed?()  @data[:subscribed]   end
-  def item_type()    @data[:item_type]    end
-  def share_url()    @data[:url]          end
-  def content_url()  @data[:content_url]  end
-  def download_url() @data[:download_url] end
-  def name()         @data[:name]         end
-  def gauge_id()     @data[:gauge_id]     end
+  def subscribed?()   @data[:subscribed]    end
+  def item_type()     @data[:item_type]     end
+  def share_url()     @data[:url]           end
+  def thumbnail_url() @data[:thumbnail_url] end
+  def content_url()   @data[:content_url]   end
+  def download_url()  @data[:download_url]  end
+  def name()          @data[:name]          end
+  def gauge_id()      @data[:gauge_id]      end
 
   def bookmark?
     @data[:item_type] == 'bookmark'

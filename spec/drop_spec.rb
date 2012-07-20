@@ -42,6 +42,11 @@ describe Drop do
     its(:share_url) { should eq('http://cl.ly/hhgttg') }
   end
 
+  describe '#thumbnail_url' do
+    let(:data) {{ thumbnail_url: 'http://cl.ly/hhgttg' }}
+    its(:thumbnail_url) { should eq('http://cl.ly/hhgttg') }
+  end
+
   describe '#content_url' do
     let(:data) {{ content_url: 'http://cl.ly/hhgttg/chapter1.txt' }}
     its(:content_url) { should eq('http://cl.ly/hhgttg/chapter1.txt') }
