@@ -15,6 +15,7 @@ class Drop
 
   def subscribed?()  @data[:subscribed]   end
   def item_type()    @data[:item_type]    end
+  def share_url()    @data[:url]          end
   def content_url()  @data[:content_url]  end
   def download_url() @data[:download_url] end
   def name()         @data[:name]         end

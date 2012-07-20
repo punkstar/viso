@@ -37,6 +37,11 @@ describe Drop do
     its(:item_type) { should eq('bookmark') }
   end
 
+  describe '#share_url' do
+    let(:data) {{ url: 'http://cl.ly/hhgttg' }}
+    its(:share_url) { should eq('http://cl.ly/hhgttg') }
+  end
+
   describe '#content_url' do
     let(:data) {{ content_url: 'http://cl.ly/hhgttg/chapter1.txt' }}
     its(:content_url) { should eq('http://cl.ly/hhgttg/chapter1.txt') }
