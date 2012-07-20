@@ -1,6 +1,7 @@
 require 'jammit_helper'
 require 'metriks'
 require 'sinatra/respond_with'
+require 'social_helper'
 
 module Configuration
   def self.registered(subject)
@@ -76,6 +77,7 @@ module Configuration
     def register_response_and_view_helpers
       register Sinatra::RespondWith
       register JammitHelper
+      register SocialHelper
       helpers { include Rack::Utils }
     end
 

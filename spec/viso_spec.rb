@@ -26,6 +26,16 @@ describe Viso do
     deny { headers.has_key? 'Cache-Control' }
   end
 
+  def assert_social_meta_data
+    meta_tag = %{<meta property="og:site_name" content="CloudApp">}
+    assert { last_response.body.include?(meta_tag) }
+  end
+
+  def deny_social_meta_data
+    meta_tag = %{<meta property="og:site_name" content="CloudApp">}
+    deny { last_response.body.include?(meta_tag) }
+  end
+
   def headers
     last_response.headers
   end
@@ -39,6 +49,7 @@ describe Viso do
 
         assert { last_response.redirect? }
         assert { headers['Location'] == 'http://hhgproject.org' }
+        deny_social_meta_data
         assert_cached_for 3600
       end
     end
@@ -52,6 +63,7 @@ describe Viso do
 
         assert { last_response.not_found? }
         assert { last_response.body.include?('Sorry, no drops live here') }
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -65,6 +77,7 @@ describe Viso do
 
         assert { last_response.not_found? }
         assert { last_response.body.include?('Sorry, no drops live here') }
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -77,6 +90,7 @@ describe Viso do
 
       assert { last_response.redirect? }
       assert { headers['Location'] == 'http://api.cld.me/text/hhgttg/chapter1.txt' }
+      deny_social_meta_data
       assert_cached_for 900
     end
   end
@@ -88,6 +102,7 @@ describe Viso do
 
       assert { last_response.redirect? }
       assert { headers['Location'] == 'http://api.cld.me/hhgttg/chapter1.txt' }
+      deny_social_meta_data
       assert_cached_for 900
     end
   end
@@ -99,6 +114,7 @@ describe Viso do
 
       assert { last_response.redirect? }
       assert { headers['Location'] == 'http://api.cld.me/hhgttg/chapter1%2F%3F%23.txt' }
+      deny_social_meta_data
       assert_cached_for 900
     end
   end
@@ -111,6 +127,7 @@ describe Viso do
 
         assert { last_response.redirect? }
         assert { headers['Location'] == 'http://api.cld.me/hhgttg' }
+        deny_social_meta_data
         assert_cached_for 900
       end
     end
@@ -124,6 +141,7 @@ describe Viso do
 
         assert { last_response.redirect? }
         assert { headers['Location'] == 'http://api.cld.me/hhgttg/content' }
+        deny_social_meta_data
         assert_cached_for 900
       end
     end
@@ -140,6 +158,7 @@ describe Viso do
         image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
         assert { last_response.body.include?(image_tag) }
 
+        assert_social_meta_data
         assert_cached_for 900
       end
     end
@@ -156,6 +175,7 @@ describe Viso do
         image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
         assert { last_response.body.include?(image_tag) }
 
+        assert_social_meta_data
         assert_cached_for 900
       end
     end
@@ -172,6 +192,7 @@ describe Viso do
         image_tag = %{<img alt="cover.png" src="http://dent.com/hhgttg/cover.png">}
         assert { last_response.body.include?(image_tag) }
 
+        assert_social_meta_data
         assert_cached_for 900
       end
     end
@@ -188,6 +209,7 @@ describe Viso do
         image_tag = %{<img alt="cover.png" src="http://dent.com/hhgttg/cover.png">}
         assert { last_response.body.include?(image_tag) }
 
+        assert_social_meta_data
         assert_cached_for 900
       end
     end
@@ -201,6 +223,7 @@ describe Viso do
 
         assert { last_response.not_found? }
         assert { last_response.body.include?('Sorry, no drops live here') }
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -214,6 +237,7 @@ describe Viso do
 
         assert { last_response.not_found? }
         assert { last_response.body.include?('Sorry, no drops live here') }
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -230,6 +254,7 @@ describe Viso do
         image_tag = %{<img alt="cover.png" src="http://☃.com/hhgttg/cover.png">}
         assert { last_response.body.include?(image_tag) }
 
+        assert_social_meta_data
         assert_cached_for 900
       end
     end
@@ -246,6 +271,7 @@ describe Viso do
         image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
         assert { last_response.body.include?(image_tag) }
 
+        assert_social_meta_data
         assert_cached_for 900
       end
     end
@@ -258,8 +284,11 @@ describe Viso do
         EM.stop
 
         assert { last_response.ok? }
+
         image_tag = %{<div class="button disabled waiting">}
         assert { last_response.body.include?(image_tag) }
+
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -272,6 +301,7 @@ describe Viso do
         EM.stop
 
         assert { last_response.ok? }
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -284,6 +314,7 @@ describe Viso do
         EM.stop
 
         assert { last_response.status == 204 }
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -296,6 +327,7 @@ describe Viso do
         EM.stop
 
         assert { last_response.status == 404 }
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -324,6 +356,7 @@ describe Viso do
         view_link = %{<a href="http://cl.ly/hhgttg/Chapter_1.blah">view</a>}
         assert { last_response.body.include?(view_link) }
 
+        deny_social_meta_data
         assert_cached_for 900
       end
     end
@@ -352,6 +385,7 @@ describe Viso do
         content = 'The house stood on a slight rise just on the edge of the village.'
         assert { last_response.body.include? content }
 
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -380,6 +414,7 @@ describe Viso do
         content = 'The house stood on a slight rise just on the edge of the village.'
         assert { last_response.body.include? content }
 
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -400,6 +435,7 @@ describe Viso do
         content = 'The house stood on a slight rise just on the edge of the village.'
         assert { last_response.body.include? content }
 
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -420,6 +456,7 @@ describe Viso do
         content = 'Hello, world!'
         assert { last_response.body.include? content }
 
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -440,6 +477,7 @@ describe Viso do
         content = 'Hello, world!'
         assert { last_response.body.include? content }
 
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -456,6 +494,7 @@ describe Viso do
         assert { last_response.ok? }
         assert { headers['Content-Type'] == 'application/json;charset=utf-8' }
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -472,6 +511,7 @@ describe Viso do
         assert { last_response.ok? }
         assert { headers['Content-Type'] == 'application/json;charset=utf-8' }
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
+        deny_social_meta_data
         assert_not_cached
       end
     end
@@ -488,6 +528,7 @@ describe Viso do
         assert { last_response.ok? }
         assert { headers['Content-Type'] == 'application/json;charset=utf-8' }
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
+        deny_social_meta_data
         assert_not_cached
       end
     end
