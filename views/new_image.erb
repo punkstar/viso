@@ -3,19 +3,12 @@
   <img alt="<%= escape_html drop.name %>" src="<%= drop.content_url %>">
   <script>
     (function() {
-      function recordMetric(name, value) {
-        value = value || 0
-        var script   = document.createElement("script");
-        script.async = true;
-        script.src   = "/metrics?name=" + name + "&value=" + value;
-        document.body.appendChild(script);
-      }
       $('img')
         .load(function() {
-          recordMetric("image-load", new Date() - imageLoadStart);
+          Metriks.record("image-load", new Date() - imageLoadStart);
         })
         .error(function() {
-          recordMetric("image-error");
+          Metriks.record("image-error");
         });
     }());
   </script>
