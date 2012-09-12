@@ -31,7 +31,6 @@ require 'domain'
 require 'domain_fetcher'
 
 class Viso < Sinatra::Base
-
   register Configuration
 
   # The home page. Custom domain users have the option to set a home page so
@@ -40,6 +39,19 @@ class Viso < Sinatra::Base
   get '/' do
     cache_control :public, :max_age => 3600
     redirect DomainFetcher.fetch(env['HTTP_HOST']).home_page
+  end
+
+  get '/metrics' do
+    case params['name']
+    when 'image-load'
+      value = params.fetch('value', 0).to_i
+      Metriks.timer("viso.js.image-load").update(value) if value > 0
+    when 'image-error'
+      Metriks.counter("viso.js.image-error").increment
+    end
+
+    content_type 'text/javascript'
+    status 200
   end
 
   # The main responder for a **Drop**. Responds to both JSON and HTML and
@@ -158,5 +170,4 @@ protected
       actual == expected or
       actual.sub(/^www\./, '') == expected
   end
-
 end

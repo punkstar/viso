@@ -1,3 +1,22 @@
 <section id="image" class="wrapper">
+  <script>var imageLoadStart = new Date();</script>
   <img alt="<%= escape_html drop.name %>" src="<%= drop.content_url %>">
+  <script>
+    (function() {
+      function recordMetric(name, value) {
+        value = value || 0
+        var script   = document.createElement("script");
+        script.async = true;
+        script.src   = "/metrics?name=" + name + "&value=" + value;
+        document.body.appendChild(script);
+      }
+      $('img')
+        .load(function() {
+          recordMetric("image-load", new Date() - imageLoadStart);
+        })
+        .error(function() {
+          recordMetric("image-error");
+        });
+    }());
+  </script>
 </section>

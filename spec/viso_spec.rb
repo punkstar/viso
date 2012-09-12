@@ -581,4 +581,26 @@ describe Viso do
       assert { headers['Cache-Control'] == "public, max-age=31557600" }
     end
   end
+
+  it 'records metrics' do
+    EM.synchrony do
+      get '/metrics?name=image-load&value=42'
+      EM.stop
+
+      assert { last_response.status == 200 }
+      assert { headers['Content-Type'] == 'text/javascript;charset=utf-8' }
+      assert { last_response.body.empty? }
+    end
+  end
+
+  it 'ignores bogus metrics' do
+    EM.synchrony do
+      get '/metrics?name=image-load&value=forty-two'
+      EM.stop
+
+      assert { last_response.status == 200 }
+      assert { headers['Content-Type'] == 'text/javascript;charset=utf-8' }
+      assert { last_response.body.empty? }
+    end
+  end
 end
