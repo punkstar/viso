@@ -153,7 +153,7 @@ describe Viso do
       stub_request(:post, 'http://api.cld.me/hhgttg/view').
         to_return(:status => [201, 'Created'])
 
-      get "/content/hhgttg/aHR0cDovL2dldGNsb3VkYXBwLmNvbQ=="
+      get '/content/hhgttg/aHR0cDovL2dldGNsb3VkYXBwLmNvbQ=='
       EM.stop
 
       assert_requested :post, 'http://api.cld.me/hhgttg/view'
@@ -169,12 +169,23 @@ describe Viso do
       stub_request(:post, 'http://api.cld.me/hhgttg/view').
         to_return(:status => [201, 'Created'])
 
-      get "/content/image/hhgttg/aHR0cDovL2YuY2wubHkvaXRlbXMvaGhndHRnL1NjcmVlbl9TaG90XzIwMTItMDQtMDFfYXRfMTIuMDAuMDBfQU0ucG5n"
+      get '/content/image/hhgttg/aHR0cDovL2YuY2wubHkvaXRlbXMvaGhndHRnL1NjcmVlbl9TaG90XzIwMTItMDQtMDFfYXRfMTIuMDAuMDBfQU0ucG5n'
       EM.stop
 
       assert_requested :post, 'http://api.cld.me/hhgttg/view'
       assert { last_response.redirect? }
       assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/Screen_Shot_2012-04-01_at_12.00.00_AM.png' }
+      deny_social_meta_data
+      assert_not_cached
+    end
+  end
+
+  it 'returns not found response when link has encoding error' do
+    EM.synchrony do
+      get '/content/image/hhgttg/!'
+      EM.stop
+
+      assert { last_response.status == 404 }
       deny_social_meta_data
       assert_not_cached
     end

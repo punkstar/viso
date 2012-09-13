@@ -84,6 +84,12 @@ class Viso < Sinatra::Base
          /([^/?#]+)               # Encoded url
          $}x do |type, slug, encoded_url|
 
+    begin
+      decoded_url = Base64.urlsafe_decode64(encoded_url)
+    rescue
+      not_found
+    end
+
     Metriks.timer('viso.content').time {
       http = EM::HttpRequest.
                new("http://#{ DropFetcher.base_uri }/#{ slug }/view").
@@ -104,7 +110,7 @@ class Viso < Sinatra::Base
                '#' * 5
              ].join(' ')
       }
-      redirect Base64.urlsafe_decode64(encoded_url)
+      redirect decoded_url
     }
   end
 
