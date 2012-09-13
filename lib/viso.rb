@@ -30,6 +30,8 @@ require 'drop_presenter'
 require 'domain'
 require 'domain_fetcher'
 
+require 'base64'
+
 class Viso < Sinatra::Base
   register Configuration
 
@@ -74,6 +76,22 @@ class Viso < Sinatra::Base
          /status
          $}x do |slug|
     fetch_and_render_status slug
+  end
+
+  get %r{^/content                #
+         (?:/(text|code|image))?  # Optional drop type
+         /([^/?#]+)               # Item slug
+         /([^/?#]+)               # Encoded url
+         $}x do |type, slug, encoded_url|
+
+    Metriks.timer('viso.content').time {
+      http = EM::HttpRequest.
+               new("http://#{ DropFetcher.base_uri }/#{ slug }/view").
+               apost
+      http.errback  {}
+      http.callback {}
+      redirect Base64.decode64(encoded_url)
+    }
   end
 
   # The content for a **Drop**. Redirect to the identical path on the API domain

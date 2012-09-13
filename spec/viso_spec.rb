@@ -2,6 +2,7 @@
 require 'helper'
 require 'rack/test'
 require 'support/vcr'
+require 'webmock/rspec'
 
 require 'viso'
 
@@ -144,6 +145,36 @@ describe Viso do
         deny_social_meta_data
         assert_cached_for 900
       end
+    end
+  end
+
+  it 'redirects to the encoded URL' do
+    EM.synchrony do
+      stub_request :post, 'http://api.cld.me/hhgttg/view'
+
+      get "/content/hhgttg/aHR0cDovL2dldGNsb3VkYXBwLmNvbQ=="
+      EM.stop
+
+      assert_requested :post, 'http://api.cld.me/hhgttg/view'
+      assert { last_response.redirect? }
+      assert { headers['Location'] == 'http://getcloudapp.com' }
+      deny_social_meta_data
+      assert_not_cached
+    end
+  end
+
+  it 'redirects to the encoded URL from a typed drop' do
+    EM.synchrony do
+      stub_request :post, 'http://api.cld.me/hhgttg/view'
+
+      get "/content/image/hhgttg/aHR0cDovL2dldGNsb3VkYXBwLmNvbQ=="
+      EM.stop
+
+      assert_requested :post, 'http://api.cld.me/hhgttg/view'
+      assert { last_response.redirect? }
+      assert { headers['Location'] == 'http://getcloudapp.com' }
+      deny_social_meta_data
+      assert_not_cached
     end
   end
 
