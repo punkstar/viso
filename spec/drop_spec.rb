@@ -57,6 +57,20 @@ describe Drop do
     its(:download_url) { should eq('http://cl.ly/hhgttg/chapter1.txt') }
   end
 
+  describe '#remote_url' do
+    let(:data) {{ remote_url: 'http://cl.ly/hhgttg/chapter1.txt' }}
+    its(:remote_url) { should eq('http://cl.ly/hhgttg/chapter1.txt') }
+  end
+
+  describe '#fast_content_url' do
+    let(:data) {{ url:        'http://cl.ly/hhgttg',
+                  remote_url: 'http://cl.ly/hhgttg/chapter1.txt' }}
+    its(:fast_content_url) do
+      encoded_remote_url = 'aHR0cDovL2NsLmx5L2hoZ3R0Zy9jaGFwdGVyMS50eHQ='
+      should eq("http://cl.ly/content/hhgttg/#{ encoded_remote_url }")
+    end
+  end
+
   describe '#name' do
     let(:data) {{ name: 'Chapter 1' }}
     its(:name) { should eq('Chapter 1') }

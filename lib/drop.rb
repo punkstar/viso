@@ -1,3 +1,4 @@
+require 'base64'
 require 'content'
 require 'forwardable'
 
@@ -19,8 +20,17 @@ class Drop
   def thumbnail_url() @data[:thumbnail_url] end
   def content_url()   @data[:content_url]   end
   def download_url()  @data[:download_url]  end
+  def content_url()   @data[:content_url]   end
+  def remote_url()    @data[:remote_url]    end
   def name()          @data[:name]          end
   def gauge_id()      @data[:gauge_id]      end
+
+  def fast_content_url
+    url = share_url.split '/'
+    url.insert 3, 'content'
+    url.push Base64.encode64(remote_url).chomp
+    url.join '/'
+  end
 
   def bookmark?
     @data[:item_type] == 'bookmark'
