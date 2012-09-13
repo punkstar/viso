@@ -64,9 +64,9 @@ describe Drop do
 
   describe '#fast_content_url' do
     let(:data) {{ url:        'http://cl.ly/hhgttg',
-                  remote_url: 'http://cl.ly/hhgttg/chapter1.txt' }}
+                  remote_url: 'http://f.cl.ly/items/hhgttg/Screen_Shot_2012-04-01_at_12.00.00_AM.png' }}
     its(:fast_content_url) do
-      encoded_remote_url = 'aHR0cDovL2NsLmx5L2hoZ3R0Zy9jaGFwdGVyMS50eHQ='
+      encoded_remote_url = 'aHR0cDovL2YuY2wubHkvaXRlbXMvaGhndHRnL1NjcmVlbl9TaG90XzIwMTItMDQtMDFfYXRfMTIuMDAuMDBfQU0ucG5n'
       should eq("http://cl.ly/content/hhgttg/#{ encoded_remote_url }")
     end
   end

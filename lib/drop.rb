@@ -28,7 +28,7 @@ class Drop
   def fast_content_url
     url = share_url.split '/'
     url.insert 3, 'content'
-    url.push Base64.encode64(remote_url).chomp
+    url.push Base64.urlsafe_encode64(remote_url)
     url.join '/'
   end
 

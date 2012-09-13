@@ -90,7 +90,7 @@ class Viso < Sinatra::Base
                apost
       http.errback  {}
       http.callback {}
-      redirect Base64.decode64(encoded_url)
+      redirect Base64.urlsafe_decode64(encoded_url)
     }
   end
 
