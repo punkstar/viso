@@ -13,7 +13,6 @@ class DropPresenter < SimpleDelegator
     if bookmark?
       @template.redirect_to_api
     else
-      print_debug_message
       @template.erb template_name, layout: layout_name,
                                    locals: { drop: self, body_id: body_id }
     end
@@ -68,13 +67,5 @@ private
     else
       'other'
     end
-  end
-
-  def print_debug_message
-    return unless template_name.to_s.start_with?("new_") ||
-                    layout_name.to_s.start_with?("new_")
-
-    debug = { template: template_name, layout: layout_name }
-    puts [ '#' * 5, "rendering #{ debug.inspect }", '#' * 5 ].join(' ')
   end
 end

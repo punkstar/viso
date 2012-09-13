@@ -108,7 +108,6 @@ class Viso < Sinatra::Base
         redirect_to_api
       end
       format.json do
-        puts [ '$' * 5, 'rendering content as json', '$' * 5 ].join(' ')
         Metriks.timer('viso.drop').time {
           fetch_and_render_drop slug
         }
@@ -156,7 +155,6 @@ protected
   end
 
   def fetch_and_render_status(slug)
-    puts [ '#' * 5, 'rendering status', '#' * 5 ].join(' ')
     drop = DropPresenter.new fetch_drop(slug), self
     status drop.pending? ? 204 : 200
   end
