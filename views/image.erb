@@ -10,12 +10,16 @@
 
 <section id="content">
   <script>var imageLoadStart = new Date();</script>
-  <img alt="<%= escape_html drop.name %>" src="<%= drop.content_url %>">
+  <% if fast = [true, false].sample %>
+    <img alt="<%= escape_html drop.name %>" src="<%= drop.fast_content_url %>">
+  <% else %>
+    <img alt="<%= escape_html drop.name %>" src="<%= drop.content_url %>">
+  <% end %>
   <script>
     (function() {
       $('img')
         .load(function() {
-          Metriks.record("image-load", new Date() - imageLoadStart);
+          Metriks.record("image-load<%= fast ? '-test' : '' %>", new Date() - imageLoadStart);
         })
         .error(function() {
           Metriks.record("image-error");

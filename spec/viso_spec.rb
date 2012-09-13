@@ -186,8 +186,12 @@ describe Viso do
 
         assert { last_response.ok? }
 
+        # image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
+        # assert { last_response.body.include?(image_tag) }
         image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
-        assert { last_response.body.include?(image_tag) }
+        fast_image_tag = %{<img alt="cover.png" src="http://cl.ly/content/hhgttg/}
+        assert { last_response.body.include?(image_tag) ||
+                 last_response.body.include?(fast_image_tag) }
 
         assert_social_meta_data
         assert_cached_for 900
@@ -203,8 +207,12 @@ describe Viso do
 
         assert { last_response.ok? }
 
+        # image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
+        # assert { last_response.body.include?(image_tag) }
         image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
-        assert { last_response.body.include?(image_tag) }
+        fast_image_tag = %{<img alt="cover.png" src="http://cl.ly/content/hhgttg/}
+        assert { last_response.body.include?(image_tag) ||
+                 last_response.body.include?(fast_image_tag) }
 
         assert_social_meta_data
         assert_cached_for 900
@@ -220,8 +228,12 @@ describe Viso do
 
         assert { last_response.ok? }
 
+        # image_tag = %{<img alt="cover.png" src="http://dent.com/hhgttg/cover.png">}
+        # assert { last_response.body.include?(image_tag) }
         image_tag = %{<img alt="cover.png" src="http://dent.com/hhgttg/cover.png">}
-        assert { last_response.body.include?(image_tag) }
+        fast_image_tag = %{<img alt="cover.png" src="http://dent.com/content/hhgttg/}
+        assert { last_response.body.include?(image_tag) ||
+                 last_response.body.include?(fast_image_tag) }
 
         assert_social_meta_data
         assert_cached_for 900
@@ -237,8 +249,12 @@ describe Viso do
 
         assert { last_response.ok? }
 
+        # image_tag = %{<img alt="cover.png" src="http://dent.com/hhgttg/cover.png">}
+        # assert { last_response.body.include?(image_tag) }
         image_tag = %{<img alt="cover.png" src="http://dent.com/hhgttg/cover.png">}
-        assert { last_response.body.include?(image_tag) }
+        fast_image_tag = %{<img alt="cover.png" src="http://dent.com/content/hhgttg/}
+        assert { last_response.body.include?(image_tag) ||
+                 last_response.body.include?(fast_image_tag) }
 
         assert_social_meta_data
         assert_cached_for 900
@@ -282,8 +298,12 @@ describe Viso do
 
         assert { last_response.ok? }
 
+        # image_tag = %{<img alt="cover.png" src="http://☃.com/hhgttg/cover.png">}
+        # assert { last_response.body.include?(image_tag) }
         image_tag = %{<img alt="cover.png" src="http://☃.com/hhgttg/cover.png">}
-        assert { last_response.body.include?(image_tag) }
+        fast_image_tag = %{<img alt="cover.png" src="http://☃.com/content/hhgttg/}
+        assert { last_response.body.include?(image_tag) ||
+                 last_response.body.include?(fast_image_tag) }
 
         assert_social_meta_data
         assert_cached_for 900
@@ -299,8 +319,12 @@ describe Viso do
 
         assert { last_response.ok? }
 
+        # image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
+        # assert { last_response.body.include?(image_tag) }
         image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
-        assert { last_response.body.include?(image_tag) }
+        fast_image_tag = %{<img alt="cover.png" src="http://cl.ly/content/hhgttg/}
+        assert { last_response.body.include?(image_tag) ||
+                 last_response.body.include?(fast_image_tag) }
 
         assert_social_meta_data
         assert_cached_for 900
@@ -316,8 +340,8 @@ describe Viso do
 
         assert { last_response.ok? }
 
-        image_tag = %{<div class="button disabled waiting">}
-        assert { last_response.body.include?(image_tag) }
+        waiting_tag = %{<div class="button disabled waiting">}
+        assert { last_response.body.include?(waiting_tag) }
 
         deny_social_meta_data
         assert_not_cached
