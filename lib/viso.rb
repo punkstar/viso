@@ -88,8 +88,22 @@ class Viso < Sinatra::Base
       http = EM::HttpRequest.
                new("http://#{ DropFetcher.base_uri }/#{ slug }/view").
                apost
-      http.errback  {}
-      http.callback {}
+      http.callback {
+        if http.response_header.status != 201
+          puts [ '#' * 5,
+                 http.last_effective_url,
+                 http.response_header.status,
+                 '#' * 5
+               ].join(' ')
+        end
+      }
+      http.errback {
+        puts [ '#' * 5,
+               http.last_effective_url,
+               'ERR',
+               '#' * 5
+             ].join(' ')
+      }
       redirect Base64.urlsafe_decode64(encoded_url)
     }
   end

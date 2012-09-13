@@ -150,7 +150,8 @@ describe Viso do
 
   it 'redirects to the encoded URL' do
     EM.synchrony do
-      stub_request :post, 'http://api.cld.me/hhgttg/view'
+      stub_request(:post, 'http://api.cld.me/hhgttg/view').
+        to_return(:status => [201, 'Created'])
 
       get "/content/hhgttg/aHR0cDovL2dldGNsb3VkYXBwLmNvbQ=="
       EM.stop
@@ -165,7 +166,8 @@ describe Viso do
 
   it 'redirects to the encoded URL from a typed drop' do
     EM.synchrony do
-      stub_request :post, 'http://api.cld.me/hhgttg/view'
+      stub_request(:post, 'http://api.cld.me/hhgttg/view').
+        to_return(:status => [201, 'Created'])
 
       get "/content/image/hhgttg/aHR0cDovL2YuY2wubHkvaXRlbXMvaGhndHRnL1NjcmVlbl9TaG90XzIwMTItMDQtMDFfYXRfMTIuMDAuMDBfQU0ucG5n"
       EM.stop
