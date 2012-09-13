@@ -44,12 +44,12 @@ class Viso < Sinatra::Base
   end
 
   get '/metrics' do
-    case params['name']
-    when 'image-load'
+    case name = params['name']
+    when 'image-load', 'image-load-test'
       value = params.fetch('value', 0).to_i
-      Metriks.timer("viso.js.image-load").update(value) if value > 0
+      Metriks.timer("viso.js.#{ name }").update(value) if value > 0
     when 'image-error'
-      Metriks.counter("viso.js.image-error").increment
+      Metriks.counter('viso.js.image-error').increment
     end
 
     content_type 'text/javascript'
