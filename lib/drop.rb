@@ -25,13 +25,6 @@ class Drop
   def name()          @data[:name]          end
   def gauge_id()      @data[:gauge_id]      end
 
-  def fast_content_url
-    url = share_url.split '/'
-    url.insert 3, 'content'
-    url.push Base64.urlsafe_encode64(remote_url)
-    url.join '/'
-  end
-
   def bookmark?
     @data[:item_type] == 'bookmark'
   end
