@@ -58,8 +58,15 @@ describe Drop do
   end
 
   describe '#remote_url' do
-    let(:data) {{ remote_url: 'http://cl.ly/hhgttg/chapter1.txt' }}
-    its(:remote_url) { should eq('http://cl.ly/hhgttg/chapter1.txt') }
+    context 'a file' do
+      let(:data) {{ remote_url: 'http://cl.ly/hhgttg/chapter1.txt' }}
+      its(:remote_url) { should eq('http://cl.ly/hhgttg/chapter1.txt') }
+    end
+
+    context 'a bookmark' do
+      let(:data) {{ redirect_url: 'http://cl.ly/hhgttg/chapter1.txt' }}
+      its(:remote_url) { should eq('http://cl.ly/hhgttg/chapter1.txt') }
+    end
   end
 
   describe '#fast_content_url' do
