@@ -8,11 +8,10 @@ class DropPresenter < SimpleDelegator
   end
 
   def render_html
-    cache_response
-
     if bookmark?
       @template.redirect_to_content self
     else
+      cache_response
       @template.erb template_name, layout: layout_name,
                                    locals: { drop: self, body_id: body_id }
     end

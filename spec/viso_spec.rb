@@ -84,7 +84,7 @@ describe Viso do
     end
   end
 
-  it 'redirects a typed content URL to the API' do
+  it 'redirects a typed content URL to its content' do
     EM.synchrony do
       VCR.use_cassette 'text' do
         stub_request(:post, 'http://api.cld.me/hhgttg/view').
@@ -97,12 +97,12 @@ describe Viso do
         assert { last_response.redirect? }
         assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/chapter1.txt' }
         deny_social_meta_data
-        assert_cached_for 900
+        assert_not_cached
       end
     end
   end
 
-  it 'redirects an untyped content URL to the API' do
+  it 'redirects an untyped content URL to its content' do
     EM.synchrony do
       VCR.use_cassette 'text' do
         stub_request(:post, 'http://api.cld.me/hhgttg/view').
@@ -115,12 +115,12 @@ describe Viso do
         assert { last_response.redirect? }
         assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/chapter1.txt' }
         deny_social_meta_data
-        assert_cached_for 900
+        assert_not_cached
       end
     end
   end
 
-  # it 'redirects file names with an encoded, unfriendly characters to the API' do
+  # it 'redirects file names with an encoded, unfriendly characters to its content' do
   #   EM.synchrony do
   #     get '/hhgttg/chapter1%2F%3F%23.txt'
   #     EM.stop
@@ -132,7 +132,7 @@ describe Viso do
   #   end
   # end
 
-  it 'redirects a bookmark to the API' do
+  it 'redirects a bookmark to its content' do
     EM.synchrony do
       VCR.use_cassette 'bookmark' do
         stub_request(:post, 'http://api.cld.me/hhgttg/view').
@@ -145,12 +145,12 @@ describe Viso do
         assert { last_response.redirect? }
         assert { headers['Location'] == 'http://getcloudapp.com/download' }
         deny_social_meta_data
-        assert_cached_for 900
+        assert_not_cached
       end
     end
   end
 
-  it "redirects a bookmark's content URL to the API" do
+  it "redirects a bookmark's content URL to its content" do
     EM.synchrony do
       VCR.use_cassette 'bookmark' do
         stub_request(:post, 'http://api.cld.me/hhgttg/view').
@@ -163,7 +163,7 @@ describe Viso do
         assert { last_response.redirect? }
         assert { headers['Location'] == 'http://getcloudapp.com/download' }
         deny_social_meta_data
-        assert_cached_for 900
+        assert_not_cached
       end
     end
   end
@@ -180,7 +180,7 @@ describe Viso do
       assert { last_response.redirect? }
       assert { headers['Location'] == 'http://getcloudapp.com' }
       deny_social_meta_data
-      assert_cached_for 900
+      assert_not_cached
     end
   end
 
@@ -196,7 +196,7 @@ describe Viso do
       assert { last_response.redirect? }
       assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/Screen_Shot_2012-04-01_at_12.00.00_AM.png' }
       deny_social_meta_data
-      assert_cached_for 900
+      assert_not_cached
     end
   end
 

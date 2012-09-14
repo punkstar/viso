@@ -111,7 +111,6 @@ class Viso < Sinatra::Base
                '#' * 5
              ].join(' ')
       }
-      cache_control :public, :max_age => 900
       redirect decoded_url
     }
   end
@@ -160,8 +159,6 @@ class Viso < Sinatra::Base
                '#' * 5
              ].join(' ')
       }
-
-      cache_control :public, :max_age => 900
       redirect drop.remote_url
     }
   end

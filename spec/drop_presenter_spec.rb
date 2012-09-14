@@ -19,19 +19,11 @@ describe DropPresenter do
 
     describe 'a bookmark drop' do
       let(:bookmark) { true }
-      let(:template) do
-        stub request:             stub(path: '/slug'),
-             cache_control:       nil,
-             redirect_to_content: nil
-      end
+      let(:template) { stub request: stub(path: '/slug'),
+                            redirect_to_content: nil }
 
       it 'redirects to the api' do
         template.should_receive(:redirect_to_content).with(subject)
-        subject.render_html
-      end
-
-      it 'is cached' do
-        template.should_receive(:cache_control).with(:public, max_age: 900)
         subject.render_html
       end
 
