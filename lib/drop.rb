@@ -5,9 +5,10 @@ require 'forwardable'
 class Drop
   extend Forwardable
 
-  attr_accessor :data
+  attr_accessor :slug, :data
 
-  def initialize(data)
+  def initialize(slug, data)
+    @slug    = slug
     @data    = data
     @content = Content.new content_url
   end

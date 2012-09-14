@@ -2,7 +2,9 @@ require 'drop'
 
 describe Drop do
   let(:data) { {} }
-  subject    { Drop.new data }
+  subject    { Drop.new 'abc123', data }
+
+  its(:slug) { should eq('abc123') }
 
   describe '#beta?' do
     it { should_not be_beta }

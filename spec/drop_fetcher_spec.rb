@@ -64,7 +64,7 @@ describe DropFetcher do
     end
 
     it 'symbolizes keys' do
-      Drop.should_receive(:new).with(hash_including(:content_url))
+      Drop.should_receive(:new).with('hhgttg', hash_including(:content_url))
 
       EM.synchrony do
         VCR.use_cassette 'bookmark' do

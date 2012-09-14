@@ -13,8 +13,8 @@ class DropFetcher
   def self.default_domains() @default_domains end
 
   def self.fetch(slug)
-    Drop.new Yajl::Parser.parse fetch_drop_content(slug),
-                                :symbolize_keys => true
+    Drop.new slug, Yajl::Parser.parse(fetch_drop_content(slug),
+                                      :symbolize_keys => true)
   end
 
 private
