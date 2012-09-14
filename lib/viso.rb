@@ -67,9 +67,7 @@ class Viso < Sinatra::Base
            /o                      # Show original image size
          )?                        #
          $}x do |type, slug|
-    Metriks.timer('viso.drop').time {
-      fetch_and_render_drop slug
-    }
+    fetch_and_render_drop slug
   end
 
   get %r{^
@@ -84,35 +82,32 @@ class Viso < Sinatra::Base
          /([^/?#]+)               # Item slug
          /([^/?#]+)               # Encoded url
          $}x do |type, slug, encoded_url|
-
     begin
       decoded_url = Base64.urlsafe_decode64(encoded_url)
     rescue
       not_found
     end
 
-    Metriks.timer('viso.content').time {
-      http = EM::HttpRequest.
-               new("http://#{ DropFetcher.base_uri }/#{ slug }/view").
-               apost
-      http.callback {
-        if http.response_header.status != 201
-          puts [ '#' * 5,
-                 http.last_effective_url,
-                 http.response_header.status,
-                 '#' * 5
-               ].join(' ')
-        end
-      }
-      http.errback {
+    http = EM::HttpRequest.
+             new("http://#{ DropFetcher.base_uri }/#{ slug }/view").
+             apost
+    http.callback {
+      if http.response_header.status != 201
         puts [ '#' * 5,
                http.last_effective_url,
-               'ERR',
+               http.response_header.status,
                '#' * 5
              ].join(' ')
-      }
-      redirect decoded_url
+      end
     }
+    http.errback {
+      puts [ '#' * 5,
+             http.last_effective_url,
+             'ERR',
+             '#' * 5
+           ].join(' ')
+    }
+    redirect decoded_url
   end
 
   # The content for a **Drop**. Response is cached for 15 minutes.
@@ -126,9 +121,7 @@ class Viso < Sinatra::Base
         fetch_and_render_content slug, filename
       end
       format.json do
-        Metriks.timer('viso.drop').time {
-          fetch_and_render_drop slug
-        }
+        fetch_and_render_drop slug
       end
     }
   end
@@ -139,28 +132,26 @@ class Viso < Sinatra::Base
   end
 
   def redirect_to_content(drop)
-    Metriks.timer('viso.content').time {
-      http = EM::HttpRequest.
-               new("http://#{ DropFetcher.base_uri }/#{ drop.slug }/view").
-               apost
-      http.callback {
-        if http.response_header.status != 201
-          puts [ '#' * 5,
-                 http.last_effective_url,
-                 http.response_header.status,
-                 '#' * 5
-               ].join(' ')
-        end
-      }
-      http.errback {
+    http = EM::HttpRequest.
+             new("http://#{ DropFetcher.base_uri }/#{ drop.slug }/view").
+             apost
+    http.callback {
+      if http.response_header.status != 201
         puts [ '#' * 5,
                http.last_effective_url,
-               'ERR',
+               http.response_header.status,
                '#' * 5
              ].join(' ')
-      }
-      redirect drop.remote_url
+      end
     }
+    http.errback {
+      puts [ '#' * 5,
+             http.last_effective_url,
+             'ERR',
+             '#' * 5
+           ].join(' ')
+    }
+    redirect drop.remote_url
   end
 
 protected
@@ -168,15 +159,17 @@ protected
   # Fetch and return a **Drop** with the given `slug`. Handle
   # `DropFetcher::NotFound` errors and render the not found response.
   def fetch_drop(slug)
+    timer = Metriks.timer('viso.drop.fetch').time
     DropFetcher.fetch slug
   rescue DropFetcher::NotFound
     not_found
+  ensure
+    timer.stop
   end
 
   def fetch_and_render_drop(slug)
-    drop = Metriks.timer('viso.drop.fetch').time {
-      DropPresenter.new fetch_drop(slug), self
-    }
+    timer = Metriks.timer('viso.drop').time
+    drop = DropPresenter.new fetch_drop(slug), self
 
     check_domain_matches drop
 
@@ -189,6 +182,8 @@ protected
   rescue => e
     env['async.callback'].call [ 500, {}, error_content_for(:error) ]
     Airbrake.notify_or_ignore e if defined? Airbrake
+  ensure
+    timer.stop
   end
 
   def fetch_and_render_content(slug, filename)

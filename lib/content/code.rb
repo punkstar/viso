@@ -28,12 +28,12 @@ class Content
     end
 
     def lexer_name
-      @timer = Metriks.timer('viso.pygments.lexer_name').time
+      timer = Metriks.timer('viso.pygments.lexer_name').time
       @lexer_name ||= lexer_name_for :filename => @content_url
     rescue RubyPython::PythonError
       false
     ensure
-      @timer.stop
+      timer.stop
     end
 
     def code_too_large?
