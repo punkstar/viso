@@ -86,48 +86,64 @@ describe Viso do
 
   it 'redirects a typed content URL to the API' do
     EM.synchrony do
-      get '/text/hhgttg/chapter1.txt'
-      EM.stop
+      VCR.use_cassette 'text' do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
 
-      assert { last_response.redirect? }
-      assert { headers['Location'] == 'http://api.cld.me/text/hhgttg/chapter1.txt' }
-      deny_social_meta_data
-      assert_cached_for 900
+        get '/text/hhgttg/chapter1.txt'
+        EM.stop
+
+        assert_requested :post, 'http://api.cld.me/hhgttg/view'
+        assert { last_response.redirect? }
+        assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/chapter1.txt' }
+        deny_social_meta_data
+        assert_cached_for 900
+      end
     end
   end
 
   it 'redirects an untyped content URL to the API' do
     EM.synchrony do
-      get '/hhgttg/chapter1.txt'
-      EM.stop
+      VCR.use_cassette 'text' do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
 
-      assert { last_response.redirect? }
-      assert { headers['Location'] == 'http://api.cld.me/hhgttg/chapter1.txt' }
-      deny_social_meta_data
-      assert_cached_for 900
+        get '/hhgttg/chapter1.txt'
+        EM.stop
+
+        assert_requested :post, 'http://api.cld.me/hhgttg/view'
+        assert { last_response.redirect? }
+        assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/chapter1.txt' }
+        deny_social_meta_data
+        assert_cached_for 900
+      end
     end
   end
 
-  it 'redirects file names with an encoded, unfriendly characters to the API' do
-    EM.synchrony do
-      get '/hhgttg/chapter1%2F%3F%23.txt'
-      EM.stop
+  # it 'redirects file names with an encoded, unfriendly characters to the API' do
+  #   EM.synchrony do
+  #     get '/hhgttg/chapter1%2F%3F%23.txt'
+  #     EM.stop
 
-      assert { last_response.redirect? }
-      assert { headers['Location'] == 'http://api.cld.me/hhgttg/chapter1%2F%3F%23.txt' }
-      deny_social_meta_data
-      assert_cached_for 900
-    end
-  end
+  #     assert { last_response.redirect? }
+  #     assert { headers['Location'] == 'http://api.cld.me/hhgttg/chapter1%2F%3F%23.txt' }
+  #     deny_social_meta_data
+  #     assert_cached_for 900
+  #   end
+  # end
 
   it 'redirects a bookmark to the API' do
     EM.synchrony do
       VCR.use_cassette 'bookmark' do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
+
         get '/hhgttg'
         EM.stop
 
+        assert_requested :post, 'http://api.cld.me/hhgttg/view'
         assert { last_response.redirect? }
-        assert { headers['Location'] == 'http://api.cld.me/hhgttg' }
+        assert { headers['Location'] == 'http://getcloudapp.com/download' }
         deny_social_meta_data
         assert_cached_for 900
       end
@@ -137,11 +153,15 @@ describe Viso do
   it "redirects a bookmark's content URL to the API" do
     EM.synchrony do
       VCR.use_cassette 'bookmark' do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
+
         get '/hhgttg/content'
         EM.stop
 
+        assert_requested :post, 'http://api.cld.me/hhgttg/view'
         assert { last_response.redirect? }
-        assert { headers['Location'] == 'http://api.cld.me/hhgttg/content' }
+        assert { headers['Location'] == 'http://getcloudapp.com/download' }
         deny_social_meta_data
         assert_cached_for 900
       end
@@ -160,7 +180,7 @@ describe Viso do
       assert { last_response.redirect? }
       assert { headers['Location'] == 'http://getcloudapp.com' }
       deny_social_meta_data
-      assert_not_cached
+      assert_cached_for 900
     end
   end
 
@@ -176,7 +196,7 @@ describe Viso do
       assert { last_response.redirect? }
       assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/Screen_Shot_2012-04-01_at_12.00.00_AM.png' }
       deny_social_meta_data
-      assert_not_cached
+      assert_cached_for 900
     end
   end
 

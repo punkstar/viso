@@ -43,6 +43,7 @@ class Viso < Sinatra::Base
     redirect DomainFetcher.fetch(env['HTTP_HOST']).home_page
   end
 
+  # Record metrics sent by JavaScript clients.
   get '/metrics' do
     case name = params['name']
     when 'image-load', 'image-load-test'
@@ -110,13 +111,12 @@ class Viso < Sinatra::Base
                '#' * 5
              ].join(' ')
       }
+      cache_control :public, :max_age => 900
       redirect decoded_url
     }
   end
 
-  # The content for a **Drop**. Redirect to the identical path on the API domain
-  # where the view counter is incremented and the visitor is redirected to the
-  # actual URL of file. Response is cached for 15 minutes.
+  # The content for a **Drop**. Response is cached for 15 minutes.
   get %r{^                         #
          (?:/(text|code|image))?   # Optional drop type
          /([^/?#]+)                # Item slug
@@ -124,8 +124,7 @@ class Viso < Sinatra::Base
          $}x do |type, slug, filename|
     respond_to {|format|
       format.html do
-        cache_control :public, :max_age => 900
-        redirect_to_api
+        fetch_and_render_content slug, filename
       end
       format.json do
         Metriks.timer('viso.drop').time {
@@ -140,11 +139,32 @@ class Viso < Sinatra::Base
     not_found error_content_for(:not_found)
   end
 
-  # Redirect the current request to the same path on the API domain.
-  def redirect_to_api
-    redirect "http://#{ DropFetcher.base_uri }#{ request.path }"
-  end
+  def redirect_to_content(drop)
+    Metriks.timer('viso.content').time {
+      http = EM::HttpRequest.
+               new("http://#{ DropFetcher.base_uri }/#{ drop.slug }/view").
+               apost
+      http.callback {
+        if http.response_header.status != 201
+          puts [ '#' * 5,
+                 http.last_effective_url,
+                 http.response_header.status,
+                 '#' * 5
+               ].join(' ')
+        end
+      }
+      http.errback {
+        puts [ '#' * 5,
+               http.last_effective_url,
+               'ERR',
+               '#' * 5
+             ].join(' ')
+      }
 
+      cache_control :public, :max_age => 900
+      redirect drop.remote_url
+    }
+  end
 
 protected
 
@@ -158,7 +178,7 @@ protected
 
   def fetch_and_render_drop(slug)
     drop = Metriks.timer('viso.drop.fetch').time {
-      drop = DropPresenter.new fetch_drop(slug), self
+      DropPresenter.new fetch_drop(slug), self
     }
 
     check_domain_matches drop
@@ -172,6 +192,12 @@ protected
   rescue => e
     env['async.callback'].call [ 500, {}, error_content_for(:error) ]
     Airbrake.notify_or_ignore e if defined? Airbrake
+  end
+
+  def fetch_and_render_content(slug, filename)
+    drop = fetch_drop slug
+    # check_filename_matches drop, filename
+    redirect_to_content drop
   end
 
   def fetch_and_render_status(slug)

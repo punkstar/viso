@@ -11,7 +11,7 @@ class DropPresenter < SimpleDelegator
     cache_response
 
     if bookmark?
-      @template.redirect_to_api
+      @template.redirect_to_content self
     else
       @template.erb template_name, layout: layout_name,
                                    locals: { drop: self, body_id: body_id }

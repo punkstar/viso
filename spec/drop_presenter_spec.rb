@@ -20,13 +20,13 @@ describe DropPresenter do
     describe 'a bookmark drop' do
       let(:bookmark) { true }
       let(:template) do
-        stub request:         stub(path: '/slug'),
-             cache_control:   nil,
-             redirect_to_api: nil
+        stub request:             stub(path: '/slug'),
+             cache_control:       nil,
+             redirect_to_content: nil
       end
 
       it 'redirects to the api' do
-        template.should_receive(:redirect_to_api).with(no_args)
+        template.should_receive(:redirect_to_content).with(subject)
         subject.render_html
       end
 
@@ -38,7 +38,7 @@ describe DropPresenter do
       context 'shared with a beta mac app' do
         let(:beta) { true }
         it 'redirects to the api' do
-          template.should_receive(:redirect_to_api).with(no_args)
+          template.should_receive(:redirect_to_content).with(subject)
           subject.render_html
         end
       end
