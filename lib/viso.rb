@@ -193,6 +193,7 @@ protected
 
   def fetch_and_render_content(slug, filename)
     drop = fetch_drop slug
+    # check_domain_matches drop
     # check_filename_matches drop, filename
     redirect_to_content drop
   end
