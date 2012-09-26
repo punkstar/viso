@@ -114,6 +114,16 @@ class Viso < Sinatra::Base
     redirect decoded_url
   end
 
+  # The download link for a **Drop**. Response is cached for 15 minutes.
+  get %r{^                         #
+         (?:/(text|code|image))?   # Optional drop type
+         /([^/?#]+)                # Item slug
+         /download
+         /(.+)       # Filename
+         $}x do |type, slug, filename|
+    redirect_to_api
+  end
+
   # The content for a **Drop**. Response is cached for 15 minutes.
   get %r{^                         #
          (?:/(text|code|image))?   # Optional drop type
@@ -228,5 +238,11 @@ protected
     DropFetcher.default_domains.include?(actual) or
       actual == expected or
       actual.sub(/^www\./, '') == expected
+  end
+
+  # Redirect the current request to the same path on the API domain.
+  def redirect_to_api
+    cache_control :public, :max_age => 900
+    redirect "http://#{ DropFetcher.base_uri }#{ request.path }"
   end
 end

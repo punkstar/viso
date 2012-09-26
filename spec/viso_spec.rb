@@ -156,6 +156,30 @@ describe Viso do
     end
   end
 
+  it 'redirects a typed download URL to its content' do
+    EM.synchrony do
+      get '/text/hhgttg/download/chapter1.txt'
+      EM.stop
+
+      assert { last_response.redirect? }
+      assert { headers['Location'] == 'http://api.cld.me/text/hhgttg/download/chapter1.txt' }
+      deny_social_meta_data
+      assert_cached_for 900
+    end
+  end
+
+  it 'redirects an untyped download URL to its content' do
+    EM.synchrony do
+      get '/hhgttg/download/chapter1.txt'
+      EM.stop
+
+      assert { last_response.redirect? }
+      assert { headers['Location'] == 'http://api.cld.me/hhgttg/download/chapter1.txt' }
+      deny_social_meta_data
+      assert_cached_for 900
+    end
+  end
+
   it 'displays a typed image drop' do
     EM.synchrony do
       VCR.use_cassette 'image' do
