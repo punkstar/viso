@@ -77,6 +77,10 @@ class Viso < Sinatra::Base
     fetch_and_render_status slug
   end
 
+  # Legacy endpoint used at one time for A/B performance testing. It was only
+  # active for 24 hours but it lives on embedded on websites. Keep this around
+  # for a while and either roll it into the primary content route or delete it
+  # if it's unused.
   get %r{^/content                #
          (?:/(text|code|image))?  # Optional drop type
          /([^/?#]+)               # Item slug
