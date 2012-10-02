@@ -21,13 +21,11 @@ class Drop
   def thumbnail_url() @data[:thumbnail_url] end
   def content_url()   @data[:content_url]   end
   def download_url()  @data[:download_url]  end
-  def remote_url()    @data[:remote_url] || @data[:redirect_url] end
   def name()          @data[:name]          end
   def gauge_id()      @data[:gauge_id]      end
-
-  def bookmark?
-    @data[:item_type] == 'bookmark'
-  end
+  def remote_url()    @data[:remote_url] || @data[:redirect_url] end
+  def bookmark?()     @data[:item_type] == 'bookmark' end
+  def pending?()      @data[:item_type] == 'pending'  end
 
   def beta?
     source = @data.fetch :source, nil
@@ -54,10 +52,6 @@ class Drop
 
   def text?
     plain_text? || markdown? || code?
-  end
-
-  def pending?
-    item_type.nil?
   end
 
   def basename

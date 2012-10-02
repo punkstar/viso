@@ -4,7 +4,7 @@ module SocialHelper
   end
 
   def social_meta_data_for(drop)
-    return unless drop.image?
+    return if drop.pending? or not drop.image?
 
     %{<meta property="og:site_name" content="CloudApp">
       <meta property="og:title" content="#{ escape_html drop.name }">

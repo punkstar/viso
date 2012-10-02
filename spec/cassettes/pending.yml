@@ -12,44 +12,36 @@
       code: 200
       message: OK
     headers:
-      !binary "YWdl":
-      - !binary |-
-        MA==
       !binary "Y2FjaGUtY29udHJvbA==":
       - !binary |-
         cHVibGljOyBtYXgtYWdlPTkwMA==
       !binary "Y29udGVudC10eXBl":
       - !binary |-
         YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA==
-      !binary "ZGF0ZQ==":
-      - !binary |-
-        VGh1LCAwNyBKdW4gMjAxMiAxNDoxNzoyOCBHTVQ=
       !binary "ZXRhZw==":
       - !binary |-
-        ImJhM2VjMWRhNDNhYTlmNTRiMTEwYzliMjA4Yzg0MjZmIg==
+        ImM4MzM4MTk4MjBkMzY1MWNiNTg0Y2ZmMmVmNzA1NWE5Ig==
       !binary "c2VydmVy":
       - !binary |-
-        dGhpbiAxLjMuMSBjb2RlbmFtZSBUcmlwbGUgRXNwcmVzc28=
+        dGhpbiAxLjQuMSBjb2RlbmFtZSBDaHJvbWVv
       !binary "dmFyeQ==":
       - !binary |-
         QWNjZXB0
-      !binary "eC1jb250ZW50LWRpZ2VzdA==":
-      - !binary |-
-        OGJlNjZjYTMwZmM1N2Q0YmZiZDhiZWQyYjZkNGJlZjZkYTU2OTA2OQ==
-      !binary "eC1yYWNrLWNhY2hl":
-      - !binary |-
-        c3RhbGUsIHZhbGlkLCBzdG9yZQ==
       !binary "eC1ydW50aW1l":
       - !binary |-
-        MC4wMTE5MjA=
+        MC4wMTYxOTg=
       !binary "eC11YS1jb21wYXRpYmxl":
       - !binary |-
         SUU9RWRnZSxjaHJvbWU9MQ==
-      !binary "Y29udGVudC1sZW5ndGg=":
+      !binary "dHJhbnNmZXItZW5jb2Rpbmc=":
       - !binary |-
-        NDk4
+        Y2h1bmtlZA==
       !binary "Y29ubmVjdGlvbg==":
       - !binary |-
         Q2xvc2U=
-    body: ! '{"created_at":"2012-06-07T14:17:13Z","deleted_at":null,"id":19072336,"item_type":null,"name":null,"private":true,"redirect_url":null,"remote_url":null,"source":null,"updated_at":"2012-06-07T14:17:13Z","view_counter":0,"href":"http://my.cl.ly/items/19072336","icon":"http://assets.my.cld.me/images/item-types/unknown.png","subscribed":false,"url":"http://cl.ly/hhgttg","content_url":"http://cl.ly/hhgttg","download_url":"http://api.cld.me/hhgttg/download/"}'
+    body: ! '{"created_at":"2012-10-02T15:12:48Z","deleted_at":null,"id":22562642,"item_type":"pending","name":"Screen
+      Shot 2012-10-02 at 11.06.14 AM.png","private":true,"redirect_url":null,"remote_url":null,"source":"Cloud/2.0
+      beta (40) (Mac OS X 10.8.2)","updated_at":"2012-10-02T15:17:02Z","view_counter":504,"href":"http://my.cl.ly/items/22562642","icon":"http://my.cld.me/images/item-types/unknown.png","subscribed":true,"url":"http://cl.ly/image/hhgttg","content_url":"http://cl.ly/image/hhgttg/Screen
+      Shot 2012-10-02 at 11.06.14 AM.png","download_url":"http://cl.ly/image/hhgttg/download/Screen
+      Shot 2012-10-02 at 11.06.14 AM.png","gauge_id":null}'
     http_version: '1.1'

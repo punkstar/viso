@@ -39,6 +39,11 @@ describe Drop do
     its(:item_type) { should eq('bookmark') }
   end
 
+  describe '#pending?' do
+    let(:data) {{ item_type: 'pending' }}
+    it { should be_pending }
+  end
+
   describe '#share_url' do
     let(:data) {{ url: 'http://cl.ly/hhgttg' }}
     its(:share_url) { should eq('http://cl.ly/hhgttg') }
@@ -97,19 +102,22 @@ describe Drop do
     end
 
     context 'pending with a name with extension' do
-      let(:data)      {{ content_url: 'http://cl.ly/hhgttg',
+      let(:data)      {{ item_type:   'pending',
+                         content_url: 'http://cl.ly/hhgttg',
                          name:        'chapter1.txt' }}
       its(:extension) { should eq('.txt') }
     end
 
     context 'pending with a name without extension' do
-      let(:data)      {{ content_url: 'http://cl.ly/hhgttg',
+      let(:data)      {{ item_type:   'pending',
+                         content_url: 'http://cl.ly/hhgttg',
                          name:        'chapter1' }}
       its(:extension) { should be_nil }
     end
 
     context 'pending without a name' do
-      let(:data)      {{ content_url: 'http://cl.ly/hhgttg' }}
+      let(:data)      {{ item_type:   'pending',
+                         content_url: 'http://cl.ly/hhgttg' }}
       its(:extension) { should be_nil }
     end
   end
@@ -237,15 +245,6 @@ describe Drop do
         content.should_receive(:code?)
         subject.text?
       end
-    end
-  end
-
-  describe '#pending?' do
-    it { should be_pending }
-
-    context 'with an item type' do
-      let(:data) {{ item_type: 'bookmark' }}
-      it { should_not be_pending }
     end
   end
 
