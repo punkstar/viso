@@ -232,8 +232,10 @@ protected
   end
 
   def custom_domain_matches?(drop)
-    expected = SimpleIDN.to_ascii Addressable::URI.parse(drop.data[:url]).host
-    actual   = SimpleIDN.to_ascii env['HTTP_HOST'].split(':').first
+    domain   = Addressable::URI.parse(drop.data[:url]).host
+    host     = env['HTTP_HOST'].split(':').first
+    expected = SimpleIDN.to_ascii(domain).downcase
+    actual   = SimpleIDN.to_ascii(host).downcase
 
     DropFetcher.default_domains.include?(actual) or
       actual == expected or
