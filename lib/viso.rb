@@ -19,7 +19,7 @@
 # [rack-fiber_pool]: https://github.com/mperham/rack-fiber_pool
 require 'addressable/uri'
 require 'eventmachine'
-require 'metriks'
+require 'metric_recorder'
 require 'sinatra/base'
 require 'simpleidn'
 
@@ -45,14 +45,7 @@ class Viso < Sinatra::Base
 
   # Record metrics sent by JavaScript clients.
   get '/metrics' do
-    case name = params['name']
-    when 'image-load', 'image-load-test'
-      value = params.fetch('value', 0).to_i
-      Metriks.timer("viso.js.#{ name }").update(value) if value > 0
-    when 'image-error'
-      Metriks.counter('viso.js.image-error').increment
-    end
-
+    MetricRecorder.record params['name'], params['value']
     content_type 'text/javascript'
     status 200
   end
