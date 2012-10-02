@@ -40,7 +40,9 @@ module JammitHelper
       path = asset_path_proc.call source
       return path if self.class.development?
 
-      host = asset_host_proc.call path, request
+      host = asset_host_proc.
+               call(path, request).
+               sub('https:', '')
 
       File.join(host, path)
     end

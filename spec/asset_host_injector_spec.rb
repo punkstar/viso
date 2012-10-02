@@ -19,12 +19,8 @@ describe JammitHelper::AssetHostInjector do
     end
   end
 
-  before { ENV['CLOUDFRONT_DOMAIN'] = 'fake.cloudfront.net' }
-  after do
-    %w( CLOUDFRONT_DOMAIN CLOUDFRONT_CNAME ).each do |key|
-      ENV.delete key
-    end
-  end
+  before do ENV['CLOUDFRONT_DOMAIN'] = 'fake.cloudfront.net' end
+  after  do ENV.delete 'CLOUDFRONT_DOMAIN' end
 
   subject do
     Jammit.load_configuration 'config/assets.yml'
@@ -33,15 +29,6 @@ describe JammitHelper::AssetHostInjector do
 
   it 'serves assets on the cloudfront domain' do
     asset_path = subject.asset_path :js, 'app.js'
-
-    assert { asset_path == 'http://fake.cloudfront.net/app.js' }
+    assert { asset_path == '//fake.cloudfront.net/app.js' }
   end
-
-  it 'serves assets using a cloudfront cname' do
-    ENV['CLOUDFRONT_CNAME'] = 'assets.theguide.com'
-    asset_path = subject.asset_path :js, 'app.js'
-
-    assert { asset_path == 'http://assets.theguide.com/app.js' }
-  end
-
 end
