@@ -8,6 +8,8 @@ class MetricRecorder
     when 'image-load'
       value = value.to_i
       Metriks.timer(metric_name).update(value) if value > 0
+    when 'performance-capable', 'performance-incapable'
+      Metriks.meter(metric_name).mark
     when 'image-error'
       Metriks.counter(metric_name).increment
     end

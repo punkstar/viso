@@ -7,3 +7,15 @@ var Metriks = {
     document.body.appendChild(script);
   }
 };
+
+$(function() {
+  function performanceCapable() {
+    return window.performance && window.performance.timing;
+  }
+
+  if (performanceCapable()) {
+    Metriks.record("performance-capable")
+  } else {
+    Metriks.record("performance-incapable")
+  }
+});

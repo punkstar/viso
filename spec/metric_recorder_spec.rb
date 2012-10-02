@@ -21,6 +21,22 @@ describe MetricRecorder do
     assert { counter.count == 1 }
   end
 
+  it 'counts clients with awesome browsers' do
+    MetricRecorder.record 'performance-capable'
+    meter = Metriks.get('viso.js.performance-capable')
+
+    assert { meter.is_a? Metriks::Meter }
+    assert { meter.count == 1 }
+  end
+
+  it 'counts clients with incapable browsers' do
+    MetricRecorder.record 'performance-incapable'
+    meter = Metriks.get('viso.js.performance-incapable')
+
+    assert { meter.is_a? Metriks::Meter }
+    assert { meter.count == 1 }
+  end
+
   it 'ignores low values' do
     MetricRecorder.record 'image-load', 0
     deny { Metriks.get('viso.js.image-load') }
