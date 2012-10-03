@@ -11,7 +11,6 @@ class DropPresenter < SimpleDelegator
     if bookmark?
       render_content
     else
-      cache_response
       @template.erb template_name, layout: layout_name,
                                    locals: { drop: self, body_id: body_id }
     end
@@ -26,11 +25,6 @@ class DropPresenter < SimpleDelegator
   end
 
 private
-
-  def cache_response
-    return if text? or pending?
-    @template.cache_seconds 900
-  end
 
   def layout_name
     "#{ (beta? || pending?) ? 'new_' : '' }layout".to_sym

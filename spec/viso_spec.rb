@@ -24,10 +24,6 @@ describe Viso do
     assert { Time.now - Time.parse(headers['Date']) < 2.0 }
   end
 
-  def assert_not_cached
-    deny { headers.has_key? 'Cache-Control' }
-  end
-
   def assert_social_meta_data
     meta_tag = %{<meta property="og:site_name" content="CloudApp">}
     assert { last_response.body.include?(meta_tag) }
@@ -66,7 +62,7 @@ describe Viso do
         assert { last_response.not_found? }
         assert { last_response.body.include?('Sorry, no drops live here') }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -80,7 +76,7 @@ describe Viso do
         assert { last_response.not_found? }
         assert { last_response.body.include?('Sorry, no drops live here') }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -98,7 +94,7 @@ describe Viso do
         assert { last_response.redirect? }
         assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/chapter1.txt' }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -116,7 +112,7 @@ describe Viso do
         assert { last_response.redirect? }
         assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/chapter1.txt' }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -134,7 +130,7 @@ describe Viso do
         assert { last_response.redirect? }
         assert { headers['Location'] == 'http://getcloudapp.com/download' }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -152,7 +148,7 @@ describe Viso do
         assert { last_response.redirect? }
         assert { headers['Location'] == 'http://getcloudapp.com/download' }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -165,7 +161,7 @@ describe Viso do
       assert { last_response.redirect? }
       assert { headers['Location'] == 'http://api.cld.me/text/hhgttg/download/chapter1.txt' }
       deny_social_meta_data
-      assert_cached_for 900
+      assert_cached_for 3600
     end
   end
 
@@ -177,7 +173,7 @@ describe Viso do
       assert { last_response.redirect? }
       assert { headers['Location'] == 'http://api.cld.me/hhgttg/download/chapter1.txt' }
       deny_social_meta_data
-      assert_cached_for 900
+      assert_cached_for 3600
     end
   end
 
@@ -193,7 +189,7 @@ describe Viso do
         assert { last_response.body.include?(image_tag) }
 
         assert_social_meta_data
-        assert_cached_for 900
+        assert_cached_for 0
       end
     end
   end
@@ -210,7 +206,7 @@ describe Viso do
         assert { last_response.body.include?(image_tag) }
 
         assert_social_meta_data
-        assert_cached_for 900
+        assert_cached_for 0
       end
     end
   end
@@ -227,7 +223,7 @@ describe Viso do
         assert { last_response.body.include?(image_tag) }
 
         assert_social_meta_data
-        assert_cached_for 900
+        assert_cached_for 0
       end
     end
   end
@@ -244,7 +240,7 @@ describe Viso do
         assert { last_response.body.include?(image_tag) }
 
         assert_social_meta_data
-        assert_cached_for 900
+        assert_cached_for 0
       end
     end
   end
@@ -261,7 +257,7 @@ describe Viso do
         assert { last_response.body.include?(image_tag) }
 
         assert_social_meta_data
-        assert_cached_for 900
+        assert_cached_for 0
       end
     end
   end
@@ -275,7 +271,7 @@ describe Viso do
         assert { last_response.not_found? }
         assert { last_response.body.include?('Sorry, no drops live here') }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -289,7 +285,7 @@ describe Viso do
         assert { last_response.not_found? }
         assert { last_response.body.include?('Sorry, no drops live here') }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -306,7 +302,7 @@ describe Viso do
         assert { last_response.body.include?(image_tag) }
 
         assert_social_meta_data
-        assert_cached_for 900
+        assert_cached_for 0
       end
     end
   end
@@ -323,7 +319,7 @@ describe Viso do
         assert { last_response.body.include?(image_tag) }
 
         assert_social_meta_data
-        assert_cached_for 900
+        assert_cached_for 0
       end
     end
   end
@@ -340,7 +336,7 @@ describe Viso do
         assert { last_response.body.include?(waiting_tag) }
 
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -353,7 +349,7 @@ describe Viso do
 
         assert { last_response.ok? }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -366,12 +362,12 @@ describe Viso do
 
         assert { last_response.status == 204 }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
 
-  it "returns Gone for a nonexistent drop's status" do
+  it "returns not found for a nonexistent drop's status" do
     EM.synchrony do
       VCR.use_cassette 'nonexistent' do
         get '/hhgttg/status'
@@ -379,7 +375,7 @@ describe Viso do
 
         assert { last_response.status == 404 }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -408,7 +404,7 @@ describe Viso do
         assert { last_response.body.include?(view_link) }
 
         deny_social_meta_data
-        assert_cached_for 900
+        assert_cached_for 0
       end
     end
   end
@@ -437,7 +433,7 @@ describe Viso do
         assert { last_response.body.include? content }
 
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -466,7 +462,7 @@ describe Viso do
         assert { last_response.body.include? content }
 
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -487,7 +483,7 @@ describe Viso do
         assert { last_response.body.include? content }
 
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -508,7 +504,7 @@ describe Viso do
         assert { last_response.body.include? content }
 
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -529,7 +525,7 @@ describe Viso do
         assert { last_response.body.include? content }
 
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -546,7 +542,7 @@ describe Viso do
         assert { headers['Content-Type'] == 'application/json;charset=utf-8' }
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -563,7 +559,7 @@ describe Viso do
         assert { headers['Content-Type'] == 'application/json;charset=utf-8' }
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -580,7 +576,7 @@ describe Viso do
         assert { headers['Content-Type'] == 'application/json;charset=utf-8' }
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
         deny_social_meta_data
-        assert_not_cached
+        assert_cached_for 0
       end
     end
   end
@@ -641,6 +637,7 @@ describe Viso do
       assert { last_response.status == 200 }
       assert { headers['Content-Type'] == 'text/javascript;charset=utf-8' }
       assert { last_response.body.empty? }
+      assert_cached_for 0
     end
   end
 
@@ -652,6 +649,7 @@ describe Viso do
       assert { last_response.status == 200 }
       assert { headers['Content-Type'] == 'text/javascript;charset=utf-8' }
       assert { last_response.body.empty? }
+      assert_cached_for 0
     end
   end
 
@@ -669,7 +667,7 @@ describe Viso do
       assert { last_response.redirect? }
       assert { headers['Location'] == 'http://getcloudapp.com' }
       deny_social_meta_data
-      assert_not_cached
+      assert_cached_for 0
     end
   end
 
@@ -685,7 +683,7 @@ describe Viso do
       assert { last_response.redirect? }
       assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/Screen_Shot_2012-04-01_at_12.00.00_AM.png' }
       deny_social_meta_data
-      assert_not_cached
+      assert_cached_for 0
     end
   end
 
@@ -696,7 +694,7 @@ describe Viso do
 
       assert { last_response.status == 404 }
       deny_social_meta_data
-      assert_not_cached
+      assert_cached_for 0
     end
   end
 end

@@ -41,12 +41,14 @@ class Viso < Sinatra::Base
   get '/' do
     cache_seconds 3600
     redirect DomainFetcher.fetch(env['HTTP_HOST']).home_page
+    ## Last-Modified
   end
 
   # Record metrics sent by JavaScript clients.
   get '/metrics' do
     MetricRecorder.record params['name'], params['value']
     content_type 'text/javascript'
+    cache_seconds 0
     status 200
   end
 
@@ -134,7 +136,9 @@ class Viso < Sinatra::Base
              '#' * 5
            ].join(' ')
     }
+    cache_seconds 0
     redirect remote_url
+    ## Last-Modified
   end
 
   def cache_seconds(seconds)
@@ -144,6 +148,7 @@ class Viso < Sinatra::Base
 
   # Don't need to return anything special for a 404.
   not_found do
+    cache_seconds 0
     not_found error_content_for(:not_found)
   end
 
@@ -162,8 +167,8 @@ protected
 
   def fetch_and_render_drop(slug)
     drop = DropPresenter.new fetch_drop(slug), self
-
     check_domain_matches drop
+    cache_seconds 0
 
     Metriks.timer("viso.drop.render.#{ drop.item_type }").time {
       respond_to {|format|
@@ -171,6 +176,7 @@ protected
         format.json { drop.render_json }
       }
     }
+    ## Last-Modified
   rescue => e
     env['async.callback'].call [ 500, {}, error_content_for(:error) ]
     Airbrake.notify_or_ignore e if defined? Airbrake
@@ -185,7 +191,9 @@ protected
 
   def fetch_and_render_status(slug)
     drop = DropPresenter.new fetch_drop(slug), self
+    cache_seconds 0
     status drop.pending? ? 204 : 200
+    ## Last-Modified
   end
 
   def error_content_for(type)
@@ -220,7 +228,8 @@ protected
 
   # Redirect the current request to the same path on the API domain.
   def redirect_to_api
-    cache_seconds 900
+    cache_seconds 3600
     redirect "http://#{ DropFetcher.base_uri }#{ request.path }"
+    ## Last-Modified
   end
 end
