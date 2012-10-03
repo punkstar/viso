@@ -9,7 +9,7 @@ class DropPresenter < SimpleDelegator
 
   def render_html
     if bookmark?
-      @template.redirect_to_content self
+      render_content
     else
       cache_response
       @template.erb template_name, layout: layout_name,
@@ -19,6 +19,10 @@ class DropPresenter < SimpleDelegator
 
   def render_json
     Yajl::Encoder.encode data
+  end
+
+  def render_content
+    @template.redirect_to_content slug, remote_url
   end
 
 private

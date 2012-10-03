@@ -1,14 +1,15 @@
 require 'drop_presenter'
 
 describe DropPresenter do
-
   describe '#render_html' do
-    let(:drop) { stub :drop, beta?:     beta,
-                             bookmark?: bookmark,
-                             image?:    image,
-                             text?:     text,
-                             markdown?: markdown,
-                             pending?:  pending }
+    let(:drop) { stub :drop, slug:       'hhgttg',
+                             beta?:      beta,
+                             bookmark?:  bookmark,
+                             image?:     image,
+                             text?:      text,
+                             markdown?:  markdown,
+                             pending?:   pending,
+                             remote_url: 'http://remote.url' }
     let(:beta)     { false }
     let(:bookmark) { false }
     let(:image)    { false }
@@ -22,14 +23,16 @@ describe DropPresenter do
       let(:template) { stub :template, redirect_to_content: nil }
 
       it 'redirects to the api' do
-        template.should_receive(:redirect_to_content).with(subject)
+        template.should_receive(:redirect_to_content).
+          with('hhgttg', 'http://remote.url')
         subject.render_html
       end
 
       context 'shared with a beta mac app' do
         let(:beta) { true }
         it 'redirects to the api' do
-          template.should_receive(:redirect_to_content).with(subject)
+          template.should_receive(:redirect_to_content).
+            with('hhgttg', 'http://remote.url')
           subject.render_html
         end
       end
@@ -205,4 +208,16 @@ describe DropPresenter do
     end
   end
 
+  describe '#render_content' do
+    let(:template) { stub :template, redirect_to_content: nil }
+    let(:drop)     { stub :drop, slug:       'hhgttg',
+                                 remote_url: 'http://remote.url' }
+    subject { DropPresenter.new drop, template }
+
+    it 'redirects to the content' do
+      template.should_receive(:redirect_to_content).
+        with('hhgttg', 'http://remote.url')
+      subject.render_content
+    end
+  end
 end

@@ -85,26 +85,7 @@ class Viso < Sinatra::Base
       not_found
     end
 
-    http = EM::HttpRequest.
-             new("http://#{ DropFetcher.base_uri }/#{ slug }/view").
-             apost
-    http.callback {
-      if http.response_header.status != 201
-        puts [ '#' * 5,
-               http.last_effective_url,
-               http.response_header.status,
-               '#' * 5
-             ].join(' ')
-      end
-    }
-    http.errback {
-      puts [ '#' * 5,
-             http.last_effective_url,
-             'ERR',
-             '#' * 5
-           ].join(' ')
-    }
-    redirect decoded_url
+    redirect_to_content slug, decoded_url
   end
 
   # The download link for a **Drop**. Response is cached for 15 minutes.
@@ -133,14 +114,9 @@ class Viso < Sinatra::Base
     }
   end
 
-  # Don't need to return anything special for a 404.
-  not_found do
-    not_found error_content_for(:not_found)
-  end
-
-  def redirect_to_content(drop)
+  def redirect_to_content(slug, remote_url)
     http = EM::HttpRequest.
-             new("http://#{ DropFetcher.base_uri }/#{ drop.slug }/view").
+             new("http://#{ DropFetcher.base_uri }/#{ slug }/view").
              apost
     http.callback {
       if http.response_header.status != 201
@@ -158,7 +134,12 @@ class Viso < Sinatra::Base
              '#' * 5
            ].join(' ')
     }
-    redirect drop.remote_url
+    redirect remote_url
+  end
+
+  # Don't need to return anything special for a 404.
+  not_found do
+    not_found error_content_for(:not_found)
   end
 
 protected
@@ -194,10 +175,10 @@ protected
   end
 
   def fetch_and_render_content(slug, filename)
-    drop = fetch_drop slug
+    drop = DropPresenter.new fetch_drop(slug), self
     # check_domain_matches drop
     # check_filename_matches drop, filename
-    redirect_to_content drop
+    drop.render_content
   end
 
   def fetch_and_render_status(slug)
