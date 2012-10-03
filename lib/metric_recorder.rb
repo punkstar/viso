@@ -5,7 +5,7 @@ class MetricRecorder
     metric_name = "viso.js.#{ name }"
 
     case name
-    when 'image-load'
+    when 'load', 'image-load'
       value = value.to_i
       Metriks.timer(metric_name).update(value) if value > 0
     when 'performance-capable', 'performance-incapable'

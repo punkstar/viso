@@ -37,6 +37,15 @@ describe MetricRecorder do
     assert { meter.count == 1 }
   end
 
+  it 'records page load time' do
+    MetricRecorder.record 'load', 123
+    timer = Metriks.get('viso.js.load')
+
+    assert { timer.is_a? Metriks::Timer }
+    assert { timer.count == 1 }
+    assert { timer.max   == 123 }
+  end
+
   it 'ignores low values' do
     MetricRecorder.record 'image-load', 0
     deny { Metriks.get('viso.js.image-load') }
