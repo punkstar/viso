@@ -17,7 +17,6 @@ module Configuration
 
       register_response_and_view_helpers
       vary_all_responses_on_accept_header
-      add_cache_middleware
       serve_public_assets
       log_to_stdout
       report_metrics
@@ -83,16 +82,6 @@ module Configuration
 
     def vary_all_responses_on_accept_header
       before { headers['Vary'] = 'Accept' }
-    end
-
-    def add_cache_middleware
-      configure :production do
-        require 'rack/cache'
-        url = "memcached://#{ENV['MEMCACHE_USERNAME']}:#{ENV['MEMCACHE_PASSWORD']}@#{ENV['MEMCACHE_SERVERS']}"
-        use Rack::Cache, verbose:     true,
-                         metastore:   "#{url}/meta",
-                         entitystore: "#{url}/body"
-      end
     end
 
     # Cache public assets for 1 year.

@@ -120,8 +120,6 @@ GEM
     pygments.rb (0.2.3)
       rubypython (>= 0.5.1)
     rack (1.4.1)
-    rack-cache (1.2)
-      rack (>= 0.4)
     rack-protection (1.2.0)
       rack
     rack-test (0.6.1)
@@ -217,7 +215,6 @@ DEPENDENCIES
   newrelic_rpm
   padrino
   pygments.rb
-  rack-cache
   rack-test
   redcarpet (~> 2.1)
   rocco
