@@ -70,7 +70,7 @@ describe DropPresenter do
     describe 'an image drop' do
       let(:image)    { true }
       let(:content)  { 'content' }
-      let(:template) { stub :template, erb: content, cache_control: nil }
+      let(:template) { stub :template, erb: content, cache_seconds: nil }
 
       it 'returns template content' do
         subject.render_html.should == content
@@ -85,7 +85,7 @@ describe DropPresenter do
       end
 
       it 'is cached' do
-        template.should_receive(:cache_control).with(:public, max_age: 900)
+        template.should_receive(:cache_seconds).with(900)
         subject.render_html
       end
 
@@ -165,7 +165,7 @@ describe DropPresenter do
 
     describe 'an unknown drop' do
       let(:content)  { 'content' }
-      let(:template) { stub :template, erb: content, cache_control: nil }
+      let(:template) { stub :template, erb: content, cache_seconds: nil }
 
       it 'returns template content' do
         subject.render_html.should == content
@@ -180,7 +180,7 @@ describe DropPresenter do
       end
 
       it 'is cached' do
-        template.should_receive(:cache_control).with(:public, max_age: 900)
+        template.should_receive(:cache_seconds).with(900)
         subject.render_html
       end
 

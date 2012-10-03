@@ -29,7 +29,7 @@ private
 
   def cache_response
     return if text? or pending?
-    @template.cache_control :public, :max_age => 900
+    @template.cache_seconds 900
   end
 
   def layout_name

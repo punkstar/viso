@@ -39,7 +39,7 @@ class Viso < Sinatra::Base
   # ping the API to get the home page for the current domain. Response is cached
   # for one hour.
   get '/' do
-    cache_control :public, :max_age => 3600
+    cache_seconds 3600
     redirect DomainFetcher.fetch(env['HTTP_HOST']).home_page
   end
 
@@ -137,6 +137,10 @@ class Viso < Sinatra::Base
     redirect remote_url
   end
 
+  def cache_seconds(seconds)
+    cache_control :public, :max_age => seconds
+  end
+
   # Don't need to return anything special for a 404.
   not_found do
     not_found error_content_for(:not_found)
@@ -215,7 +219,7 @@ protected
 
   # Redirect the current request to the same path on the API domain.
   def redirect_to_api
-    cache_control :public, :max_age => 900
+    cache_seconds 900
     redirect "http://#{ DropFetcher.base_uri }#{ request.path }"
   end
 end
