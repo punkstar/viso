@@ -19,8 +19,7 @@ describe DropPresenter do
 
     describe 'a bookmark drop' do
       let(:bookmark) { true }
-      let(:template) { stub request: stub(path: '/slug'),
-                            redirect_to_content: nil }
+      let(:template) { stub :template, redirect_to_content: nil }
 
       it 'redirects to the api' do
         template.should_receive(:redirect_to_content).with(subject)
@@ -42,7 +41,7 @@ describe DropPresenter do
       let(:markdown) { true }
       let(:pending)  { true }
       let(:content)  { 'content' }
-      let(:template) { stub erb: content }
+      let(:template) { stub :template, erb: content }
 
       it 'renders the erb template with new layout' do
         template.
@@ -68,7 +67,7 @@ describe DropPresenter do
     describe 'an image drop' do
       let(:image)    { true }
       let(:content)  { 'content' }
-      let(:template) { stub erb: content, cache_control: nil }
+      let(:template) { stub :template, erb: content, cache_control: nil }
 
       it 'returns template content' do
         subject.render_html.should == content
@@ -103,7 +102,7 @@ describe DropPresenter do
     describe 'a text drop' do
       let(:text)     { true }
       let(:content)  { 'content' }
-      let(:template) { stub erb: content }
+      let(:template) { stub :template, erb: content }
 
       it 'returns template content' do
         subject.render_html.should == content
@@ -134,7 +133,7 @@ describe DropPresenter do
       let(:text)     { true }
       let(:markdown) { true }
       let(:content)  { 'content' }
-      let(:template) { stub erb: content }
+      let(:template) { stub :template, erb: content }
 
       it 'returns template content' do
         subject.render_html.should == content
@@ -163,7 +162,7 @@ describe DropPresenter do
 
     describe 'an unknown drop' do
       let(:content)  { 'content' }
-      let(:template) { stub erb: content, cache_control: nil }
+      let(:template) { stub :template, erb: content, cache_control: nil }
 
       it 'returns template content' do
         subject.render_html.should == content
@@ -197,8 +196,8 @@ describe DropPresenter do
   end
 
   describe '#render_json' do
-    let(:template) { stub }
-    let(:drop) { stub data: { key: 'value' } }
+    let(:template) { stub :template }
+    let(:drop)     { stub :drop, data: { key: 'value' } }
     subject { DropPresenter.new drop, template }
 
     it 'returns the drop as json' do
