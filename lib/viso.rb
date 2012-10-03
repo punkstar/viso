@@ -138,6 +138,7 @@ class Viso < Sinatra::Base
   end
 
   def cache_seconds(seconds)
+    response['Date'] = Time.now.httpdate
     cache_control :public, :max_age => seconds
   end
 

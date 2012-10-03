@@ -21,6 +21,7 @@ describe Viso do
   def assert_cached_for(duration)
     assert { headers['Vary']          == 'Accept' }
     assert { headers['Cache-Control'] == "public, max-age=#{ duration }" }
+    assert { Time.now - Time.parse(headers['Date']) < 2.0 }
   end
 
   def assert_not_cached
