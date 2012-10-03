@@ -156,7 +156,6 @@ protected
   end
 
   def fetch_and_render_drop(slug)
-    timer = Metriks.timer('viso.drop').time
     drop = DropPresenter.new fetch_drop(slug), self
 
     check_domain_matches drop
@@ -170,8 +169,6 @@ protected
   rescue => e
     env['async.callback'].call [ 500, {}, error_content_for(:error) ]
     Airbrake.notify_or_ignore e if defined? Airbrake
-  ensure
-    timer.stop
   end
 
   def fetch_and_render_content(slug, filename)
