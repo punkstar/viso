@@ -11,7 +11,7 @@ class DropPresenter < SimpleDelegator
   def render_html
     timer = render_timer
     if bookmark?
-      render_content
+      @template.redirect remote_url
     else
       @template.erb template_name, layout: layout_name,
                                    locals: { drop: self, body_id: body_id }

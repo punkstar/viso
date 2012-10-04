@@ -3,6 +3,7 @@ require 'drop_presenter'
 describe DropPresenter do
   describe '#render_html' do
     let(:drop) { stub :drop, slug:       'hhgttg',
+                             item_type:  'generic',
                              beta?:      beta,
                              bookmark?:  bookmark,
                              image?:     image,
@@ -22,19 +23,17 @@ describe DropPresenter do
 
     describe 'a bookmark drop' do
       let(:bookmark) { true }
-      let(:template) { stub :template, redirect_to_content: nil }
+      let(:template) { stub :template, redirect: nil }
 
-      it 'redirects to the api' do
-        template.should_receive(:redirect_to_content).
-          with('hhgttg', 'http://remote.url', updated_at)
+      it 'redirects to the bookmarked url' do
+        template.should_receive(:redirect).with('http://remote.url')
         subject.render_html
       end
 
       context 'shared with a beta mac app' do
         let(:beta) { true }
         it 'redirects to the api' do
-          template.should_receive(:redirect_to_content).
-            with('hhgttg', 'http://remote.url', updated_at)
+          template.should_receive(:redirect).with('http://remote.url')
           subject.render_html
         end
       end
@@ -192,7 +191,7 @@ describe DropPresenter do
 
   describe '#render_json' do
     let(:template) { stub :template }
-    let(:drop)     { stub :drop, data: { key: 'value' } }
+    let(:drop)     { stub :drop, item_type: 'generic', data: { key: 'value' }}
     subject { DropPresenter.new drop, template }
 
     it 'returns the drop as json' do

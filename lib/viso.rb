@@ -150,13 +150,18 @@ protected
   def fetch_and_render_drop(slug)
     drop = DropPresenter.new fetch_drop(slug), self
     check_domain_matches drop
-    cache_duration 0
-    last_modified drop.updated_at
 
-    Metriks.timer("viso.drop.render.#{ drop.item_type }").time {
-      respond_to {|format|
-        format.html { drop.render_html }
-        format.json { drop.render_json }
+    respond_to {|format|
+      format.html {
+        DropFetcher.record_view slug if drop.bookmark? || drop.text?
+        cache_duration 0
+        last_modified drop.updated_at
+        drop.render_html
+      }
+      format.json {
+        cache_duration 0
+        last_modified drop.updated_at
+        drop.render_json
       }
     }
   rescue => e

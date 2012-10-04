@@ -442,9 +442,13 @@ describe Viso do
   it 'dumps the content of a typed text drop' do
     EM.synchrony do
       VCR.use_cassette 'text' do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
+
         get '/text/hhgttg'
         EM.stop
 
+        assert_requested :post, 'http://api.cld.me/hhgttg/view'
         assert { last_response.ok? }
 
         assert { last_response.body.include?('<body id="text">') }
@@ -472,9 +476,13 @@ describe Viso do
   it 'dumps the content of an untyped text drop' do
     EM.synchrony do
       VCR.use_cassette 'text' do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
+
         get '/hhgttg'
         EM.stop
 
+        assert_requested :post, 'http://api.cld.me/hhgttg/view'
         assert { last_response.ok? }
 
         assert { last_response.body.include?('<body id="text">') }
@@ -502,9 +510,13 @@ describe Viso do
   it 'dumps the content of a markdown drop' do
     EM.synchrony do
       VCR.use_cassette 'markdown' do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
+
         get '/hhgttg'
         EM.stop
 
+        assert_requested :post, 'http://api.cld.me/hhgttg/view'
         assert { last_response.ok? }
         assert { headers['Content-Type'] == 'text/html;charset=utf-8' }
 
@@ -524,9 +536,13 @@ describe Viso do
   it 'dumps the content of a typed code drop' do
     EM.synchrony do
       VCR.use_cassette 'ruby' do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
+
         get '/code/hhgttg'
         EM.stop
 
+        assert_requested :post, 'http://api.cld.me/hhgttg/view'
         assert { last_response.ok? }
         assert { headers['Content-Type'] == 'text/html;charset=utf-8' }
 
@@ -546,9 +562,13 @@ describe Viso do
   it 'dumps the content of an untyped code drop' do
     EM.synchrony do
       VCR.use_cassette 'ruby' do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
+
         get '/hhgttg'
         EM.stop
 
+        assert_requested :post, 'http://api.cld.me/hhgttg/view'
         assert { last_response.ok? }
         assert { headers['Content-Type'] == 'text/html;charset=utf-8' }
 
@@ -621,7 +641,7 @@ describe Viso do
 
   it 'respects accept header priority' do
     EM.synchrony do
-      VCR.use_cassette 'text' do
+      VCR.use_cassette 'image' do
         header 'Accept', 'text/html,application/json'
         get    '/hhgttg'
         EM.stop
@@ -635,7 +655,7 @@ describe Viso do
 
   it 'serves html by default' do
     EM.synchrony do
-      VCR.use_cassette 'text' do
+      VCR.use_cassette 'image' do
         header 'Accept', '*/*'
         get    '/hhgttg'
         EM.stop
@@ -649,7 +669,7 @@ describe Viso do
 
   it 'ignores trailing slash' do
     EM.synchrony do
-      VCR.use_cassette 'text' do
+      VCR.use_cassette 'image' do
         get '/hhgttg/'
         EM.stop
 
@@ -690,6 +710,42 @@ describe Viso do
       assert { last_response.body.empty? }
       assert_cached_for 0
       deny_last_modified
+    end
+  end
+
+  ## Last-Modified
+
+  it 'returns a not modified response and records view of a bookmark' do
+    EM.synchrony do
+      VCR.use_cassette 'bookmark' do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
+
+        get '/hhgttg', {}, { 'HTTP_IF_MODIFIED_SINCE' => 'Tue, 05 Apr 2011 10:43:44 GMT' }
+        EM.stop
+
+        assert_requested :post, 'http://api.cld.me/hhgttg/view'
+        assert { last_response.status == 304 }
+        assert_cached_for 0
+        assert_last_modified '2011-04-05T10:43:44Z'
+      end
+    end
+  end
+
+  it 'returns a not modified response and records view of a text' do
+    EM.synchrony do
+      VCR.use_cassette 'text' do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
+
+        get '/hhgttg', {}, { 'HTTP_IF_MODIFIED_SINCE' => 'Thu, 04 Aug 2011 19:25:15 GMT' }
+        EM.stop
+
+        assert_requested :post, 'http://api.cld.me/hhgttg/view'
+        assert { last_response.status == 304 }
+        assert_cached_for 0
+        assert_last_modified '2011-08-04T19:25:15Z'
+      end
     end
   end
 
