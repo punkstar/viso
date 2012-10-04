@@ -24,6 +24,14 @@ describe Viso do
     assert { Time.now - Time.parse(headers['Date']) < 2.0 }
   end
 
+  def assert_last_modified(date)
+    assert { headers['Last-Modified'] == Time.parse(date).httpdate }
+  end
+
+  def deny_last_modified
+    deny { headers.has_key? 'Last-Modified' }
+  end
+
   def assert_social_meta_data
     meta_tag = %{<meta property="og:site_name" content="CloudApp">}
     assert { last_response.body.include?(meta_tag) }
@@ -63,6 +71,7 @@ describe Viso do
         assert { last_response.body.include?('Sorry, no drops live here') }
         deny_social_meta_data
         assert_cached_for 0
+        deny_last_modified
       end
     end
   end
@@ -77,6 +86,7 @@ describe Viso do
         assert { last_response.body.include?('Sorry, no drops live here') }
         deny_social_meta_data
         assert_cached_for 0
+        deny_last_modified
       end
     end
   end
@@ -95,6 +105,7 @@ describe Viso do
         assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/chapter1.txt' }
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-08-04T19:25:15Z'
       end
     end
   end
@@ -113,6 +124,7 @@ describe Viso do
         assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/chapter1.txt' }
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-08-04T19:25:15Z'
       end
     end
   end
@@ -131,6 +143,7 @@ describe Viso do
         assert { headers['Location'] == 'http://getcloudapp.com/download' }
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-04-05T10:43:44Z'
       end
     end
   end
@@ -149,6 +162,7 @@ describe Viso do
         assert { headers['Location'] == 'http://getcloudapp.com/download' }
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-04-05T10:43:44Z'
       end
     end
   end
@@ -162,6 +176,7 @@ describe Viso do
       assert { headers['Location'] == 'http://api.cld.me/text/hhgttg/download/chapter1.txt' }
       deny_social_meta_data
       assert_cached_for 3600
+      deny_last_modified
     end
   end
 
@@ -174,6 +189,7 @@ describe Viso do
       assert { headers['Location'] == 'http://api.cld.me/hhgttg/download/chapter1.txt' }
       deny_social_meta_data
       assert_cached_for 3600
+      deny_last_modified
     end
   end
 
@@ -190,6 +206,7 @@ describe Viso do
 
         assert_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-03-25T19:04:43Z'
       end
     end
   end
@@ -207,6 +224,7 @@ describe Viso do
 
         assert_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-03-25T19:04:43Z'
       end
     end
   end
@@ -224,6 +242,7 @@ describe Viso do
 
         assert_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-03-25T19:04:43Z'
       end
     end
   end
@@ -241,6 +260,7 @@ describe Viso do
 
         assert_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-03-25T19:04:43Z'
       end
     end
   end
@@ -258,6 +278,7 @@ describe Viso do
 
         assert_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-03-25T19:04:43Z'
       end
     end
   end
@@ -272,6 +293,7 @@ describe Viso do
         assert { last_response.body.include?('Sorry, no drops live here') }
         deny_social_meta_data
         assert_cached_for 0
+        deny_last_modified
       end
     end
   end
@@ -286,6 +308,7 @@ describe Viso do
         assert { last_response.body.include?('Sorry, no drops live here') }
         deny_social_meta_data
         assert_cached_for 0
+        deny_last_modified
       end
     end
   end
@@ -303,6 +326,7 @@ describe Viso do
 
         assert_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-03-25T19:04:43Z'
       end
     end
   end
@@ -320,6 +344,7 @@ describe Viso do
 
         assert_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-03-25T19:04:43Z'
       end
     end
   end
@@ -337,6 +362,7 @@ describe Viso do
 
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2012-10-02T15:17:02Z'
       end
     end
   end
@@ -350,6 +376,7 @@ describe Viso do
         assert { last_response.ok? }
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-03-25T19:04:43Z'
       end
     end
   end
@@ -363,6 +390,7 @@ describe Viso do
         assert { last_response.status == 204 }
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2012-10-02T15:17:02Z'
       end
     end
   end
@@ -376,6 +404,7 @@ describe Viso do
         assert { last_response.status == 404 }
         deny_social_meta_data
         assert_cached_for 0
+        deny_last_modified
       end
     end
   end
@@ -405,6 +434,7 @@ describe Viso do
 
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-05-13T13:34:38Z'
       end
     end
   end
@@ -434,6 +464,7 @@ describe Viso do
 
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-08-04T19:25:15Z'
       end
     end
   end
@@ -463,6 +494,7 @@ describe Viso do
 
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-08-04T19:25:15Z'
       end
     end
   end
@@ -484,6 +516,7 @@ describe Viso do
 
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-08-04T22:31:50Z'
       end
     end
   end
@@ -505,6 +538,7 @@ describe Viso do
 
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-08-04T22:37:33Z'
       end
     end
   end
@@ -526,6 +560,7 @@ describe Viso do
 
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-08-04T22:37:33Z'
       end
     end
   end
@@ -543,6 +578,7 @@ describe Viso do
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-08-04T19:25:15Z'
       end
     end
   end
@@ -560,6 +596,7 @@ describe Viso do
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-08-04T19:25:15Z'
       end
     end
   end
@@ -577,6 +614,7 @@ describe Viso do
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
         deny_social_meta_data
         assert_cached_for 0
+        assert_last_modified '2011-08-04T19:25:15Z'
       end
     end
   end
@@ -638,6 +676,7 @@ describe Viso do
       assert { headers['Content-Type'] == 'text/javascript;charset=utf-8' }
       assert { last_response.body.empty? }
       assert_cached_for 0
+      deny_last_modified
     end
   end
 
@@ -650,6 +689,7 @@ describe Viso do
       assert { headers['Content-Type'] == 'text/javascript;charset=utf-8' }
       assert { last_response.body.empty? }
       assert_cached_for 0
+      deny_last_modified
     end
   end
 
@@ -668,6 +708,7 @@ describe Viso do
       assert { headers['Location'] == 'http://getcloudapp.com' }
       deny_social_meta_data
       assert_cached_for 0
+      deny_last_modified
     end
   end
 
@@ -684,6 +725,7 @@ describe Viso do
       assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/Screen_Shot_2012-04-01_at_12.00.00_AM.png' }
       deny_social_meta_data
       assert_cached_for 0
+      deny_last_modified
     end
   end
 
@@ -695,6 +737,7 @@ describe Viso do
       assert { last_response.status == 404 }
       deny_social_meta_data
       assert_cached_for 0
+      deny_last_modified
     end
   end
 end

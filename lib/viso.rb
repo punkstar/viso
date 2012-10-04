@@ -101,10 +101,10 @@ class Viso < Sinatra::Base
   end
 
   # The content for a **Drop**. Response is cached for 15 minutes.
-  get %r{^                         #
-         (?:/(text|code|image))?   # Optional drop type
-         /([^/?#]+)                # Item slug
-         /(.+)       # Filename
+  get %r{^                        #
+         (?:/(text|code|image))?  # Optional drop type
+         /([^/?#]+)               # Item slug
+         /(.+)                    # Filename
          $}x do |type, slug, filename|
     respond_to {|format|
       format.html do
@@ -116,7 +116,7 @@ class Viso < Sinatra::Base
     }
   end
 
-  def redirect_to_content(slug, remote_url)
+  def redirect_to_content(slug, remote_url, updated_at = nil)
     http = EM::HttpRequest.
              new("http://#{ DropFetcher.base_uri }/#{ slug }/view").
              apost
@@ -137,8 +137,8 @@ class Viso < Sinatra::Base
            ].join(' ')
     }
     cache_seconds 0
+    last_modified updated_at if updated_at
     redirect remote_url
-    ## Last-Modified
   end
 
   def cache_seconds(seconds)
@@ -169,6 +169,7 @@ protected
     drop = DropPresenter.new fetch_drop(slug), self
     check_domain_matches drop
     cache_seconds 0
+    last_modified drop.updated_at
 
     Metriks.timer("viso.drop.render.#{ drop.item_type }").time {
       respond_to {|format|
@@ -176,7 +177,6 @@ protected
         format.json { drop.render_json }
       }
     }
-    ## Last-Modified
   rescue => e
     env['async.callback'].call [ 500, {}, error_content_for(:error) ]
     Airbrake.notify_or_ignore e if defined? Airbrake
@@ -192,8 +192,8 @@ protected
   def fetch_and_render_status(slug)
     drop = DropPresenter.new fetch_drop(slug), self
     cache_seconds 0
+    last_modified drop.updated_at
     status drop.pending? ? 204 : 200
-    ## Last-Modified
   end
 
   def error_content_for(type)
@@ -230,6 +230,5 @@ protected
   def redirect_to_api
     cache_seconds 3600
     redirect "http://#{ DropFetcher.base_uri }#{ request.path }"
-    ## Last-Modified
   end
 end

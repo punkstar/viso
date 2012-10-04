@@ -21,7 +21,7 @@ class DropPresenter < SimpleDelegator
   end
 
   def render_content
-    @template.redirect_to_content slug, remote_url
+    @template.redirect_to_content slug, remote_url, updated_at
   end
 
 private
