@@ -9,8 +9,8 @@ class Content
   include Code
   include Markdown
 
-  def initialize(content_url)
-    @content_url = content_url
+  def initialize(url)
+    @url = url
   end
 
   def raw
@@ -19,7 +19,7 @@ class Content
     # the encoding along with the file is discovered and implemented.
     @raw ||= begin
                Metriks.timer('viso.download-content').time {
-                 EM::HttpRequest.new(@content_url).get(:redirects => 3).response.
+                 EM::HttpRequest.new(@url).get(:redirects => 3).response.
                    force_encoding(Encoding::UTF_8)
                }
              end

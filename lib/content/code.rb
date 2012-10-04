@@ -29,7 +29,7 @@ class Content
 
     def lexer_name
       timer = Metriks.timer('viso.pygments.lexer_name').time
-      @lexer_name ||= lexer_name_for :filename => @content_url
+      @lexer_name ||= lexer_name_for :filename => @url
     rescue RubyPython::PythonError
       false
     ensure

@@ -4,22 +4,15 @@ require 'content/code'
 describe Content::Code do
   before do
     module FakeSuper
-      def content
-        'super content'
-      end
+      def content() 'super content' end
     end
 
     class FakeContent
       include FakeSuper
       include Content::Code
 
-      def initialize(content_url)
-        @content_url = content_url
-      end
-
-      def raw
-        "puts 'Hello, world!'"
-      end
+      def initialize(url) @url = url end
+      def raw() "puts 'Hello, world!'" end
       alias_method :escaped_raw, :raw
     end
   end

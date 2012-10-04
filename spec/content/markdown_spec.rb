@@ -3,22 +3,15 @@ require 'content/markdown'
 describe Content::Markdown do
   before do
     module FakeSuper
-      def content
-        'super content'
-      end
+      def content() 'super content' end
     end
 
     class FakeContent
       include FakeSuper
       include Content::Markdown
 
-      def initialize(content_url)
-        @content_url = content_url
-      end
-
-      def raw
-        '# Chapter 1'
-      end
+      def initialize(url) @url = url end
+      def raw() '# Chapter 1' end
     end
   end
 

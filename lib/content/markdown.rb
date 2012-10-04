@@ -20,7 +20,7 @@ class Content
   private
 
     def extension
-      File.extname(@content_url).downcase
+      File.extname(@url).downcase
     end
   end
 

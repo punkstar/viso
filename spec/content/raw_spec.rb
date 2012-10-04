@@ -5,13 +5,8 @@ describe Content::Raw do
     class FakeContent
       include Content::Raw
 
-      def initialize(content_url)
-        @content_url = content_url
-      end
-
-      def raw
-        'Chapter 1'
-      end
+      def initialize(url) @url = url end
+      def raw() 'Chapter 1' end
       alias_method :escaped_raw, :raw
     end
   end
