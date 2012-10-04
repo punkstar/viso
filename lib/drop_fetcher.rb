@@ -17,6 +17,28 @@ class DropFetcher
                                       :symbolize_keys => true)
   end
 
+  def self.record_view(slug)
+    http = EM::HttpRequest.
+             new("http://#{ DropFetcher.base_uri }/#{ slug }/view").
+             apost
+    http.callback {
+      if http.response_header.status != 201
+        puts [ '#' * 5,
+               http.last_effective_url,
+               http.response_header.status,
+               '#' * 5
+             ].join(' ')
+      end
+    }
+    http.errback {
+      puts [ '#' * 5,
+             http.last_effective_url,
+             'ERR',
+             '#' * 5
+           ].join(' ')
+    }
+  end
+
 private
 
   def self.fetch_drop_content(slug)

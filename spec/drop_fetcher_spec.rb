@@ -1,4 +1,5 @@
 require 'support/vcr'
+require 'webmock/rspec'
 require 'drop_fetcher'
 
 describe DropFetcher do
@@ -82,6 +83,20 @@ describe DropFetcher do
 
           EM.stop
         end
+      end
+    end
+  end
+
+  describe '.record_view' do
+    it 'records the view' do
+      EM.synchrony do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
+
+        DropFetcher.record_view 'hhgttg'
+        EM.stop
+
+        assert_requested :post, 'http://api.cld.me/hhgttg/view'
       end
     end
   end

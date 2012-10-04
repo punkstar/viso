@@ -117,25 +117,7 @@ class Viso < Sinatra::Base
   end
 
   def redirect_to_content(slug, remote_url, updated_at = nil)
-    http = EM::HttpRequest.
-             new("http://#{ DropFetcher.base_uri }/#{ slug }/view").
-             apost
-    http.callback {
-      if http.response_header.status != 201
-        puts [ '#' * 5,
-               http.last_effective_url,
-               http.response_header.status,
-               '#' * 5
-             ].join(' ')
-      end
-    }
-    http.errback {
-      puts [ '#' * 5,
-             http.last_effective_url,
-             'ERR',
-             '#' * 5
-           ].join(' ')
-    }
+    DropFetcher.record_view slug
     cache_duration 0
     last_modified updated_at if updated_at
     redirect remote_url
