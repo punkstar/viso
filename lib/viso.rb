@@ -39,7 +39,7 @@ class Viso < Sinatra::Base
   # ping the API to get the home page for the current domain. Response is cached
   # for one hour.
   get '/' do
-    cache_seconds 3600
+    cache_duration 3600
     redirect DomainFetcher.fetch(env['HTTP_HOST']).home_page
     ## Last-Modified
   end
@@ -48,7 +48,7 @@ class Viso < Sinatra::Base
   get '/metrics' do
     MetricRecorder.record params['name'], params['value']
     content_type 'text/javascript'
-    cache_seconds 0
+    cache_duration 0
     status 200
   end
 
@@ -136,19 +136,19 @@ class Viso < Sinatra::Base
              '#' * 5
            ].join(' ')
     }
-    cache_seconds 0
+    cache_duration 0
     last_modified updated_at if updated_at
     redirect remote_url
   end
 
-  def cache_seconds(seconds)
+  def cache_duration(seconds)
     response['Date'] = Time.now.httpdate
     cache_control :public, :max_age => seconds
   end
 
   # Don't need to return anything special for a 404.
   not_found do
-    cache_seconds 0
+    cache_duration 0
     not_found error_content_for(:not_found)
   end
 
@@ -168,7 +168,7 @@ protected
   def fetch_and_render_drop(slug)
     drop = DropPresenter.new fetch_drop(slug), self
     check_domain_matches drop
-    cache_seconds 0
+    cache_duration 0
     last_modified drop.updated_at
 
     Metriks.timer("viso.drop.render.#{ drop.item_type }").time {
@@ -191,7 +191,7 @@ protected
 
   def fetch_and_render_status(slug)
     drop = DropPresenter.new fetch_drop(slug), self
-    cache_seconds 0
+    cache_duration 0
     last_modified drop.updated_at
     status drop.pending? ? 204 : 200
   end
@@ -228,7 +228,7 @@ protected
 
   # Redirect the current request to the same path on the API domain.
   def redirect_to_api
-    cache_seconds 3600
+    cache_duration 3600
     redirect "http://#{ DropFetcher.base_uri }#{ request.path }"
   end
 end
