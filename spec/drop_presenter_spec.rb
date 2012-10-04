@@ -9,13 +9,15 @@ describe DropPresenter do
                              text?:      text,
                              markdown?:  markdown,
                              pending?:   pending,
-                             remote_url: 'http://remote.url' }
-    let(:beta)     { false }
-    let(:bookmark) { false }
-    let(:image)    { false }
-    let(:text)     { false }
-    let(:markdown) { false }
-    let(:pending)  { false }
+                             remote_url: 'http://remote.url',
+                             updated_at: updated_at }
+    let(:beta)       { false }
+    let(:bookmark)   { false }
+    let(:image)      { false }
+    let(:text)       { false }
+    let(:markdown)   { false }
+    let(:pending)    { false }
+    let(:updated_at) { stub :updated_at }
     subject { DropPresenter.new drop, template }
 
     describe 'a bookmark drop' do
@@ -24,7 +26,7 @@ describe DropPresenter do
 
       it 'redirects to the api' do
         template.should_receive(:redirect_to_content).
-          with('hhgttg', 'http://remote.url')
+          with('hhgttg', 'http://remote.url', updated_at)
         subject.render_html
       end
 
@@ -32,7 +34,7 @@ describe DropPresenter do
         let(:beta) { true }
         it 'redirects to the api' do
           template.should_receive(:redirect_to_content).
-            with('hhgttg', 'http://remote.url')
+            with('hhgttg', 'http://remote.url', updated_at)
           subject.render_html
         end
       end
@@ -199,14 +201,16 @@ describe DropPresenter do
   end
 
   describe '#render_content' do
-    let(:template) { stub :template, redirect_to_content: nil }
-    let(:drop)     { stub :drop, slug:       'hhgttg',
-                                 remote_url: 'http://remote.url' }
+    let(:template)   { stub :template, redirect_to_content: nil }
+    let(:drop)       { stub :drop, slug:       'hhgttg',
+                                   remote_url: 'http://remote.url',
+                                   updated_at: updated_at }
+    let(:updated_at) { stub :updated_at }
     subject { DropPresenter.new drop, template }
 
     it 'redirects to the content' do
       template.should_receive(:redirect_to_content).
-        with('hhgttg', 'http://remote.url')
+        with('hhgttg', 'http://remote.url', updated_at)
       subject.render_content
     end
   end
