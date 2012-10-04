@@ -1,4 +1,5 @@
 require 'delegate'
+require 'metriks'
 require 'yajl'
 
 class DropPresenter < SimpleDelegator
@@ -8,16 +9,22 @@ class DropPresenter < SimpleDelegator
   end
 
   def render_html
+    timer = render_timer
     if bookmark?
       render_content
     else
       @template.erb template_name, layout: layout_name,
                                    locals: { drop: self, body_id: body_id }
     end
+  ensure
+    timer.stop
   end
 
   def render_json
+    timer = render_timer
     Yajl::Encoder.encode data
+  ensure
+    timer.stop
   end
 
   def render_content
@@ -64,5 +71,9 @@ private
     else
       'other'
     end
+  end
+
+  def render_timer
+    Metriks.timer("viso.drop.render.#{ item_type }").time
   end
 end
