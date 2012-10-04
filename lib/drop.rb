@@ -26,6 +26,7 @@ class Drop
   def remote_url()    @data[:remote_url] || @data[:redirect_url] end
   def bookmark?()     @data[:item_type] == 'bookmark' end
   def pending?()      @data[:item_type] == 'pending'  end
+  def updated_at()    Time.parse @data[:updated_at]   end
 
   def beta?
     source = @data.fetch :source, nil

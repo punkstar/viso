@@ -1,4 +1,5 @@
 require 'drop'
+require 'time'
 
 describe Drop do
   let(:data) { {} }
@@ -79,6 +80,11 @@ describe Drop do
   describe '#name' do
     let(:data) {{ name: 'Chapter 1' }}
     its(:name) { should eq('Chapter 1') }
+  end
+
+  describe '#updated_at' do
+    let(:data) {{ updated_at: Time.utc(2012).iso8601 }}
+    its(:updated_at) { should eq(Time.utc(2012)) }
   end
 
   describe '#extension' do
