@@ -66,8 +66,9 @@ class Viso < Sinatra::Base
   end
 
   get %r{^
-         /([^/?#]+)  # Item slug
-         /status
+         (?:/(?:text|code|image))?  # Optional drop type
+         /([^/?#]+)                 # Item slug
+         /status                    #
          $}x do |slug|
     fetch_and_render_status slug
   end
