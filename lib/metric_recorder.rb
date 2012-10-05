@@ -2,7 +2,7 @@ require 'metriks'
 
 class MetricRecorder
   def self.record(name, value = nil)
-    metric_name = "viso.js.#{ name }"
+    metric_name = "js.#{ name }"
 
     case name
     when 'load', 'image-load'

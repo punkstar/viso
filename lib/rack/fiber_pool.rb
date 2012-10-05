@@ -56,7 +56,7 @@ class FiberPool
             block = @queue.shift
           else
             @busy_fibers.delete(Fiber.current.object_id)
-            Metriks.histogram('viso.active-fibers').update(@busy_fibers.size)
+            Metriks.histogram('active-fibers').update(@busy_fibers.size)
             @fibers.unshift Fiber.current
             block = Fiber.yield
           end
@@ -74,7 +74,7 @@ class FiberPool
     if fiber = @fibers.shift
       fiber[:callbacks] = []
       @busy_fibers[fiber.object_id] = fiber
-      Metriks.histogram('viso.active-fibers').update(@busy_fibers.size)
+      Metriks.histogram('active-fibers').update(@busy_fibers.size)
       fiber.resume(block)
     else
       @queue << block

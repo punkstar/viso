@@ -140,7 +140,7 @@ protected
   # Fetch and return a **Drop** with the given `slug`. Handle
   # `DropFetcher::NotFound` errors and render the not found response.
   def fetch_drop(slug)
-    timer = Metriks.timer('viso.drop.fetch').time
+    timer = Metriks.timer('drop.fetch').time
     DropFetcher.fetch slug
   rescue DropFetcher::NotFound
     not_found

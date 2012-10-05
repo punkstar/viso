@@ -11,7 +11,7 @@ class Content
     RubyPython.configure :python_exe => 'python2.6'
 
     def self.highlight(code, lexer)
-      Metriks.timer('viso.pygments').time {
+      Metriks.timer('pygments').time {
         Pygments.highlight code, lexer: lexer, options: { encoding: 'utf-8' }
       }
     end
@@ -28,7 +28,7 @@ class Content
     end
 
     def lexer_name
-      timer = Metriks.timer('viso.pygments.lexer_name').time
+      timer = Metriks.timer('pygments.lexer_name').time
       @lexer_name ||= lexer_name_for :filename => @url
     rescue RubyPython::PythonError
       false
