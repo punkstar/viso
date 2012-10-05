@@ -776,6 +776,23 @@ describe Viso do
     end
   end
 
+  it 'returns a not modified response and records view of a content link' do
+    EM.synchrony do
+      VCR.use_cassette 'text_content' do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
+
+        get '/text/hhgttg/Chapter%201.txt', {}, { 'HTTP_IF_MODIFIED_SINCE' => 'Fri, 05 Oct 2012 23:55:15 GMT' }
+        EM.stop
+
+        assert_requested :post, 'http://api.cld.me/hhgttg/view'
+        assert { last_response.status == 304 }
+        assert_cached_for 0
+        assert_last_modified '2012-10-04T23:55:15Z'
+      end
+    end
+  end
+
   ## Legacy /content endpoints
 
   it 'redirects to the encoded URL' do
