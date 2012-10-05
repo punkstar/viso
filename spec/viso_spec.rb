@@ -749,6 +749,19 @@ describe Viso do
     end
   end
 
+  it 'returns a not modified response for a pending drop' do
+    EM.synchrony do
+      VCR.use_cassette 'pending' do
+        get '/hhgttg', {}, { 'HTTP_IF_MODIFIED_SINCE' => 'Fri, 05 Oct 2012 01:16:09 GMT' }
+        EM.stop
+
+        assert { last_response.status == 304 }
+        assert_cached_for 0
+        assert_last_modified '2012-10-05T01:16:09Z'
+      end
+    end
+  end
+
   it 'returns a not modified response and for json request' do
     EM.synchrony do
       VCR.use_cassette 'text' do
