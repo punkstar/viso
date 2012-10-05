@@ -1,73 +1,96 @@
---- 
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
     method: :get
     uri: http://api.cld.me:80/hhgttg
     body: 
-    headers: 
-      accept: 
+    headers:
+      accept:
       - application/json
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
       code: 200
       message: OK
-    headers: 
-      server: 
-      - nginx/0.7.67
-      date: 
-      - Thu, 04 Aug 2011 22:34:35 GMT
-      content-type: 
-      - application/json; charset=utf-8
-      vary: 
-      - Accept
-      etag: 
-      - "\"150145dfc89e85cbf91bf3b28618e5c4\""
-      x-ua-compatible: 
-      - IE=Edge,chrome=1
-      x-runtime: 
-      - "0.039199"
-      cache-control: 
-      - public; max-age=900
-      content-length: 
-      - "497"
-      x-varnish: 
-      - "376588354"
-      age: 
-      - "0"
-      via: 
-      - 1.1 varnish
-    body: "{\"content_url\":\"http://cl.ly/hhgttg/chapter1.md\",\"href\":\"http://my.cl.ly/items/7242217\",\"name\":\"chapter1.md\",\"redirect_url\":null,\"created_at\":\"2011-07-12T01:59:13Z\",\"updated_at\":\"2011-08-04T22:31:50Z\",\"private\":true,\"deleted_at\":null,\"url\":\"http://cl.ly/hhgttg\",\"view_counter\":12,\"remote_url\":\"http://f.cl.ly/items/hhgttg/chapter1.md\",\"icon\":\"http://my.cl.ly/images/new/item-types/unknown.png\",\"id\":7242217,\"subscribed\":true,\"source\":null,\"item_type\":\"unknown\"}"
-    http_version: "1.1"
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
+    headers:
+      !binary "Y2FjaGUtY29udHJvbA==":
+      - !binary |-
+        cHVibGljOyBtYXgtYWdlPTkwMA==
+      !binary "Y29udGVudC10eXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA==
+      !binary "ZXRhZw==":
+      - !binary |-
+        Ijc4ZWI2YjllMzJmYzQ0NjcyYjQzYzk1ZWJiYzEyOWQ4Ig==
+      !binary "c2VydmVy":
+      - !binary |-
+        dGhpbiAxLjQuMSBjb2RlbmFtZSBDaHJvbWVv
+      !binary "dmFyeQ==":
+      - !binary |-
+        QWNjZXB0
+      !binary "eC1ydW50aW1l":
+      - !binary |-
+        MC4wMjU1MjM=
+      !binary "eC11YS1jb21wYXRpYmxl":
+      - !binary |-
+        SUU9RWRnZSxjaHJvbWU9MQ==
+      !binary "dHJhbnNmZXItZW5jb2Rpbmc=":
+      - !binary |-
+        Y2h1bmtlZA==
+      !binary "Y29ubmVjdGlvbg==":
+      - !binary |-
+        Q2xvc2U=
+    body: ! '{"created_at":"2012-10-04T23:33:07Z","deleted_at":null,"id":22658837,"item_type":"text","name":"Chapter
+      1.md","private":true,"redirect_url":null,"remote_url":"http://f.cl.ly/items/hhgttg/Chapter%201.md","source":"Mozilla/5.0
+      (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.79
+      Safari/537.4","updated_at":"2012-10-04T23:34:01Z","view_counter":3,"href":"http://my.cl.ly/items/22658837","icon":"http://my.cld.me/images/item-types/text.png","subscribed":false,"url":"http://cl.ly/text/hhgttg","content_url":"http://cl.ly/text/hhgttg/Chapter%201.md","download_url":"http://cl.ly/text/hhgttg/download/Chapter%201.md","gauge_id":null}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
     method: :get
-    uri: http://cl.ly:80/hhgttg/chapter1.md
+    uri: http://f.cl.ly:80/items/hhgttg/Chapter%201.md
     body: 
     headers: 
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
       code: 200
       message: OK
-    headers: 
-      x-amz-id-2: 
-      - GBSwZX+JssXgE6AaP/i+qoNkgIhdiNNYc2DuAFFfB497ZIDZ+JxyIwZWN+g83gFQ
-      x-amz-request-id: 
-      - DF8878EF92D01DD3
-      date: 
-      - Thu, 04 Aug 2011 22:34:37 GMT
-      last-modified: 
-      - Tue, 12 Jul 2011 01:59:13 GMT
-      etag: 
-      - "\"e707e6be0da35d331d7464309a897529\""
-      accept-ranges: 
-      - bytes
-      content-type: 
-      - binary/octet-stream
-      content-length: 
-      - "389"
-      server: 
-      - AmazonS3
-    body: "# Chapter 1\n\n\
-      The house stood on a slight rise just on the edge of the village. It stood on its own and looked out over a broad spread of West Country farmland. Not a remarkable house by any means\xE2\x80\x94it was about thirty years old, squattish, squarish, made of brick, and had four windows set in the front of a size and proportion which more or less exactly **failed** to please the eye.\n"
-
-    http_version: "1.1"
+    headers:
+      !binary "eC1hbXotaWQtMg==":
+      - !binary |-
+        VmVkNmsyMUpOYTZkSkt1N1V5K1JYWEZteGxGc2s0T3ZrVkl0MnJhSHUzczlF
+        cy9hU00vU2FiVnBUQitobTBDWA==
+      !binary "eC1hbXotcmVxdWVzdC1pZA==":
+      - !binary |-
+        NjQ0Rjc2M0Q0OTBBMTk3Mw==
+      !binary "ZGF0ZQ==":
+      - !binary |-
+        VGh1LCAwNCBPY3QgMjAxMiAyMzo0MjoyMiBHTVQ=
+      !binary "bGFzdC1tb2RpZmllZA==":
+      - !binary |-
+        VGh1LCAwNCBPY3QgMjAxMiAyMzozMzowOCBHTVQ=
+      !binary "ZXRhZw==":
+      - !binary |-
+        IjI5NzJjY2FhNjQ1OWIxYjIxNTYxOTJiNzMyY2M0ZmNmIg==
+      !binary "YWNjZXB0LXJhbmdlcw==":
+      - !binary |-
+        Ynl0ZXM=
+      !binary "Y29udGVudC10eXBl":
+      - !binary |-
+        YmluYXJ5L29jdGV0LXN0cmVhbQ==
+      !binary "Y29udGVudC1sZW5ndGg=":
+      - !binary |-
+        Mzg1
+      !binary "c2VydmVy":
+      - !binary |-
+        QW1hem9uUzM=
+    body: !binary |-
+      IyBDaGFwdGVyIDEKClRoZSBob3VzZSBzdG9vZCBvbiBhIHNsaWdodCByaXNl
+      IGp1c3Qgb24gdGhlIGVkZ2Ugb2YgdGhlIHZpbGxhZ2UuIEl0IHN0b29kIG9u
+      IGl0cyBvd24gYW5kIGxvb2tlZCBvdXQgb3ZlciBhIGJyb2FkIHNwcmVhZCBv
+      ZiBXZXN0IENvdW50cnkgZmFybWxhbmQuIE5vdCBhIHJlbWFya2FibGUgaG91
+      c2UgYnkgYW55IG1lYW5z4oCUaXQgd2FzIGFib3V0IHRoaXJ0eSB5ZWFycyBv
+      bGQsIHNxdWF0dGlzaCwgc3F1YXJpc2gsIG1hZGUgb2YgYnJpY2ssIGFuZCBo
+      YWQgZm91ciB3aW5kb3dzIHNldCBpbiB0aGUgZnJvbnQgb2YgYSBzaXplIGFu
+      ZCBwcm9wb3J0aW9uIHdoaWNoIG1vcmUgb3IgbGVzcyBleGFjdGx5ICoqZmFp
+      bGVkKiogdG8gcGxlYXNlIHRoZSBleWUuCg==
+    http_version: '1.1'

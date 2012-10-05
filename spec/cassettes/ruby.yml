@@ -1,73 +1,88 @@
---- 
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
     method: :get
     uri: http://api.cld.me:80/hhgttg
     body: 
-    headers: 
-      accept: 
+    headers:
+      accept:
       - application/json
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
       code: 200
       message: OK
-    headers: 
-      server: 
-      - nginx/0.7.67
-      date: 
-      - Thu, 04 Aug 2011 22:38:42 GMT
-      content-type: 
-      - application/json; charset=utf-8
-      vary: 
-      - Accept
-      etag: 
-      - "\"d7cd93ca8eb03c62ffaccbac452bcfec\""
-      x-ua-compatible: 
-      - IE=Edge,chrome=1
-      x-runtime: 
-      - "0.012705"
-      cache-control: 
-      - public; max-age=900
-      content-length: 
-      - "450"
-      x-varnish: 
-      - "1252477365"
-      age: 
-      - "0"
-      via: 
-      - 1.1 varnish
-    body: "{\"content_url\":\"http://cl.ly/hhgttg/hello.rb\",\"href\":\"http://my.cl.ly/items/5593634\",\"name\":\"hello.rb\",\"redirect_url\":null,\"created_at\":\"2011-05-31T12:18:00Z\",\"updated_at\":\"2011-08-04T22:37:33Z\",\"private\":false,\"deleted_at\":null,\"url\":\"http://cl.ly/hhgttg\",\"view_counter\":58,\"remote_url\":\"http://f.cl.ly/items/hhgttg/hello.rb\",\"icon\":\"http://my.cl.ly/images/new/item-types/unknown.png\",\"id\":5593634,\"subscribed\":true,\"source\":null,\"item_type\":\"ruby\"}"
-    http_version: "1.1"
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
+    headers:
+      !binary "Y2FjaGUtY29udHJvbA==":
+      - !binary |-
+        cHVibGljOyBtYXgtYWdlPTkwMA==
+      !binary "Y29udGVudC10eXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA==
+      !binary "ZXRhZw==":
+      - !binary |-
+        IjNlZmM1M2UxZDJiOWY5ODc4Mjg0OTcwNjU2NTA0NzQ3Ig==
+      !binary "c2VydmVy":
+      - !binary |-
+        dGhpbiAxLjQuMSBjb2RlbmFtZSBDaHJvbWVv
+      !binary "dmFyeQ==":
+      - !binary |-
+        QWNjZXB0
+      !binary "eC1ydW50aW1l":
+      - !binary |-
+        MC4wMjU3MjE=
+      !binary "eC11YS1jb21wYXRpYmxl":
+      - !binary |-
+        SUU9RWRnZSxjaHJvbWU9MQ==
+      !binary "dHJhbnNmZXItZW5jb2Rpbmc=":
+      - !binary |-
+        Y2h1bmtlZA==
+      !binary "Y29ubmVjdGlvbg==":
+      - !binary |-
+        Q2xvc2U=
+    body: ! '{"created_at":"2012-10-05T01:05:25Z","deleted_at":null,"id":22660710,"item_type":"text","name":"hello.rb","private":true,"redirect_url":null,"remote_url":"http://f.cl.ly/items/hhgttg/hello.rb","source":"Mozilla/5.0
+      (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.79
+      Safari/537.4","updated_at":"2012-10-05T01:05:28Z","view_counter":1,"href":"http://my.cl.ly/items/22660710","icon":"http://my.cld.me/images/item-types/text.png","subscribed":false,"url":"http://cl.ly/code/hhgttg","content_url":"http://cl.ly/code/hhgttg/hello.rb","download_url":"http://cl.ly/code/hhgttg/download/hello.rb","gauge_id":null}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
     method: :get
-    uri: http://cl.ly:80/hhgttg/hello.rb
+    uri: http://f.cl.ly:80/items/hhgttg/hello.rb
     body: 
     headers: 
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
       code: 200
       message: OK
-    headers: 
-      x-amz-id-2: 
-      - K+4u3wz3NDDpG0XnY2+99KxLJGyhpiLCY8Q6IFnwiAwKO5AnOUAEPTybYy2r/6aw
-      x-amz-request-id: 
-      - CC0C87AA00EB6B47
-      date: 
-      - Thu, 04 Aug 2011 22:38:44 GMT
-      last-modified: 
-      - Tue, 31 May 2011 12:18:04 GMT
-      etag: 
-      - "\"3cd171f5191f20cf69d7496a59e59e8f\""
-      accept-ranges: 
-      - bytes
-      content-type: 
-      - application/ruby
-      content-length: 
-      - "21"
-      server: 
-      - AmazonS3
-    body: |
-      puts 'Hello, world!'
+    headers:
+      !binary "eC1hbXotaWQtMg==":
+      - !binary |-
+        RFNuMDhRVVlOMzhnb2ZOVnNCLzFGajJGYm56L2d1MTJqQktwRFl5dVhvS2M1
+        QWNVODBOYTFrNTF0SkVUdktVNg==
+      !binary "eC1hbXotcmVxdWVzdC1pZA==":
+      - !binary |-
+        MjQ2MUY2NUJBRTg4NkMyNw==
+      !binary "ZGF0ZQ==":
+      - !binary |-
+        RnJpLCAwNSBPY3QgMjAxMiAwMTowNTo0MyBHTVQ=
+      !binary "bGFzdC1tb2RpZmllZA==":
+      - !binary |-
+        RnJpLCAwNSBPY3QgMjAxMiAwMTowNToyNiBHTVQ=
+      !binary "ZXRhZw==":
+      - !binary |-
+        IjFlOWRhODVhNWJkN2Q0YTk4OGM4NWRiMTRhOTUwMzFiIg==
+      !binary "YWNjZXB0LXJhbmdlcw==":
+      - !binary |-
+        Ynl0ZXM=
+      !binary "Y29udGVudC10eXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vcnVieQ==
+      !binary "Y29udGVudC1sZW5ndGg=":
+      - !binary |-
+        MjE=
+      !binary "c2VydmVy":
+      - !binary |-
+        QW1hem9uUzM=
+    body: ! 'puts ''Hello, world!''
 
-    http_version: "1.1"
+'
+    http_version: '1.1'

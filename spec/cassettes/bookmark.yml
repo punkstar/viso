@@ -1,36 +1,42 @@
---- 
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
     method: :get
     uri: http://api.cld.me:80/hhgttg
     body: 
-    headers: 
-      accept: 
+    headers:
+      accept:
       - application/json
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
       code: 200
       message: OK
-    headers: 
-      server: 
-      - nginx/0.7.67
-      date: 
-      - Tue, 05 Apr 2011 10:51:53 GMT
-      content-type: 
-      - application/json; charset=utf-8
-      last-modified: 
-      - Tue, 05 Apr 2011 10:43:44 GMT
-      x-runtime: 
-      - "8"
-      cache-control: 
-      - private, max-age=0, must-revalidate
-      content-length: 
-      - "432"
-      x-varnish: 
-      - "600146775"
-      age: 
-      - "0"
-      via: 
-      - 1.1 varnish
-    body: "{\"content_url\":\"http://cl.ly/hhgttg\",\"href\":\"http://my.cl.ly/items/4268562\",\"name\":\"http://getcloudapp.com/download\",\"redirect_url\":\"http://getcloudapp.com/download\",\"created_at\":\"2011-04-04T17:10:14Z\",\"updated_at\":\"2011-04-05T10:43:44Z\",\"private\":false,\"deleted_at\":null,\"url\":\"http://cl.ly/hhgttg\",\"view_counter\":42,\"remote_url\":null,\"icon\":\"http://my.cl.ly/images/new/item-types/bookmark.png\",\"id\":4268562,\"item_type\":\"bookmark\"}"
-    http_version: "1.1"
+    headers:
+      !binary "Y2FjaGUtY29udHJvbA==":
+      - !binary |-
+        bWF4LWFnZT0wLCBwcml2YXRlLCBtdXN0LXJldmFsaWRhdGU=
+      !binary "Y29udGVudC10eXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA==
+      !binary "ZXRhZw==":
+      - !binary |-
+        IjUzMDE3YWRhZTYyMTQxMzllMmJhZTUxNmFmYjdhYjM3Ig==
+      !binary "c2VydmVy":
+      - !binary |-
+        dGhpbiAxLjQuMSBjb2RlbmFtZSBDaHJvbWVv
+      !binary "eC1ydW50aW1l":
+      - !binary |-
+        MC4wMTk3NTA=
+      !binary "eC11YS1jb21wYXRpYmxl":
+      - !binary |-
+        SUU9RWRnZSxjaHJvbWU9MQ==
+      !binary "Y29udGVudC1sZW5ndGg=":
+      - !binary |-
+        NjA1
+      !binary "Y29ubmVjdGlvbg==":
+      - !binary |-
+        Q2xvc2U=
+    body: ! '{"created_at":"2012-10-05T00:50:47Z","deleted_at":null,"id":22660401,"item_type":"bookmark","name":"http://getcloudapp.com/download","private":true,"redirect_url":"http://getcloudapp.com/download","remote_url":null,"source":"Mozilla/5.0
+      (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.79
+      Safari/537.4","updated_at":"2012-10-05T00:51:04Z","view_counter":1,"href":"http://my.cl.ly/items/22660401","icon":"http://my.cld.me/images/item-types/bookmark.png","subscribed":false,"url":"http://cl.ly/hhgttg","content_url":"http://cl.ly/hhgttg","gauge_id":null}'
+    http_version: '1.1'

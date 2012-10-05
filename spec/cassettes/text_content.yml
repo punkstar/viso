@@ -20,7 +20,7 @@
         YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA==
       !binary "ZXRhZw==":
       - !binary |-
-        ImUwOTc0MWU5ZGRjOGIwYmY0ZDlmYjI0OGJjYmFlZDhiIg==
+        IjU4YzkwMjZlMjZlMTc3NzYyZjI4NmE0ZGI5NTY4NDViIg==
       !binary "c2VydmVy":
       - !binary |-
         dGhpbiAxLjQuMSBjb2RlbmFtZSBDaHJvbWVv
@@ -29,7 +29,7 @@
         QWNjZXB0
       !binary "eC1ydW50aW1l":
       - !binary |-
-        MC4wMTU2NDM=
+        MC4wMTczNDA=
       !binary "eC11YS1jb21wYXRpYmxl":
       - !binary |-
         SUU9RWRnZSxjaHJvbWU9MQ==
@@ -39,8 +39,8 @@
       !binary "Y29ubmVjdGlvbg==":
       - !binary |-
         Q2xvc2U=
-    body: ! '{"created_at":"2012-10-05T01:10:41Z","deleted_at":null,"id":22660803,"item_type":"unknown","name":"Chapter
-      1.blah","private":true,"redirect_url":null,"remote_url":"http://f.cl.ly/items/hhgttg/Chapter%201.blah","source":"Mozilla/5.0
+    body: ! '{"created_at":"2012-10-04T23:55:13Z","deleted_at":null,"id":22659343,"item_type":"text","name":"Chapter
+      1.txt","private":true,"redirect_url":null,"remote_url":"http://f.cl.ly/items/hhgttg/Chapter%201.txt","source":"Mozilla/5.0
       (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.79
-      Safari/537.4","updated_at":"2012-10-05T01:10:41Z","view_counter":0,"href":"http://my.cl.ly/items/22660803","icon":"http://my.cld.me/images/item-types/unknown.png","subscribed":false,"url":"http://cl.ly/hhgttg","content_url":"http://cl.ly/hhgttg/Chapter%201.blah","download_url":"http://cl.ly/hhgttg/download/Chapter%201.blah","gauge_id":null}'
+      Safari/537.4","updated_at":"2012-10-04T23:55:15Z","view_counter":1,"href":"http://my.cl.ly/items/22659343","icon":"http://my.cld.me/images/item-types/text.png","subscribed":false,"url":"http://cl.ly/text/hhgttg","content_url":"http://cl.ly/text/hhgttg/Chapter%201.txt","download_url":"http://cl.ly/text/hhgttg/download/Chapter%201.txt","gauge_id":null}'
     http_version: '1.1'

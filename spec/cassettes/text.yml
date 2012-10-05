@@ -1,72 +1,96 @@
---- 
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
     method: :get
     uri: http://api.cld.me:80/hhgttg
     body: 
-    headers: 
-      accept: 
+    headers:
+      accept:
       - application/json
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
       code: 200
       message: OK
-    headers: 
-      server: 
-      - nginx/0.7.67
-      date: 
-      - Thu, 04 Aug 2011 19:25:32 GMT
-      content-type: 
-      - application/json; charset=utf-8
-      vary: 
-      - Accept
-      etag: 
-      - "\"3332415c81f25fb5b3a82d9bf068c6f3\""
-      x-ua-compatible: 
-      - IE=Edge,chrome=1
-      x-runtime: 
-      - "0.020264"
-      cache-control: 
-      - public; max-age=900
-      content-length: 
-      - "523"
-      x-varnish: 
-      - "422457760"
-      age: 
-      - "0"
-      via: 
-      - 1.1 varnish
-    body: "{\"content_url\":\"http://cl.ly/hhgttg/chapter1.txt\",\"href\":\"http://my.cl.ly/items/5593316\",\"name\":\"chapter1.txt\",\"redirect_url\":null,\"created_at\":\"2011-05-31T11:56:30Z\",\"updated_at\":\"2011-08-04T19:25:15Z\",\"private\":true,\"deleted_at\":null,\"url\":\"http://cl.ly/hhgttg\",\"view_counter\":4,\"remote_url\":\"http://f.cl.ly/items/hhgttg/chapter1.txt\",\"icon\":\"http://my.cl.ly/images/new/item-types/text.png\",\"id\":5593316,\"subscribed\":true,\"source\":null,\"item_type\":\"text\"}"
-    http_version: "1.1"
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
+    headers:
+      !binary "Y2FjaGUtY29udHJvbA==":
+      - !binary |-
+        cHVibGljOyBtYXgtYWdlPTkwMA==
+      !binary "Y29udGVudC10eXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA==
+      !binary "ZXRhZw==":
+      - !binary |-
+        IjUxOGE5NWRjZWM4ODk1NTdhZTJjNTQxM2QzMzdlNDQ5Ig==
+      !binary "c2VydmVy":
+      - !binary |-
+        dGhpbiAxLjQuMSBjb2RlbmFtZSBDaHJvbWVv
+      !binary "dmFyeQ==":
+      - !binary |-
+        QWNjZXB0
+      !binary "eC1ydW50aW1l":
+      - !binary |-
+        MC4wNDQyODk=
+      !binary "eC11YS1jb21wYXRpYmxl":
+      - !binary |-
+        SUU9RWRnZSxjaHJvbWU9MQ==
+      !binary "dHJhbnNmZXItZW5jb2Rpbmc=":
+      - !binary |-
+        Y2h1bmtlZA==
+      !binary "Y29ubmVjdGlvbg==":
+      - !binary |-
+        Q2xvc2U=
+    body: ! '{"created_at":"2012-10-04T23:55:13Z","deleted_at":null,"id":22659343,"item_type":"text","name":"Chapter
+      1.txt","private":true,"redirect_url":null,"remote_url":"http://f.cl.ly/items/hhgttg/Chapter%201.txt","source":"Mozilla/5.0
+      (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.79
+      Safari/537.4","updated_at":"2012-10-05T00:01:45Z","view_counter":3,"href":"http://my.cl.ly/items/22659343","icon":"http://my.cld.me/images/item-types/text.png","subscribed":false,"url":"http://cl.ly/text/hhgttg","content_url":"http://cl.ly/text/hhgttg/Chapter%201.txt","download_url":"http://cl.ly/text/hhgttg/download/Chapter%201.txt","gauge_id":null}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
     method: :get
-    uri: http://cl.ly:80/hhgttg/chapter1.txt
+    uri: http://f.cl.ly:80/items/hhgttg/Chapter%201.txt
     body: 
     headers: 
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
       code: 200
       message: OK
-    headers: 
-      x-amz-id-2: 
-      - gQw2YI8nmhxqel0bBYFvag7/HYRSg7ES0v5X8lp0DM//xUjaE5y2u+5a/otii6Ta
-      x-amz-request-id: 
-      - 1875C14A2FA6BE34
-      date: 
-      - Thu, 04 Aug 2011 19:25:33 GMT
-      last-modified: 
-      - Tue, 31 May 2011 11:56:31 GMT
-      etag: 
-      - "\"f06b0807a86180a5cf1ad68ae83f68a3\""
-      accept-ranges: 
-      - bytes
-      content-type: 
-      - text/plain
-      content-length: 
-      - "382"
-      server: 
-      - AmazonS3
-    body: "Chapter 1\n\n\
-      The house stood on a slight rise just on the edge of the village. It stood on its own and looked out over a broad spread of West Country farmland. Not a remarkable house by any means\xE2\x80\x94it was about thirty years old, squattish, squarish, made of brick, and had four windows set in the front of a size and proportion which more or less exactly failed to please the eye."
-    http_version: "1.1"
+    headers:
+      !binary "eC1hbXotaWQtMg==":
+      - !binary |-
+        L2NKZVQ3ZTlxUUtDc0d5aWRBYUUrd2JneUQ2MklOUWxSc0FicDloV3k4UHQ0
+        bjJxL2h6UjZXZVZLMVhwVTkzcQ==
+      !binary "eC1hbXotcmVxdWVzdC1pZA==":
+      - !binary |-
+        QTY1NTc0MTM1OTQ3MENGRQ==
+      !binary "ZGF0ZQ==":
+      - !binary |-
+        RnJpLCAwNSBPY3QgMjAxMiAwMDowMTo1NiBHTVQ=
+      !binary "bGFzdC1tb2RpZmllZA==":
+      - !binary |-
+        VGh1LCAwNCBPY3QgMjAxMiAyMzo1NToxNSBHTVQ=
+      !binary "ZXRhZw==":
+      - !binary |-
+        ImE5YjE5ZTY1NjYzY2UyZGFlODE3MDFiYTQ4MTJhY2VkIg==
+      !binary "YWNjZXB0LXJhbmdlcw==":
+      - !binary |-
+        Ynl0ZXM=
+      !binary "Y29udGVudC10eXBl":
+      - !binary |-
+        dGV4dC9wbGFpbg==
+      !binary "Y29udGVudC1sZW5ndGg=":
+      - !binary |-
+        Mzc4
+      !binary "c2VydmVy":
+      - !binary |-
+        QW1hem9uUzM=
+    body: !binary |-
+      Q2hhcHRlciAxCgpUaGUgaG91c2Ugc3Rvb2Qgb24gYSBzbGlnaHQgcmlzZSBq
+      dXN0IG9uIHRoZSBlZGdlIG9mIHRoZSB2aWxsYWdlLiBJdCBzdG9vZCBvbiBp
+      dHMgb3duIGFuZCBsb29rZWQgb3V0IG92ZXIgYSBicm9hZCBzcHJlYWQgb2Yg
+      V2VzdCBDb3VudHJ5IGZhcm1sYW5kLiBOb3QgYSByZW1hcmthYmxlIGhvdXNl
+      IGJ5IGFueSBtZWFuc+KAlGl0IHdhcyBhYm91dCB0aGlydHkgeWVhcnMgb2xk
+      LCBzcXVhdHRpc2gsIHNxdWFyaXNoLCBtYWRlIG9mIGJyaWNrLCBhbmQgaGFk
+      IGZvdXIgd2luZG93cyBzZXQgaW4gdGhlIGZyb250IG9mIGEgc2l6ZSBhbmQg
+      cHJvcG9ydGlvbiB3aGljaCBtb3JlIG9yIGxlc3MgZXhhY3RseSBmYWlsZWQg
+      dG8gcGxlYXNlIHRoZSBleWUu
+    http_version: '1.1'

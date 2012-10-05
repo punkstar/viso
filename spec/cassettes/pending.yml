@@ -20,7 +20,7 @@
         YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA==
       !binary "ZXRhZw==":
       - !binary |-
-        ImM4MzM4MTk4MjBkMzY1MWNiNTg0Y2ZmMmVmNzA1NWE5Ig==
+        ImRlYjc1OWQ5ZmM5NDhjNDhiZjgyNmQwZmVmZjk2OTZjIg==
       !binary "c2VydmVy":
       - !binary |-
         dGhpbiAxLjQuMSBjb2RlbmFtZSBDaHJvbWVv
@@ -29,7 +29,7 @@
         QWNjZXB0
       !binary "eC1ydW50aW1l":
       - !binary |-
-        MC4wMTYxOTg=
+        MC4wMTUxNjA=
       !binary "eC11YS1jb21wYXRpYmxl":
       - !binary |-
         SUU9RWRnZSxjaHJvbWU9MQ==
@@ -39,9 +39,9 @@
       !binary "Y29ubmVjdGlvbg==":
       - !binary |-
         Q2xvc2U=
-    body: ! '{"created_at":"2012-10-02T15:12:48Z","deleted_at":null,"id":22562642,"item_type":"pending","name":"Screen
-      Shot 2012-10-02 at 11.06.14 AM.png","private":true,"redirect_url":null,"remote_url":null,"source":"Cloud/2.0
-      beta (40) (Mac OS X 10.8.2)","updated_at":"2012-10-02T15:17:02Z","view_counter":504,"href":"http://my.cl.ly/items/22562642","icon":"http://my.cld.me/images/item-types/unknown.png","subscribed":true,"url":"http://cl.ly/image/hhgttg","content_url":"http://cl.ly/image/hhgttg/Screen
-      Shot 2012-10-02 at 11.06.14 AM.png","download_url":"http://cl.ly/image/hhgttg/download/Screen
-      Shot 2012-10-02 at 11.06.14 AM.png","gauge_id":null}'
+    body: ! '{"created_at":"2012-10-05T01:15:51Z","deleted_at":null,"id":22660885,"item_type":"pending","name":"Screen
+      Shot 2012-10-04 at 9.15.29 PM.png","private":true,"redirect_url":null,"remote_url":null,"source":"Cloud/2.0
+      beta (41) (Mac OS X 10.8.2)","updated_at":"2012-10-05T01:16:09Z","view_counter":9,"href":"http://my.cl.ly/items/22660885","icon":"http://my.cld.me/images/item-types/unknown.png","subscribed":true,"url":"http://cl.ly/image/hhgttg","content_url":"http://cl.ly/image/hhgttg/Screen
+      Shot 2012-10-04 at 9.15.29 PM.png","download_url":"http://cl.ly/image/hhgttg/download/Screen
+      Shot 2012-10-04 at 9.15.29 PM.png","gauge_id":"4fe04fb7613f5d703b000013"}'
     http_version: '1.1'

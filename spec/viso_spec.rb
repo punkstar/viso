@@ -93,38 +93,38 @@ describe Viso do
 
   it 'redirects a typed content URL to its content' do
     EM.synchrony do
-      VCR.use_cassette 'text' do
+      VCR.use_cassette 'text_content' do
         stub_request(:post, 'http://api.cld.me/hhgttg/view').
           to_return(:status => [201, 'Created'])
 
-        get '/text/hhgttg/chapter1.txt'
+        get '/text/hhgttg/Chapter%201.txt'
         EM.stop
 
         assert_requested :post, 'http://api.cld.me/hhgttg/view'
         assert { last_response.redirect? }
-        assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/chapter1.txt' }
+        assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/Chapter%201.txt' }
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-08-04T19:25:15Z'
+        assert_last_modified '2012-10-04T23:55:15Z'
       end
     end
   end
 
   it 'redirects an untyped content URL to its content' do
     EM.synchrony do
-      VCR.use_cassette 'text' do
+      VCR.use_cassette 'text_content' do
         stub_request(:post, 'http://api.cld.me/hhgttg/view').
           to_return(:status => [201, 'Created'])
 
-        get '/hhgttg/chapter1.txt'
+        get '/hhgttg/Chapter%201.txt'
         EM.stop
 
         assert_requested :post, 'http://api.cld.me/hhgttg/view'
         assert { last_response.redirect? }
-        assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/chapter1.txt' }
+        assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/Chapter%201.txt' }
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-08-04T19:25:15Z'
+        assert_last_modified '2012-10-04T23:55:15Z'
       end
     end
   end
@@ -143,7 +143,7 @@ describe Viso do
         assert { headers['Location'] == 'http://getcloudapp.com/download' }
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-04-05T10:43:44Z'
+        assert_last_modified '2012-10-05T00:51:04Z'
       end
     end
   end
@@ -162,18 +162,18 @@ describe Viso do
         assert { headers['Location'] == 'http://getcloudapp.com/download' }
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-04-05T10:43:44Z'
+        assert_last_modified '2012-10-05T00:51:04Z'
       end
     end
   end
 
   it 'redirects a typed download URL to its content' do
     EM.synchrony do
-      get '/text/hhgttg/download/chapter1.txt'
+      get '/text/hhgttg/download/Chapter%201.txt'
       EM.stop
 
       assert { last_response.redirect? }
-      assert { headers['Location'] == 'http://api.cld.me/text/hhgttg/download/chapter1.txt' }
+      assert { headers['Location'] == 'http://api.cld.me/text/hhgttg/download/Chapter%201.txt' }
       deny_social_meta_data
       assert_cached_for 3600
       deny_last_modified
@@ -182,11 +182,11 @@ describe Viso do
 
   it 'redirects an untyped download URL to its content' do
     EM.synchrony do
-      get '/hhgttg/download/chapter1.txt'
+      get '/hhgttg/download/Chapter%201.txt'
       EM.stop
 
       assert { last_response.redirect? }
-      assert { headers['Location'] == 'http://api.cld.me/hhgttg/download/chapter1.txt' }
+      assert { headers['Location'] == 'http://api.cld.me/hhgttg/download/Chapter%201.txt' }
       deny_social_meta_data
       assert_cached_for 3600
       deny_last_modified
@@ -201,12 +201,12 @@ describe Viso do
 
         assert { last_response.ok? }
 
-        image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
+        image_tag = %{<img alt="Cover.jpeg" src="http://cl.ly/image/hhgttg/Cover.jpeg">}
         assert { last_response.body.include?(image_tag) }
 
         assert_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-03-25T19:04:43Z'
+        assert_last_modified '2012-10-05T00:53:50Z'
       end
     end
   end
@@ -219,12 +219,12 @@ describe Viso do
 
         assert { last_response.ok? }
 
-        image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
+        image_tag = %{<img alt="Cover.jpeg" src="http://cl.ly/image/hhgttg/Cover.jpeg">}
         assert { last_response.body.include?(image_tag) }
 
         assert_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-03-25T19:04:43Z'
+        assert_last_modified '2012-10-05T00:53:50Z'
       end
     end
   end
@@ -339,12 +339,12 @@ describe Viso do
 
         assert { last_response.ok? }
 
-        image_tag = %{<img alt="cover.png" src="http://cl.ly/hhgttg/cover.png">}
+        image_tag = %{<img alt="Cover.jpeg" src="http://cl.ly/image/hhgttg/Cover.jpeg">}
         assert { last_response.body.include?(image_tag) }
 
         assert_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-03-25T19:04:43Z'
+        assert_last_modified '2012-10-05T00:53:50Z'
       end
     end
   end
@@ -362,7 +362,7 @@ describe Viso do
 
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2012-10-02T15:17:02Z'
+        assert_last_modified '2012-10-05T01:16:09Z'
       end
     end
   end
@@ -376,7 +376,7 @@ describe Viso do
         assert { last_response.ok? }
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-03-25T19:04:43Z'
+        assert_last_modified '2012-10-05T00:53:50Z'
       end
     end
   end
@@ -390,7 +390,7 @@ describe Viso do
         assert { last_response.status == 204 }
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2012-10-02T15:17:02Z'
+        assert_last_modified '2012-10-05T01:16:09Z'
       end
     end
   end
@@ -420,21 +420,21 @@ describe Viso do
         assert { last_response.body.include?('<body id="other">') }
         deny   { last_response.body.include?("<img") }
 
-        title = %{<title>Chapter 1</title>}
+        title = %{<title>Chapter 1.blah</title>}
         assert { last_response.body.include?(title) }
 
-        heading = %{<h2>Chapter 1</h2>}
+        heading = %{<h2>Chapter 1.blah</h2>}
         assert { last_response.body.include?(heading) }
 
-        download_link = %{<a href="http://api.cld.me/hhgttg/download/Chapter_1.blah">Download</a>}
+        download_link = %{<a href="http://cl.ly/hhgttg/download/Chapter%201.blah">Download</a>}
         assert { last_response.body.include?(download_link) }
 
-        view_link = %{<a href="http://cl.ly/hhgttg/Chapter_1.blah">view</a>}
+        view_link = %{<a href="http://cl.ly/hhgttg/Chapter%201.blah">view</a>}
         assert { last_response.body.include?(view_link) }
 
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-05-13T13:34:38Z'
+        assert_last_modified '2012-10-05T01:10:41Z'
       end
     end
   end
@@ -454,13 +454,13 @@ describe Viso do
         assert { last_response.body.include?('<body id="text">') }
         deny   { last_response.body.include?("<img") }
 
-        title = %{<title>chapter1.txt</title>}
+        title = %{<title>Chapter 1.txt</title>}
         assert { last_response.body.include?(title) }
 
-        heading = %{<h2>chapter1.txt</h2>}
+        heading = %{<h2>Chapter 1.txt</h2>}
         assert { last_response.body.include?(heading) }
 
-        link = %{<a class="embed" href="http://cl.ly/hhgttg/chapter1.txt">Direct link</a>}
+        link = %{<a class="embed" href="http://cl.ly/text/hhgttg/Chapter%201.txt">Direct link</a>}
         assert { last_response.body.include?(link) }
 
         content = 'The house stood on a slight rise just on the edge of the village.'
@@ -468,7 +468,7 @@ describe Viso do
 
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-08-04T19:25:15Z'
+        assert_last_modified '2012-10-05T00:01:45Z'
       end
     end
   end
@@ -488,13 +488,13 @@ describe Viso do
         assert { last_response.body.include?('<body id="text">') }
         deny   { last_response.body.include?("<img") }
 
-        title = %{<title>chapter1.txt</title>}
+        title = %{<title>Chapter 1.txt</title>}
         assert { last_response.body.include?(title) }
 
-        heading = %{<h2>chapter1.txt</h2>}
+        heading = %{<h2>Chapter 1.txt</h2>}
         assert { last_response.body.include?(heading) }
 
-        link = %{<a class="embed" href="http://cl.ly/hhgttg/chapter1.txt">Direct link</a>}
+        link = %{<a class="embed" href="http://cl.ly/text/hhgttg/Chapter%201.txt">Direct link</a>}
         assert { last_response.body.include?(link) }
 
         content = 'The house stood on a slight rise just on the edge of the village.'
@@ -502,7 +502,7 @@ describe Viso do
 
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-08-04T19:25:15Z'
+        assert_last_modified '2012-10-05T00:01:45Z'
       end
     end
   end
@@ -528,14 +528,14 @@ describe Viso do
 
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-08-04T22:31:50Z'
+        assert_last_modified '2012-10-04T23:34:01Z'
       end
     end
   end
 
   it 'dumps the content of a typed code drop' do
     EM.synchrony do
-      VCR.use_cassette 'ruby' do
+      VCR.use_cassette 'ruby', record: :new_episodes do
         stub_request(:post, 'http://api.cld.me/hhgttg/view').
           to_return(:status => [201, 'Created'])
 
@@ -554,7 +554,7 @@ describe Viso do
 
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-08-04T22:37:33Z'
+        assert_last_modified '2012-10-05T01:05:28Z'
       end
     end
   end
@@ -580,7 +580,7 @@ describe Viso do
 
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-08-04T22:37:33Z'
+        assert_last_modified '2012-10-05T01:05:28Z'
       end
     end
   end
@@ -598,7 +598,7 @@ describe Viso do
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-08-04T19:25:15Z'
+        assert_last_modified '2012-10-05T00:01:45Z'
       end
     end
   end
@@ -616,16 +616,16 @@ describe Viso do
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-08-04T19:25:15Z'
+        assert_last_modified '2012-10-05T00:01:45Z'
       end
     end
   end
 
   it 'returns json response for content link' do
     EM.synchrony do
-      VCR.use_cassette 'text' do
+      VCR.use_cassette 'text_content' do
         header 'Accept', 'application/json'
-        get    '/text/hhgttg/chapter1.txt'
+        get    '/text/hhgttg/Chapter%201.txt'
         drop = DropFetcher.fetch 'hhgttg'
         EM.stop
 
@@ -634,7 +634,7 @@ describe Viso do
         assert { last_response.body == Yajl::Encoder.encode(drop.data) }
         deny_social_meta_data
         assert_cached_for 0
-        assert_last_modified '2011-08-04T19:25:15Z'
+        assert_last_modified '2012-10-04T23:55:15Z'
       end
     end
   end
@@ -721,13 +721,13 @@ describe Viso do
         stub_request(:post, 'http://api.cld.me/hhgttg/view').
           to_return(:status => [201, 'Created'])
 
-        get '/hhgttg', {}, { 'HTTP_IF_MODIFIED_SINCE' => 'Tue, 05 Apr 2011 10:43:44 GMT' }
+        get '/hhgttg', {}, { 'HTTP_IF_MODIFIED_SINCE' => 'Fri, 05 Oct 2012 00:51:04 GMT' }
         EM.stop
 
         assert_requested :post, 'http://api.cld.me/hhgttg/view'
         assert { last_response.status == 304 }
         assert_cached_for 0
-        assert_last_modified '2011-04-05T10:43:44Z'
+        assert_last_modified '2012-10-05T00:51:04Z'
       end
     end
   end
@@ -738,13 +738,27 @@ describe Viso do
         stub_request(:post, 'http://api.cld.me/hhgttg/view').
           to_return(:status => [201, 'Created'])
 
-        get '/hhgttg', {}, { 'HTTP_IF_MODIFIED_SINCE' => 'Thu, 04 Aug 2011 19:25:15 GMT' }
+        get '/hhgttg', {}, { 'HTTP_IF_MODIFIED_SINCE' => 'Fri, 05 Oct 2012 00:01:45 GMT' }
         EM.stop
 
         assert_requested :post, 'http://api.cld.me/hhgttg/view'
         assert { last_response.status == 304 }
         assert_cached_for 0
-        assert_last_modified '2011-08-04T19:25:15Z'
+        assert_last_modified '2012-10-05T00:01:45Z'
+      end
+    end
+  end
+
+  it 'returns a not modified response and for json request' do
+    EM.synchrony do
+      VCR.use_cassette 'text' do
+        header 'Accept', 'application/json'
+        get '/hhgttg', {}, { 'HTTP_IF_MODIFIED_SINCE' => 'Fri, 05 Oct 2012 00:01:45 GMT' }
+        EM.stop
+
+        assert { last_response.status == 304 }
+        assert_cached_for 0
+        assert_last_modified '2012-10-05T00:01:45Z'
       end
     end
   end

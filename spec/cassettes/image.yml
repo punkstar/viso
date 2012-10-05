@@ -1,36 +1,45 @@
---- 
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
     method: :get
     uri: http://api.cld.me:80/hhgttg
     body: 
-    headers: 
-      accept: 
+    headers:
+      accept:
       - application/json
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
       code: 200
       message: OK
-    headers: 
-      date: 
-      - Fri, 25 Mar 2011 19:10:14 GMT
-      server: 
-      - Apache/2.2.17 (Unix) mod_ssl/2.2.17 OpenSSL/0.9.8l DAV/2 Phusion_Passenger/3.0.5
-      x-powered-by: 
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.5
-      vary: 
-      - Accept
-      x-runtime: 
-      - "37"
-      cache-control: 
-      - public; max-age=900
-      last-modified: 
-      - Fri, 25 Mar 2011 19:04:43 GMT
-      content-length: 
-      - "584"
-      status: 
-      - "200"
-      content-type: 
-      - application/json; charset=utf-8
-    body: "{\"content_url\":\"http://cl.ly/hhgttg/cover.png\",\"href\":\"http://my.cl.ly/items/307\",\"name\":\"cover.png\",\"redirect_url\":null,\"created_at\":\"2011-03-25T19:04:30Z\",\"updated_at\":\"2011-03-25T19:04:43Z\",\"private\":true,\"deleted_at\":null,\"url\":\"http://cl.ly/hhgttg\",\"view_counter\":1,\"remote_url\":\"http://f.cl.ly/items/hhgttg/cover.png\",\"icon\":\"http://my.cl.ly/images/new/item-types/image.png\",\"id\":307,\"thumbnail_url\":\"http://cl.ly/thumb/items/hhgttg/small_200x150!.png\",\"item_type\":\"image\"}"
-    http_version: "1.1"
+    headers:
+      !binary "Y2FjaGUtY29udHJvbA==":
+      - !binary |-
+        cHVibGljOyBtYXgtYWdlPTkwMA==
+      !binary "Y29udGVudC10eXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA==
+      !binary "ZXRhZw==":
+      - !binary |-
+        IjNhZGRiYmQ4NzM5Y2Y0MmUzNWZjZWM2NjcyM2NhZjUxIg==
+      !binary "c2VydmVy":
+      - !binary |-
+        dGhpbiAxLjQuMSBjb2RlbmFtZSBDaHJvbWVv
+      !binary "dmFyeQ==":
+      - !binary |-
+        QWNjZXB0
+      !binary "eC1ydW50aW1l":
+      - !binary |-
+        MC4wMTI1MDU=
+      !binary "eC11YS1jb21wYXRpYmxl":
+      - !binary |-
+        SUU9RWRnZSxjaHJvbWU9MQ==
+      !binary "dHJhbnNmZXItZW5jb2Rpbmc=":
+      - !binary |-
+        Y2h1bmtlZA==
+      !binary "Y29ubmVjdGlvbg==":
+      - !binary |-
+        Q2xvc2U=
+    body: ! '{"created_at":"2012-10-05T00:53:47Z","deleted_at":null,"id":22660463,"item_type":"image","name":"Cover.jpeg","private":true,"redirect_url":null,"remote_url":"http://f.cl.ly/items/hhgttg/Cover.jpeg","source":"Mozilla/5.0
+      (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.79
+      Safari/537.4","updated_at":"2012-10-05T00:53:50Z","view_counter":1,"href":"http://my.cl.ly/items/22660463","icon":"http://my.cld.me/images/item-types/image.png","subscribed":false,"url":"http://cl.ly/image/hhgttg","content_url":"http://cl.ly/image/hhgttg/Cover.jpeg","download_url":"http://cl.ly/image/hhgttg/download/Cover.jpeg","thumbnail_url":"http://thumbs.getcloudapp.com/hhgttg","gauge_id":null}'
+    http_version: '1.1'

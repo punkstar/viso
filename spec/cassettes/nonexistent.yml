@@ -1,30 +1,37 @@
---- 
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
     method: :get
     uri: http://api.cld.me:80/hhgttg
     body: 
-    headers: 
-      accept: 
+    headers:
+      accept:
       - application/json
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
       code: 404
       message: Not Found
-    headers: 
-      date: 
-      - Sat, 26 Mar 2011 11:07:26 GMT
-      server: 
-      - Apache/2.2.17 (Unix) mod_ssl/2.2.17 OpenSSL/0.9.8l DAV/2 Phusion_Passenger/3.0.5
-      x-powered-by: 
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.5
-      cache-control: 
-      - no-cache
-      content-length: 
-      - "1"
-      status: 
-      - "404"
-      content-type: 
-      - text/html; charset=utf-8
-    body: " "
-    http_version: "1.1"
+    headers:
+      !binary "Y29udGVudC10eXBl":
+      - !binary |-
+        dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04
+      !binary "c2VydmVy":
+      - !binary |-
+        dGhpbiAxLjQuMSBjb2RlbmFtZSBDaHJvbWVv
+      !binary "eC1ydW50aW1l":
+      - !binary |-
+        MC4wMDk1MTg=
+      !binary "Y29udGVudC1sZW5ndGg=":
+      - !binary |-
+        NjAw
+      !binary "Y29ubmVjdGlvbg==":
+      - !binary |-
+        Q2xvc2U=
+    body: ! "<!doctype html>\n<html>\n  <head>\n    <meta charset=\"utf-8\">\n\n    <title>CloudApp
+      &mdash; Not Found</title>\n\n    <link href='/favicon.ico' rel='shortcut icon'
+      />\n    <link href=\"/stylesheets/application/error.css\" rel=\"stylesheet\"
+      type=\"text/css\" />\n\n    <!--[if lt IE 9]>\n    <script src=\"//html5shim.googlecode.com/svn/trunk/html5.js\"></script>\n
+      \   <![endif]-->\n  </head>\n\n  <body>\n    <div class=\"wrapper\">\n      <h1>Cloud<em>App</em></h1>\n\n
+      \     <h2>Sorry, nothing lives here.</h2>\n\n      <p>\n        Perhaps the
+      link you clicked was broken or we messed up.\n      </p>\n    </div>\n  </body>\n</html>\n"
+    http_version: '1.1'
