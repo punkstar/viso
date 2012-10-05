@@ -10,7 +10,7 @@ class Drop
   def initialize(slug, data)
     @slug    = slug
     @data    = data
-    @content = Content.new content_url
+    @content = Content.new remote_url
   end
 
   def_delegators :@content, :content, :markdown?, :code?

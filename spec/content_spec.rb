@@ -4,7 +4,7 @@ require 'content'
 describe Content do
 
   describe '#raw' do
-    subject { Content.new 'http://cl.ly/hhgttg/chapter1.txt' }
+    subject { Content.new 'http://f.cl.ly/items/hhgttg/Chapter%201.txt' }
 
     it 'fetches content' do
       EM.synchrony do
@@ -30,7 +30,7 @@ describe Content do
   end
 
   describe '#escaped_raw' do
-    subject { Content.new 'http://cl.ly/hhgttg/hello.rb' }
+    subject { Content.new 'http://f.cl.ly/items/hhgttg/hello.rb' }
 
     it 'escapes raw content' do
       EM.synchrony do
@@ -45,7 +45,7 @@ describe Content do
 
   describe '#content' do
     it 'integrates with Raw' do
-      drop = Content.new 'http://cl.ly/hhgttg/chapter1.txt'
+      drop = Content.new 'http://f.cl.ly/items/hhgttg/Chapter%201.txt'
 
       EM.synchrony do
         VCR.use_cassette 'text' do
@@ -57,7 +57,7 @@ describe Content do
     end
 
     it 'integrates with Code' do
-      drop = Content.new 'http://cl.ly/hhgttg/hello.rb'
+      drop = Content.new 'http://f.cl.ly/items/hhgttg/hello.rb'
 
       EM.synchrony do
         VCR.use_cassette 'ruby' do
@@ -69,7 +69,7 @@ describe Content do
     end
 
     it 'integrates with Markdown' do
-      drop = Content.new 'http://cl.ly/hhgttg/chapter1.md'
+      drop = Content.new 'http://f.cl.ly/items/hhgttg/Chapter%201.md'
 
       EM.synchrony do
         VCR.use_cassette 'markdown' do
