@@ -1,4 +1,5 @@
 require 'jammit_helper'
+require 'last_modified_or_deployed'
 require 'metriks'
 require 'sinatra/respond_with'
 require 'social_helper'
@@ -77,7 +78,10 @@ module Configuration
       register Sinatra::RespondWith
       register JammitHelper
       register SocialHelper
-      helpers { include Rack::Utils }
+      helpers do
+        include Rack::Utils
+        include LastModifiedOrDeployed
+      end
     end
 
     def vary_all_responses_on_accept_header
