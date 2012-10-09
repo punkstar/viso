@@ -3,7 +3,6 @@ require 'drop_presenter'
 describe DropPresenter do
   describe '#render_html' do
     let(:drop) { stub :drop, slug:       'hhgttg',
-                             item_type:  'generic',
                              beta?:      beta,
                              bookmark?:  bookmark,
                              image?:     image,
@@ -191,7 +190,10 @@ describe DropPresenter do
 
   describe '#render_json' do
     let(:template) { stub :template }
-    let(:drop)     { stub :drop, item_type: 'generic', data: { key: 'value' }}
+    let(:drop)     { stub :drop, pending?: false,
+                                 image?:   false,
+                                 text?:    false,
+                                 data:     { key: 'value' }}
     subject { DropPresenter.new drop, template }
 
     it 'returns the drop as json' do

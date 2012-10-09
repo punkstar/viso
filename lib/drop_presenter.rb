@@ -74,6 +74,6 @@ private
   end
 
   def render_timer
-    Metriks.timer("drop.render.#{ item_type }").time
+    Metriks.timer("drop.render.#{ body_id }").time
   end
 end
