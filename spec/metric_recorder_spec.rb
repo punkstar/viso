@@ -37,13 +37,15 @@ describe MetricRecorder do
     assert { meter.count == 1 }
   end
 
-  it 'records page load time' do
-    MetricRecorder.record 'load', 123
-    timer = Metriks.get('js.load')
+  %w( waiting image text other ).each do |type|
+    it "records page load time for #{ type }" do
+      MetricRecorder.record "page-load.#{ type }", 123
+      timer = Metriks.get("js.page-load.#{ type }")
 
-    assert { timer.is_a? Metriks::Timer }
-    assert { timer.count == 1 }
-    assert { timer.max   == 123 }
+      assert { timer.is_a? Metriks::Timer }
+      assert { timer.count == 1 }
+      assert { timer.max   == 123 }
+    end
   end
 
   it 'ignores low values' do

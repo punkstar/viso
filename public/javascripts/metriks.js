@@ -17,9 +17,10 @@ $(function() {
     Metriks.record("performance-capable");
 
     var timing   = window.performance.timing,
-        loadTime = timing.responseEnd - timing.navigationStart;
+        loadTime = timing.responseEnd - timing.navigationStart,
+        name     = "page-load." + $("body").attr("id");
 
-    Metriks.record("load", loadTime);
+    Metriks.record(name, loadTime);
   } else {
     Metriks.record("performance-incapable");
   }

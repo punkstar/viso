@@ -5,7 +5,8 @@ class MetricRecorder
     metric_name = "js.#{ name }"
 
     case name
-    when 'load', 'image-load'
+    when 'page-load.waiting', 'page-load.image', 'page-load.text',
+         'page-load.other',   'image-load'
       value = value.to_i
       Metriks.timer(metric_name).update(value) if value > 0
     when 'performance-capable', 'performance-incapable'
