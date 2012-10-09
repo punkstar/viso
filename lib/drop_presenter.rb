@@ -9,22 +9,20 @@ class DropPresenter < SimpleDelegator
   end
 
   def render_html
-    timer = render_timer
-    if bookmark?
-      @template.redirect remote_url
-    else
-      @template.erb template_name, layout: layout_name,
-                                   locals: { drop: self, body_id: body_id }
+    render_timer do
+      if bookmark?
+        @template.redirect remote_url
+      else
+        @template.erb template_name, layout: layout_name,
+                                     locals: { drop: self, body_id: body_id }
+      end
     end
-  ensure
-    timer.stop
   end
 
   def render_json
-    timer = render_timer
-    Yajl::Encoder.encode data
-  ensure
-    timer.stop
+    render_timer do
+      Yajl::Encoder.encode data
+    end
   end
 
   def render_content
@@ -73,7 +71,7 @@ private
     end
   end
 
-  def render_timer
-    Metriks.timer("drop.render.#{ body_id }").time
+  def render_timer(&block)
+    Metriks.timer("drop.render.#{ body_id }").time(&block)
   end
 end
