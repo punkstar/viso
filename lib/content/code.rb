@@ -1,18 +1,11 @@
 require 'metriks'
-require 'rubypython'
 require 'pygments.rb'
 
 class Content
   module Code
-    include Pygments
-
-    # Heroku's cedar stack raises an "invalid ELF header" exception using the
-    # latest version of python (2.7) on the system. python2.6 seems to work fine.
-    RubyPython.configure :python_exe => 'python2.6'
-
     def self.highlight(code, lexer)
       Metriks.timer('pygments').time {
-        Pygments.highlight code, lexer: lexer, options: { encoding: 'utf-8' }
+        lexer.highlight code
       }
     end
 
@@ -20,19 +13,17 @@ class Content
       return super unless code?
       return large_content if code_too_large?
 
-      Code.highlight raw, lexer_name
+      Code.highlight raw, lexer
     end
 
     def code?
-      lexer_name && !%w( text postscript minid ).include?(lexer_name)
+      lexer && (lexer.aliases & %w( text postscript minid )).empty?
     end
 
-    def lexer_name
-      timer = Metriks.timer('pygments.lexer_name').time do
-        @lexer_name ||= lexer_name_for :filename => @url
+    def lexer
+      timer = Metriks.timer('pygments.lexer').time do
+        Pygments::Lexer.find_by_extname extension
       end
-    rescue RubyPython::PythonError
-      false
     end
 
     def code_too_large?
@@ -41,6 +32,10 @@ class Content
 
     def large_content
       %{<div class="highlight"><pre><code>#{ escaped_raw }</code></pre></div>}
+    end
+
+    def extension
+      @url and File.extname(@url).downcase
     end
   end
 end

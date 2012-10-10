@@ -17,12 +17,6 @@ gem 'sinatra-contrib'
 gem 'thin'
 gem 'yajl-ruby'
 
-# Version 0.5.3 errors on heroku: https://github.com/tmm1/pygments.rb/issues/10
-# Version 0.6.x and pygments.rb don't play nicely. pygments.rb keeps trying to
-# start RubyPython with a different python executable which throws a warning
-# (very slow warning, I might add). I don't trust it in production.
-gem 'rubypython', '0.5.1'
-
 # New rule: No locking to a specifc version without a note.
 gem 'activesupport', '3.1.3'
 gem 'ffi', '1.0.9'
