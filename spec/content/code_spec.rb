@@ -64,7 +64,7 @@ describe Content::Code do
     end
 
     it "doesn't highlight large code files" do
-      code     = "puts 123\n" * 5_556
+      code     = "puts 123\n" * 11_112
       expected = %{<div class="highlight"><pre><code>#{ code }</code></pre></div>}
 
       drop = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
@@ -74,7 +74,7 @@ describe Content::Code do
     end
 
     it 'escapes html in large code files' do
-      code     = "puts 123\n" * 5_556
+      code     = "puts 123\n" * 11_112
       escaped  = 'escaped'
       expected = %{<div class="highlight"><pre><code>#{ escaped }</code></pre></div>}
 

@@ -31,7 +31,7 @@ class Content
     end
 
     def code_too_large?
-      raw.size >= 50_000
+      raw.size >= 100_000
     end
 
     def large_content
