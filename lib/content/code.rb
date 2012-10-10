@@ -3,9 +3,10 @@ require 'pygments.rb'
 
 class Content
   module Code
-    def self.highlight(code, lexer)
+    def self.highlight(code, lexer_alias)
       Metriks.timer('pygments').time {
-        lexer.highlight code
+        lexer = Pygments::Lexer.find lexer_alias
+        lexer ? lexer.highlight(code) : Pygments.highlight(code)
       }
     end
 
@@ -13,7 +14,7 @@ class Content
       return super unless code?
       return large_content if code_too_large?
 
-      Code.highlight raw, lexer
+      lexer.highlight raw
     end
 
     def code?

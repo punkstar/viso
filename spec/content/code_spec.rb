@@ -23,6 +23,29 @@ describe Content::Code do
   end
 
 
+  describe '.highlight' do
+    it 'syntax highlights content' do
+      highlight = Content::Code.highlight "puts 'Hello, world!'", 'ruby'
+      code      = '<div class="highlight"><pre><span class="nb">puts</span>'
+
+      highlight.should include(code)
+    end
+
+    it 'does nothing for an unknown alias' do
+      highlight = Content::Code.highlight "puts 'Hello, world!'", 'BOGUS'
+      code      = '<div class="highlight"><pre><span class="n">puts</span>'
+
+      highlight.should include(code)
+    end
+
+    it 'does nothing for a nil alias' do
+      highlight = Content::Code.highlight "puts 'Hello, world!'", nil
+      code      = '<div class="highlight"><pre><span class="n">puts</span>'
+
+      highlight.should include(code)
+    end
+  end
+
   describe '#content' do
     it 'syntax highlights content' do
       drop = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
