@@ -48,10 +48,13 @@ describe Content::Code do
 
   describe '#content' do
     it 'syntax highlights content' do
-      drop = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
-      code = '<div class="highlight"><pre><span class="nb">puts</span>'
+      EM.synchrony do
+        drop = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
+        code = '<div class="highlight"><pre><span class="nb">puts</span>'
+        EM.stop
 
-      drop.content.should include(code)
+        drop.content.should include(code)
+      end
     end
 
     it 'calls #super for non-code files' do
@@ -82,13 +85,14 @@ describe Content::Code do
     end
 
     it "handles utf-8 characters" do
-      code     = '☃'
-      expected = %{<div class="highlight"><pre><code>#{ code }</code></pre></div>}
+      EM.synchrony do
+        char = '☃'
+        drop = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
+        drop.stub! :raw => char, :escaped_raw => char
+        EM.stop
 
-      drop = FakeContent.new 'http://cl.ly/hhgttg/hello.rb'
-      drop.stub! :raw => code, :escaped_raw => code
-
-      drop.content.should include(code)
+        drop.content.should include(char)
+      end
     end
   end
 

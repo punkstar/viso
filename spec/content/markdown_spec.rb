@@ -23,9 +23,13 @@ describe Content::Markdown do
 
   describe '#content' do
     it 'generates markdown' do
-      drop = FakeContent.new 'http://cl.ly/hhgttg/chapter1.md'
-      markdown = '<h1>Chapter 1</h1>'
-      drop.content.strip.should == markdown
+      EM.synchrony do
+        drop = FakeContent.new 'http://cl.ly/hhgttg/chapter1.md'
+        markdown = '<h1>Chapter 1</h1>'
+        EM.stop
+
+        drop.content.strip.should == markdown
+      end
     end
 
     it 'calls #super for non-markdown files' do

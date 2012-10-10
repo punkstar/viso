@@ -1,3 +1,4 @@
+require 'em-synchrony'
 require 'metriks'
 require 'redcarpet'
 
@@ -6,8 +7,15 @@ class Content
     def content
       return super unless markdown?
       Metriks.timer('markdown').time {
-        Redcarpet::Markdown.new(PygmentizedHTML,
-                                fenced_code_blocks: true).render(raw)
+        # Both EM::Synchrony.defer and #raw call Fiber.yield so they can't be
+        # nested. Download content outside the .defer block.
+        downloaded = raw
+
+        EM::Synchrony.defer {
+          Redcarpet::Markdown.
+            new(PygmentizedHTML, fenced_code_blocks: true).
+            render(downloaded)
+        }
       }
     end
 
