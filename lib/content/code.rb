@@ -21,7 +21,7 @@ class Content
     end
 
     def lexer
-      timer = Metriks.timer('pygments.lexer').time do
+      Metriks.timer('pygments.lexer').time do
         Pygments::Lexer.find_by_extname extension
       end
     end
