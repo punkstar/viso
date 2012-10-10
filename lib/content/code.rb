@@ -14,7 +14,9 @@ class Content
       return super unless code?
       return large_content if code_too_large?
 
-      lexer.highlight raw
+      Metriks.timer('pygments').time {
+        lexer.highlight raw
+      }
     end
 
     def code?
@@ -22,9 +24,9 @@ class Content
     end
 
     def lexer
-      Metriks.timer('pygments.lexer').time do
+      Metriks.timer('pygments.lexer').time {
         Pygments::Lexer.find_by_extname extension
-      end
+      }
     end
 
     def code_too_large?
