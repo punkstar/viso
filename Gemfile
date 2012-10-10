@@ -1,14 +1,14 @@
 source :gemcutter
-gem 'padrino'
 
 gem 'addressable'
-
-gem 'backports'
-gem 'dalli'
+gem 'airbrake'
 gem 'em-http-request', '~> 1.0'
 gem 'em-synchrony',    github: 'igrigorik/em-synchrony'
+gem 'jammit-s3', :git => 'https://github.com/kmamykin/jammit-s3.git'
+gem 'newrelic_rpm'
 gem 'metriks'
 gem 'metriks-middleware'
+gem 'padrino'
 gem 'pygments.rb'
 gem 'redcarpet', '~> 2.1'
 gem 'simpleidn'
@@ -16,15 +16,6 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'thin'
 gem 'yajl-ruby'
-
-# New rule: No locking to a specifc version without a note.
-gem 'activesupport', '3.1.3'
-gem 'ffi', '1.0.9'
-
-gem 'airbrake'
-gem 'newrelic_rpm'
-
-gem 'jammit-s3', :git => 'https://github.com/kmamykin/jammit-s3.git'
 
 group :test do
   gem 'rspec'
