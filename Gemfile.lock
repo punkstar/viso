@@ -216,11 +216,12 @@ DEPENDENCIES
   redcarpet (~> 2.1)
   rocco
   rspec
+  ruby_parser (~> 2.0.6)
   simpleidn
   sinatra
   sinatra-contrib
   thin
   vcr (~> 1.11)
   webmock
-  wrong
+  wrong (~> 0.6.2)
   yajl-ruby

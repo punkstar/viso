@@ -17,12 +17,18 @@ gem 'sinatra-contrib'
 gem 'thin'
 gem 'yajl-ruby'
 
+# Bundler gets confused about which version of ruby_parser and wrong to use.
+# Help it out by specifying stricter versions.
+gem 'ruby_parser', '~> 2.0.6'
+
 group :test do
   gem 'rspec'
   gem 'rack-test'
   gem 'vcr', '~> 1.11'
   gem 'webmock'
-  gem 'wrong'
+
+  # See ruby_parser note above.
+  gem 'wrong', '~> 0.6.2'
 end
 
 group :development do
