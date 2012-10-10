@@ -24,9 +24,7 @@ class Content
     end
 
     def lexer
-      Metriks.timer('pygments.lexer').time {
-        Pygments::Lexer.find_by_extname extension
-      }
+      Pygments::Lexer.find_by_extname extension
     end
 
     def code_too_large?
