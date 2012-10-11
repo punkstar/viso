@@ -52,7 +52,7 @@ class Content
 
       # Instrument how many connections are in use and count the number of
       # timeouts.
-      @pool = ConnectionPool.new(size: 1, timeout: 5) {
+      @pool = ConnectionPool.new(size: 5, timeout: 5) {
         Content::Code::Pygments.new
       }
 
