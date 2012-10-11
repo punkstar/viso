@@ -1,4 +1,5 @@
 require 'em-synchrony'
+require 'connection_pool'
 require 'metriks'
 require 'pygments.rb'
 
@@ -8,8 +9,8 @@ class Content
     # so no need to defer here.
     def self.highlight(code, lexer_alias)
       Metriks.timer('pygments').time {
-        lexer = Pygments::Lexer.find lexer_alias
-        lexer ? lexer.highlight(code) : Pygments.highlight(code)
+        lexer = ::Pygments::Lexer.find lexer_alias
+        Code::Pygments.highlight code, lexer
       }
     end
 
@@ -18,7 +19,9 @@ class Content
       return large_content if code_too_large?
 
       Metriks.timer('pygments').time {
-        EM::Synchrony.defer { lexer.highlight raw }
+        EM::Synchrony.defer {
+          Code::Pygments.highlight raw, lexer
+        }
       }
     end
 
@@ -27,7 +30,7 @@ class Content
     end
 
     def lexer
-      Pygments::Lexer.find_by_extname extension
+      ::Pygments::Lexer.find_by_extname extension
     end
 
     def code_too_large?
@@ -40,6 +43,26 @@ class Content
 
     def extension
       @url and File.extname(@url).downcase
+    end
+
+  private
+
+    class Pygments
+      include ::Pygments::Popen
+
+      # Instrument how many connections are in use and count the number of
+      # timeouts.
+      @pool = ConnectionPool.new(size: 1, timeout: 5) {
+        Content::Code::Pygments.new
+      }
+
+      def self.highlight(code, lexer)
+        @pool.with do |pygments|
+          options = {}
+          options[:lexer] = lexer.aliases.first if lexer
+          pygments.highlight code, options
+        end
+      end
     end
   end
 end

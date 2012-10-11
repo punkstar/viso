@@ -2,6 +2,7 @@ source :gemcutter
 
 gem 'addressable'
 gem 'airbrake'
+gem 'connection_pool'
 gem 'em-http-request', '~> 1.0'
 gem 'em-synchrony',    github: 'igrigorik/em-synchrony'
 gem 'jammit-s3', :git => 'https://github.com/kmamykin/jammit-s3.git'

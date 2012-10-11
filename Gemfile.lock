@@ -203,6 +203,7 @@ DEPENDENCIES
   addressable
   airbrake
   compass
+  connection_pool
   em-http-request (~> 1.0)
   em-synchrony!
   foreman
