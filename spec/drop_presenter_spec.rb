@@ -25,14 +25,14 @@ describe DropPresenter do
       let(:template) { stub :template, redirect: nil }
 
       it 'redirects to the bookmarked url' do
-        template.should_receive(:redirect).with('http://remote.url')
+        template.should_receive(:redirect).with('http://remote.url', 301)
         subject.render_html
       end
 
       context 'shared with a beta mac app' do
         let(:beta) { true }
         it 'redirects to the api' do
-          template.should_receive(:redirect).with('http://remote.url')
+          template.should_receive(:redirect).with('http://remote.url', 301)
           subject.render_html
         end
       end

@@ -53,7 +53,7 @@ describe Viso do
         get '/', {}, { 'HTTP_HOST' => 'example.org' }
         EM.stop
 
-        assert { last_response.redirect? }
+        assert { last_response.status == 301 }
         assert { headers['Location'] == 'http://hhgproject.org' }
         deny_social_meta_data
         assert_cached_for 3600
@@ -101,7 +101,7 @@ describe Viso do
         EM.stop
 
         assert_requested :post, 'http://api.cld.me/hhgttg/view'
-        assert { last_response.redirect? }
+        assert { last_response.status == 301 }
         assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/Chapter%201.txt' }
         deny_social_meta_data
         assert_cached_for 0
@@ -120,7 +120,7 @@ describe Viso do
         EM.stop
 
         assert_requested :post, 'http://api.cld.me/hhgttg/view'
-        assert { last_response.redirect? }
+        assert { last_response.status == 301 }
         assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/Chapter%201.txt' }
         deny_social_meta_data
         assert_cached_for 0
@@ -139,7 +139,7 @@ describe Viso do
         EM.stop
 
         assert_requested :post, 'http://api.cld.me/hhgttg/view'
-        assert { last_response.redirect? }
+        assert { last_response.status == 301 }
         assert { headers['Location'] == 'http://getcloudapp.com/download' }
         deny_social_meta_data
         assert_cached_for 0
@@ -158,7 +158,7 @@ describe Viso do
         EM.stop
 
         assert_requested :post, 'http://api.cld.me/hhgttg/view'
-        assert { last_response.redirect? }
+        assert { last_response.status == 301 }
         assert { headers['Location'] == 'http://getcloudapp.com/download' }
         deny_social_meta_data
         assert_cached_for 0
@@ -172,7 +172,7 @@ describe Viso do
       get '/text/hhgttg/download/Chapter%201.txt'
       EM.stop
 
-      assert { last_response.redirect? }
+      assert { last_response.status == 301 }
       assert { headers['Location'] == 'http://api.cld.me/text/hhgttg/download/Chapter%201.txt' }
       deny_social_meta_data
       assert_cached_for 3600
@@ -185,7 +185,7 @@ describe Viso do
       get '/hhgttg/download/Chapter%201.txt'
       EM.stop
 
-      assert { last_response.redirect? }
+      assert { last_response.status == 301 }
       assert { headers['Location'] == 'http://api.cld.me/hhgttg/download/Chapter%201.txt' }
       deny_social_meta_data
       assert_cached_for 3600
@@ -804,7 +804,7 @@ describe Viso do
       EM.stop
 
       assert_requested :post, 'http://api.cld.me/hhgttg/view'
-      assert { last_response.redirect? }
+      assert { last_response.status == 301 }
       assert { headers['Location'] == 'http://getcloudapp.com' }
       deny_social_meta_data
       assert_cached_for 0
@@ -821,7 +821,7 @@ describe Viso do
       EM.stop
 
       assert_requested :post, 'http://api.cld.me/hhgttg/view'
-      assert { last_response.redirect? }
+      assert { last_response.status == 301 }
       assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/Screen_Shot_2012-04-01_at_12.00.00_AM.png' }
       deny_social_meta_data
       assert_cached_for 0

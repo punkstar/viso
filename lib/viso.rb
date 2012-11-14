@@ -40,7 +40,7 @@ class Viso < Sinatra::Base
   # for one hour.
   get '/' do
     cache_duration 3600
-    redirect DomainFetcher.fetch(env['HTTP_HOST']).home_page
+    redirect DomainFetcher.fetch(env['HTTP_HOST']).home_page, 301
     ## Last-Modified
   end
 
@@ -121,7 +121,7 @@ class Viso < Sinatra::Base
     DropFetcher.record_view slug
     cache_duration 0
     last_modified updated_at if updated_at
-    redirect remote_url
+    redirect remote_url, 301
   end
 
   def cache_duration(seconds)
@@ -216,6 +216,6 @@ protected
   # Redirect the current request to the same path on the API domain.
   def redirect_to_api
     cache_duration 3600
-    redirect "http://#{ DropFetcher.base_uri }#{ request.path }"
+    redirect "http://#{ DropFetcher.base_uri }#{ request.path }", 301
   end
 end
