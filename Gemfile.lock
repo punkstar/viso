@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/igrigorik/em-synchrony.git
-  revision: ce26104a4754eaec04ca38d8d7c6f14f0e772675
+  revision: fe592a4b9b5345bca329477cb8f2f8d186b6fc7f
   specs:
     em-synchrony (1.0.2)
       eventmachine (>= 1.0.0.beta.1)
@@ -28,7 +28,7 @@ GEM
     RubyInline (3.9.0)
       ZenTest (~> 4.3)
     ZenTest (4.8.2)
-    activesupport (3.2.8)
+    activesupport (3.2.9)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.3.2)
@@ -37,7 +37,7 @@ GEM
       girl_friday
     atomic (1.0.1)
     avl_tree (1.1.3)
-    backports (2.6.4)
+    backports (2.6.5)
     builder (3.1.4)
     chunky_png (1.2.6)
     compass (0.12.2)
@@ -63,8 +63,9 @@ GEM
     foreman (0.60.2)
       thor (>= 0.13.6)
     fssm (0.2.9)
-    girl_friday (0.10.0)
+    girl_friday (0.11.1)
       connection_pool (~> 0.9.0)
+      rubinius-actor
     hitimes (1.1.1)
     http_parser.rb (0.5.3)
     http_router (0.10.2)
@@ -85,9 +86,9 @@ GEM
       metriks (~> 0.9.9)
     mime-types (1.19)
     mimemagic (0.2.0)
-    multi_json (1.3.6)
+    multi_json (1.3.7)
     mustache (0.99.4)
-    newrelic_rpm (3.5.0.1)
+    newrelic_rpm (3.5.2.17)
     open4 (1.3.0)
     padrino (0.10.7)
       padrino-admin (= 0.10.7)
@@ -132,14 +133,17 @@ GEM
     rocco (0.8.2)
       mustache
       redcarpet
-    rspec (2.11.0)
-      rspec-core (~> 2.11.0)
-      rspec-expectations (~> 2.11.0)
-      rspec-mocks (~> 2.11.0)
-    rspec-core (2.11.1)
-    rspec-expectations (2.11.3)
+    rspec (2.12.0)
+      rspec-core (~> 2.12.0)
+      rspec-expectations (~> 2.12.0)
+      rspec-mocks (~> 2.12.0)
+    rspec-core (2.12.0)
+    rspec-expectations (2.12.0)
       diff-lcs (~> 1.1.3)
-    rspec-mocks (2.11.3)
+    rspec-mocks (2.12.0)
+    rubinius-actor (0.0.2)
+      rubinius-core-api
+    rubinius-core-api (0.0.1)
     ruby-hmac (0.4.0)
     ruby2ruby (1.3.1)
       ruby_parser (~> 2.0)
@@ -148,7 +152,7 @@ GEM
       sexp_processor (~> 3.0)
     s3 (0.3.11)
       proxies (~> 0.2.0)
-    sass (3.2.1)
+    sass (3.2.3)
     sexp_processor (3.2.0)
     simpleidn (0.0.4)
     sinatra (1.3.3)
@@ -174,16 +178,16 @@ GEM
     thor (0.15.4)
     tilt (1.3.3)
     tins (0.6.0)
-    treetop (1.4.11)
+    treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
     url_mount (0.2.1)
       rack
     vcr (1.11.3)
-    webmock (1.8.11)
+    webmock (1.9.0)
       addressable (>= 2.2.7)
       crack (>= 0.1.7)
-    wrong (0.6.2)
+    wrong (0.6.0)
       ParseTree (~> 3.0)
       diff-lcs (~> 1.1.2)
       file-tail (~> 1.0)
@@ -200,6 +204,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ParseTree (~> 3.0.9)
   addressable
   airbrake
   compass
@@ -217,12 +222,11 @@ DEPENDENCIES
   redcarpet (~> 2.1)
   rocco
   rspec
-  ruby_parser (~> 2.0.6)
   simpleidn
   sinatra
   sinatra-contrib
   thin
   vcr (~> 1.11)
   webmock
-  wrong (~> 0.6.2)
+  wrong
   yajl-ruby

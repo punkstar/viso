@@ -18,18 +18,16 @@ gem 'sinatra-contrib'
 gem 'thin'
 gem 'yajl-ruby'
 
-# Bundler gets confused about which version of ruby_parser and wrong to use.
-# Help it out by specifying stricter versions.
-gem 'ruby_parser', '~> 2.0.6'
-
 group :test do
   gem 'rspec'
   gem 'rack-test'
   gem 'vcr', '~> 1.11'
   gem 'webmock'
+  gem 'wrong'
 
-  # See ruby_parser note above.
-  gem 'wrong', '~> 0.6.2'
+  # wrong depends on ParseTree ~> 3.0 but chooses 3.0.8 over 3.0.9. Guess we're
+  # back to locking dependencies.
+  gem 'ParseTree', '~> 3.0.9'
 end
 
 group :development do
