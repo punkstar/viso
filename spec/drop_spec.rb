@@ -19,6 +19,11 @@ describe Drop do
       let(:data) {{ source: 'Cloud/1.5.3 CFNetwork/595 Darwin/12.0.0 (x86_64) (MacBook6%2C1)' }}
       it { should_not be_beta }
     end
+
+    context 'using the cli' do
+      let(:data) {{ source: 'cloudapp-gem/2.0.0.beta.7 (x86_64-darwin11.3.0) ruby/1.9.3' }}
+      it { should be_beta }
+    end
   end
 
   describe '#subscribed?' do
