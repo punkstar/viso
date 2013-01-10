@@ -193,6 +193,42 @@ describe Viso do
     end
   end
 
+  it 'returns json response for typed download URL' do
+    EM.synchrony do
+      VCR.use_cassette 'text' do
+        header 'Accept', 'application/json'
+        get '/text/hhgttg/download/Chapter%201.txt'
+        drop = DropFetcher.fetch 'hhgttg'
+        EM.stop
+
+        assert { last_response.ok? }
+        assert { headers['Content-Type'] == 'application/json;charset=utf-8' }
+        assert { last_response.body == Yajl::Encoder.encode(drop.data) }
+        deny_social_meta_data
+        assert_cached_for 0
+        assert_last_modified '2012-10-05T00:01:45Z'
+      end
+    end
+  end
+
+  it 'returns json response for untyped download URL' do
+    EM.synchrony do
+      VCR.use_cassette 'text' do
+        header 'Accept', 'application/json'
+        get '/hhgttg/download/Chapter%201.txt'
+        drop = DropFetcher.fetch 'hhgttg'
+        EM.stop
+
+        assert { last_response.ok? }
+        assert { headers['Content-Type'] == 'application/json;charset=utf-8' }
+        assert { last_response.body == Yajl::Encoder.encode(drop.data) }
+        deny_social_meta_data
+        assert_cached_for 0
+        assert_last_modified '2012-10-05T00:01:45Z'
+      end
+    end
+  end
+
   it 'displays a typed image drop' do
     EM.synchrony do
       VCR.use_cassette 'image' do

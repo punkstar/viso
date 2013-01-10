@@ -98,7 +98,7 @@ class Viso < Sinatra::Base
          /download
          /(.+)       # Filename
          $}x do |type, slug, filename|
-    redirect_to_api
+    fetch_and_download_drop slug
   end
 
   # The content for a **Drop**. Response is cached for 15 minutes.
@@ -167,6 +167,20 @@ protected
   rescue => e
     env['async.callback'].call [ 500, {}, error_content_for(:error) ]
     Airbrake.notify_or_ignore e if defined? Airbrake
+  end
+
+  def fetch_and_download_drop(slug)
+    respond_to {|format|
+      format.html { redirect_to_api }
+      format.json {
+        drop = DropPresenter.new fetch_drop(slug), self
+        # check_domain_matches drop
+        # check_filename_matches drop, filename
+        cache_duration 0
+        last_modified drop.updated_at
+        drop.render_json
+      }
+    }
   end
 
   def fetch_and_render_content(slug, filename)
