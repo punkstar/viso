@@ -290,6 +290,9 @@ a:visited {
 #markdown img {
   max-width: 100%;
 }
+#markdown img.emoji {
+  vertical-align: middle;
+}
 
 #image.wrapper {
   max-width: 100%;

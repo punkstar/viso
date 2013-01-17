@@ -10,8 +10,11 @@ describe Content::Markdown do
       include FakeSuper
       include Content::Markdown
 
-      def initialize(url) @url = url end
-      def raw() '# Chapter 1' end
+      attr_accessor :raw
+      def initialize(url, raw = '# Chapter 1')
+        @url = url
+        @raw = raw
+      end
     end
   end
 
@@ -29,6 +32,30 @@ describe Content::Markdown do
         EM.stop
 
         drop.content.strip.should == markdown
+      end
+    end
+
+    it 'interpolates emoji icons' do
+      EM.synchrony do
+        drop  = FakeContent.new('http://cl.ly/hhgttg/chapter1.md',
+                                '# Chapter 1 :books:')
+        emoji = '<img alt="books" src="/images/emoji/books.png" ' +
+                'width="20" height="20" class="emoji" />'
+        EM.stop
+
+        drop.content.should include(emoji)
+      end
+    end
+
+    it 'does not interpolate invalid emoji' do
+      EM.synchrony do
+        drop     = FakeContent.new('http://cl.ly/hhgttg/chapter1.md',
+                                   '# Chapter 1 :not_emoji:')
+        EM.stop
+
+        content = drop.content
+        content.should include(':not_emoji:')
+        content.should_not include('<img')
       end
     end
 

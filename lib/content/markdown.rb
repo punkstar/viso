@@ -1,6 +1,7 @@
 require 'em-synchrony'
 require 'metriks'
 require 'redcarpet'
+require 'emoji'
 
 class Content
   module Markdown
@@ -12,9 +13,11 @@ class Content
         downloaded = raw
 
         EM::Synchrony.defer {
+          emojied = EmojiedHTML.new(downloaded).render
+
           Redcarpet::Markdown.
             new(PygmentizedHTML, fenced_code_blocks: true).
-            render(downloaded)
+            render(emojied)
         }
       }
     end
@@ -29,6 +32,30 @@ class Content
 
     def extension
       @url and File.extname(@url).downcase
+    end
+  end
+
+  class EmojiedHTML
+    attr_reader :content
+
+    def initialize(content)
+      @content = content
+    end
+
+    def render
+      content.gsub(/:([a-z0-9\+\-_]+):/) do |match|
+        if Emoji.names.include?($1)
+          emoji_image_tag($1)
+        else
+          match
+        end
+      end
+    end
+
+  private
+
+    def emoji_image_tag(name)
+      %{<img alt="#{ name }" src="/images/emoji/#{ name }.png" width="20" height="20" class="emoji" />}
     end
   end
 
