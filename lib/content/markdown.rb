@@ -13,7 +13,9 @@ class Content
         downloaded = raw
 
         EM::Synchrony.defer {
-          emojied = EmojiedHTML.new(downloaded).render
+          emojied = Metriks.timer('markdown.emoji').time {
+            EmojiedHTML.new(downloaded).render
+          }
 
           Redcarpet::Markdown.
             new(PygmentizedHTML, fenced_code_blocks: true).
