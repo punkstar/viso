@@ -31,7 +31,7 @@ class Drop
   def beta?
     source = @data.fetch :source, nil
     source and (source.include?('Cloud/2.0 beta') or
-                source.include?('cloudapp-gem/2.0'))
+                source.include?('cloudapp-gem/'))
   end
 
   def image?
