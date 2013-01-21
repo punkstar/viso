@@ -34,5 +34,6 @@ end
 group :development do
   gem 'compass'
   gem 'foreman'
+  gem 'rake'
   gem 'rocco'
 end
