@@ -1,3 +1,0 @@
-#!/bin/sh
-
-RACK_ENV=development CLOUDAPP_DOMAIN=api.cld.dev bundle exec foreman start web
