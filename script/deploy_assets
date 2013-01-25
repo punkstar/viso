@@ -4,12 +4,12 @@
   export RAILS_ASSET_ID=`date +%s`
   (
     export S3_ASSET_BUCKET=assets.vapor.ly
-    bundle exec jammit-s3 -f
+    bundle exec foreman run jammit-s3 -f
   )
 
   (
     export S3_ASSET_BUCKET=assets.cld.me
-    bundle exec jammit-s3
+    bundle exec foreman run jammit-s3
   )
 
   heroku config:add RAILS_ASSET_ID=$RAILS_ASSET_ID --app viso-staging
