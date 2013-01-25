@@ -40,6 +40,13 @@ class Content
   class EmojiedHTML
     attr_reader :content
 
+    def self.asset_host
+      @asset_host ||= ENV.fetch('CLOUDFRONT_DOMAIN')
+    end
+    class << self
+      attr_writer :asset_host
+    end
+
     def initialize(content)
       @content = content
     end
@@ -56,8 +63,12 @@ class Content
 
   private
 
+    def asset_host
+      self.class.asset_host
+    end
+
     def emoji_image_tag(name)
-      %{<img alt="#{ name }" src="/images/emoji/#{ name }.png" width="20" height="20" class="emoji" />}
+      %{<img alt="#{name}" src="//#{asset_host}/images/emoji/#{name}.png" width="20" height="20" class="emoji" />}
     end
   end
 

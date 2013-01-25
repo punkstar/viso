@@ -35,27 +35,32 @@ describe Content::Markdown do
       end
     end
 
-    it 'interpolates emoji icons' do
-      EM.synchrony do
-        drop  = FakeContent.new('http://cl.ly/hhgttg/chapter1.md',
-                                '# Chapter 1 :books:')
-        emoji = '<img alt="books" src="/images/emoji/books.png" ' +
-                'width="20" height="20" class="emoji" />'
-        EM.stop
+    context 'emoji' do
+      before do Content::EmojiedHTML.asset_host = 'emoji.com' end
 
-        drop.content.should include(emoji)
+      it 'interpolates emoji icons' do
+        EM.synchrony do
+          drop  = FakeContent.new('http://cl.ly/hhgttg/chapter1.md',
+                                  '# Chapter 1 :books:')
+          emoji = '<img alt="books" ' \
+                  'src="//emoji.com/images/emoji/books.png" ' +
+                  'width="20" height="20" class="emoji" />'
+          EM.stop
+
+          drop.content.should include(emoji)
+        end
       end
-    end
 
-    it 'does not interpolate invalid emoji' do
-      EM.synchrony do
-        drop     = FakeContent.new('http://cl.ly/hhgttg/chapter1.md',
-                                   '# Chapter 1 :not_emoji:')
-        EM.stop
+      it 'does not interpolate invalid emoji' do
+        EM.synchrony do
+          drop     = FakeContent.new('http://cl.ly/hhgttg/chapter1.md',
+                                     '# Chapter 1 :not_emoji:')
+          EM.stop
 
-        content = drop.content
-        content.should include(':not_emoji:')
-        content.should_not include('<img')
+          content = drop.content
+          content.should include(':not_emoji:')
+          content.should_not include('<img')
+        end
       end
     end
 
