@@ -2,17 +2,20 @@
 
 (
   bundle exec foreman run rake emoji
+
   export RAILS_ASSET_ID=`date +%s`
+
   (
     export S3_ASSET_BUCKET=assets.vapor.ly
     bundle exec foreman run jammit-s3 -f
   )
+  stage
+  heroku config:add RAILS_ASSET_ID=$RAILS_ASSET_ID --app viso-staging
 
   (
     export S3_ASSET_BUCKET=assets.cld.me
     bundle exec foreman run jammit-s3
   )
-
-  heroku config:add RAILS_ASSET_ID=$RAILS_ASSET_ID --app viso-staging
+  shipit
   heroku config:add RAILS_ASSET_ID=$RAILS_ASSET_ID --app viso
 )
