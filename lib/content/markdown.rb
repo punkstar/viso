@@ -1,7 +1,7 @@
+require 'content/emoji'
 require 'em-synchrony'
 require 'metriks'
 require 'redcarpet'
-require 'emoji'
 
 class Content
   module Markdown
@@ -46,7 +46,7 @@ class Content
 
     def render
       content.gsub(/:([a-z0-9\+\-_]+):/) do |match|
-        if Emoji.names.include?($1)
+        if Emoji.include?($1)
           emoji_image_tag($1)
         else
           match
