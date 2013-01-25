@@ -41,7 +41,8 @@ class Content
     attr_reader :content
 
     def self.asset_host
-      @asset_host ||= ENV.fetch('CLOUDFRONT_DOMAIN')
+      @asset_host ||= [ ENV.fetch('CLOUDFRONT_DOMAIN'),
+                        ENV.fetch('RAILS_ASSET_ID') ].join('/')
     end
     class << self
       attr_writer :asset_host
