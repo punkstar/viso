@@ -5,7 +5,6 @@ gem 'airbrake'
 gem 'connection_pool'
 gem 'em-http-request', '~> 1.0'
 gem 'em-synchrony',    github: 'igrigorik/em-synchrony'
-gem 'gemoji'
 gem 'jammit-s3', :git => 'https://github.com/kmamykin/jammit-s3.git'
 gem 'newrelic_rpm'
 gem 'metriks'
@@ -18,6 +17,8 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'thin'
 gem 'yajl-ruby'
+
+gem 'gemoji', group: :development
 
 group :test do
   gem 'rspec'
