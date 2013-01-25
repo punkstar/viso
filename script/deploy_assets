@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 (
+  bundle exec foreman run rake emoji
   export RAILS_ASSET_ID=`date +%s`
   (
     export S3_ASSET_BUCKET=assets.vapor.ly
