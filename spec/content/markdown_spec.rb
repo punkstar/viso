@@ -65,13 +65,13 @@ describe Content::Markdown do
     end
 
     it 'calls #super for non-markdown files' do
-      drop = FakeContent.new 'http://cl.ly/hhgttg/chapter1.txt'
+      drop = FakeContent.new 'http://cl.ly/hhgttg/chapter1.text'
       drop.content.should == 'super content'
     end
   end
 
   describe '#markdown?' do
-    %w( md mdown markdown ).each do |ext|
+    %w( md mdown markdown txt ).each do |ext|
       it "is true when a #{ ext.upcase } file" do
         drop = FakeContent.new "http://cl.ly/hhgttg/cover.#{ ext }"
         drop.should be_markdown

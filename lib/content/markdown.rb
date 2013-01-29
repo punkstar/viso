@@ -27,7 +27,8 @@ class Content
     def markdown?
       %w( .md
           .mdown
-          .markdown ).include? extension
+          .markdown
+          .txt ).include? extension
     end
 
   private
