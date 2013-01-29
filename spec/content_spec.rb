@@ -1,3 +1,4 @@
+require 'helper'
 require 'support/vcr'
 require 'content'
 
