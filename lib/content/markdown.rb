@@ -61,6 +61,8 @@ class Content
           match
         end
       end
+    rescue ArgumentError
+      content
     end
 
   private
