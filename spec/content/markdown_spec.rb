@@ -53,8 +53,8 @@ describe Content::Markdown do
 
       it 'does not interpolate invalid emoji' do
         EM.synchrony do
-          drop     = FakeContent.new('http://cl.ly/hhgttg/chapter1.md',
-                                     '# Chapter 1 :not_emoji:')
+          drop = FakeContent.new('http://cl.ly/hhgttg/chapter1.md',
+                                 '# Chapter 1 :not_emoji:')
           EM.stop
 
           content = drop.content
