@@ -6,6 +6,14 @@ GIT
       eventmachine (>= 1.0.0.beta.1)
 
 GIT
+  remote: git://github.com/lmarburger/metriks-middleware.git
+  revision: 6d4f5dec05b021135b9b4d625f4ef082328b6fc1
+  branch: legacy-queue-wait
+  specs:
+    metriks-middleware (1.3.0)
+      metriks (~> 0.9.9)
+
+GIT
   remote: https://github.com/kmamykin/jammit-s3.git
   revision: 2a7245027fa55946f01876a9c638a73fdff0aa29
   specs:
@@ -83,8 +91,6 @@ GEM
       atomic (~> 1.0)
       avl_tree (~> 1.1.2)
       hitimes (~> 1.1)
-    metriks-middleware (1.3.0)
-      metriks (~> 0.9.9)
     mime-types (1.19)
     mimemagic (0.2.0)
     multi_json (1.3.7)
@@ -216,7 +222,7 @@ DEPENDENCIES
   gemoji
   jammit-s3!
   metriks
-  metriks-middleware
+  metriks-middleware!
   padrino
   pygments.rb
   rack-test
