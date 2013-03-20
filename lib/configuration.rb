@@ -92,10 +92,6 @@ module Configuration
                                               prefix:   prefix,
                                               on_error: on_error,
                                               source:   source).start
-      elsif development?
-        require 'metriks/reporter/logger'
-        Metriks::Reporter::Logger.new(logger:   Logger.new(STDOUT),
-                                      interval: 10).start
       end
     end
   end
