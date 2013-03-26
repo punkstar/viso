@@ -417,6 +417,20 @@ describe Viso do
     end
   end
 
+  it "returns OK for a drop's status when requesting original image size" do
+    EM.synchrony do
+      VCR.use_cassette 'image' do
+        get '/hhgttg/o/status'
+        EM.stop
+
+        assert { last_response.ok? }
+        deny_social_meta_data
+        assert_cached_for 0
+        assert_last_modified '2012-10-05T00:53:50Z'
+      end
+    end
+  end
+
   it "returns No Content for a pending drop's status" do
     EM.synchrony do
       VCR.use_cassette 'pending' do

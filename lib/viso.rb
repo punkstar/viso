@@ -68,6 +68,7 @@ class Viso < Sinatra::Base
   get %r{^
          (?:/(?:text|code|image))?  # Optional drop type
          /([^/?#]+)                 # Item slug
+         (?:/o)?                    # Show original image size
          /status                    #
          $}x do |slug|
     fetch_and_render_status slug
