@@ -3,6 +3,8 @@
 require 'bundler'
 Bundler.setup
 
+require 'support/rspec'
+
 ENV['RACK_ENV'] = 'test'
 
 # Wrong (specifically ParseTreet) isn't compatible with ruby 1.9.3. Create an
