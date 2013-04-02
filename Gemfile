@@ -24,11 +24,6 @@ group :test do
   gem 'rack-test'
   gem 'vcr', '~> 1.11'
   gem 'webmock'
-  gem 'wrong'
-
-  # wrong depends on ParseTree ~> 3.0 but chooses 3.0.8 over 3.0.9. Guess we're
-  # back to locking dependencies.
-  gem 'ParseTree', '~> 3.0.9'
 end
 
 group :development do
