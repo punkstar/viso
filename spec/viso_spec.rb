@@ -750,32 +750,6 @@ describe Viso do
     end
   end
 
-  it 'records metrics' do
-    EM.synchrony do
-      get '/metrics?name=image-load&value=42'
-      EM.stop
-
-      assert { last_response.status == 200 }
-      assert { headers['Content-Type'] == 'text/javascript;charset=utf-8' }
-      assert { last_response.body.empty? }
-      assert_cached_for 0
-      deny_last_modified
-    end
-  end
-
-  it 'ignores bogus metrics' do
-    EM.synchrony do
-      get '/metrics?name=image-load&value=forty-two'
-      EM.stop
-
-      assert { last_response.status == 200 }
-      assert { headers['Content-Type'] == 'text/javascript;charset=utf-8' }
-      assert { last_response.body.empty? }
-      assert_cached_for 0
-      deny_last_modified
-    end
-  end
-
   ## Last-Modified
 
   it 'returns a not modified response and records view of a bookmark' do

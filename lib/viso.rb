@@ -19,7 +19,6 @@
 # [rack-fiber_pool]: https://github.com/mperham/rack-fiber_pool
 require 'addressable/uri'
 require 'eventmachine'
-require 'metric_recorder'
 require 'sinatra/base'
 require 'simpleidn'
 
@@ -45,10 +44,9 @@ class Viso < Sinatra::Base
   end
 
   # Record metrics sent by JavaScript clients.
+  # Legacy endpoint. Remove when no longer called.
   get '/metrics' do
-    MetricRecorder.record params['name'], params['value']
-    content_type 'text/javascript'
-    cache_duration 0
+    $stdout.puts '/metrics called'
     status 200
   end
 
@@ -144,9 +142,7 @@ protected
   # Fetch and return a **Drop** with the given `slug`. Handle
   # `DropFetcher::NotFound` errors and render the not found response.
   def fetch_drop(slug)
-    Metriks.timer('drop.fetch').time do
-      DropFetcher.fetch slug
-    end
+    DropFetcher.fetch slug
   rescue DropFetcher::NotFound
     not_found
   end

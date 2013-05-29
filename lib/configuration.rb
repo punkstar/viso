@@ -1,6 +1,5 @@
 require 'jammit_helper'
 require 'last_modified_or_deployed'
-require 'metriks'
 require 'sinatra/respond_with'
 require 'social_helper'
 

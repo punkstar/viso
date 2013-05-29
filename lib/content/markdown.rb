@@ -1,27 +1,25 @@
 require 'cgi'
 require 'content/emoji'
 require 'em-synchrony'
-require 'metriks'
 require 'redcarpet'
 
 class Content
   module Markdown
     def content
       return super unless markdown?
-      Metriks.timer('markdown').time {
-        # Both EM::Synchrony.defer and #raw call Fiber.yield so they can't be
-        # nested. Download content outside the .defer block.
-        downloaded = raw
 
-        EM::Synchrony.defer {
-          renderer = EmojiedPygmentizedHTML.new(filter_html: true)
-          Redcarpet::Markdown.
-            new(renderer, fenced_code_blocks: true,
-                          tables:             true,
-                          strikethrough:      true,
-                          no_intra_emphasis:  true).
-            render(downloaded)
-        }
+      # Both EM::Synchrony.defer and #raw call Fiber.yield so they can't be
+      # nested. Download content outside the .defer block.
+      downloaded = raw
+
+      EM::Synchrony.defer {
+        renderer = EmojiedPygmentizedHTML.new(filter_html: true)
+        Redcarpet::Markdown.
+          new(renderer, fenced_code_blocks: true,
+                        tables:             true,
+                        strikethrough:      true,
+                        no_intra_emphasis:  true).
+          render(downloaded)
       }
     end
 
