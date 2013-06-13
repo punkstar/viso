@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+# EventMachine and Ruby 2.0 don't play nicely together. Stick with 1.9.3.
+#   ThreadError: Attempt to unlock a mutex which is not locked
+ruby '1.9.3'
 
 # Bundler isn't grabbing the latest versions of these gems. Help it out.
 gem 'activesupport', '~> 3.2.13'
