@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
+# Bundler isn't grabbing the latest versions of these gems. Help it out.
+gem 'activesupport', '~> 3.2.13'
+gem 'padrino',       '~> 0.11'
+
 gem 'addressable'
 gem 'airbrake'
 gem 'connection_pool'
@@ -10,7 +14,6 @@ gem 'em-synchrony',    github: 'igrigorik/em-synchrony'
 gem 'jammit-s3', :git => 'https://github.com/kmamykin/jammit-s3.git'
 gem 'metriks'
 gem 'metriks-middleware'
-gem 'padrino'
 gem 'pygments.rb'
 gem 'redcarpet', '~> 2.1'
 gem 'simpleidn'
