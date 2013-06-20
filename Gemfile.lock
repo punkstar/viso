@@ -49,7 +49,7 @@ GEM
       em-socksify
       eventmachine (>= 1.0.0.beta.4)
       http_parser.rb (>= 0.5.3)
-    em-socksify (0.2.1)
+    em-socksify (0.3.0)
       eventmachine (>= 1.0.0.beta.4)
     eventmachine (1.0.3)
     foreman (0.63.0)
@@ -75,11 +75,11 @@ GEM
       atomic (~> 1.0)
       avl_tree (~> 1.1.2)
       hitimes (~> 1.1)
-    metriks-middleware (2.1.0)
+    metriks-middleware (2.1.1)
       metriks (~> 0.9.9)
     mime-types (1.23)
     mimemagic (0.2.0)
-    multi_json (1.7.6)
+    multi_json (1.7.7)
     mustache (0.99.4)
     padrino (0.11.2)
       padrino-admin (= 0.11.2)
@@ -121,7 +121,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rake (10.0.4)
+    rake (10.1.0)
     redcarpet (2.3.0)
     rocco (0.8.2)
       mustache
