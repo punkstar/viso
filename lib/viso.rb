@@ -22,6 +22,7 @@ require 'eventmachine'
 require 'sinatra/base'
 require 'simpleidn'
 
+require 'blacklist'
 require 'configuration'
 require 'drop'
 require 'drop_fetcher'
@@ -32,6 +33,7 @@ require 'domain_fetcher'
 require 'base64'
 
 class Viso < Sinatra::Base
+  register Blacklist
   register Configuration
 
   # The home page. Custom domain users have the option to set a home page so

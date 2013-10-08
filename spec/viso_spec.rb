@@ -877,4 +877,15 @@ describe Viso do
       deny_last_modified
     end
   end
+
+  it "blacklists" do
+    ENV['BLACKLISTED_IPS'] = '127.0.0.1'
+    EM.synchrony do
+      get '/hhgttg'
+      EM.stop
+
+      assert { last_response.status == 404 }
+    end
+    ENV.delete 'BLACKLISTED_IPS'
+  end
 end
