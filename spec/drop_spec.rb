@@ -85,6 +85,11 @@ describe Drop do
       let(:data) {{ redirect_url: 'http://cl.ly/hhgttg/chapter1.txt' }}
       its(:remote_url) { should eq('http://cl.ly/hhgttg/chapter1.txt') }
     end
+
+    context 'a bookmark without protocol' do
+      let(:data) {{ redirect_url: 'cl.ly/hhgttg/chapter1.txt' }}
+      its(:remote_url) { should eq('http://cl.ly/hhgttg/chapter1.txt') }
+    end
   end
 
   describe '#name' do
