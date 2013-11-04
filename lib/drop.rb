@@ -31,7 +31,6 @@ class Drop
   def redirect_url
     url = @data[:redirect_url]
     return url if url.nil? || includes_protocol?(url)
-    puts "Bookmark without protocol: slug=#{slug.inspect} url=#{url.inspect}"
     "http://#{url}"
   end
 
