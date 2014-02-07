@@ -129,6 +129,23 @@ describe Viso do
     end
   end
 
+  it 'redirects a content URL to its content with image wildcard accept header' do
+    EM.synchrony do
+      VCR.use_cassette 'image' do
+        stub_request(:post, 'http://api.cld.me/hhgttg/view').
+          to_return(:status => [201, 'Created'])
+
+        header 'Accept', 'image/*'
+        get '/image/hhgttg/Cover.jpeg'
+        EM.stop
+
+        # assert_requested :post, 'http://api.cld.me/hhgttg/view'
+        assert { last_response.status == 301 }
+        assert { headers['Location'] == 'http://f.cl.ly/items/hhgttg/Cover.jpeg' }
+      end
+    end
+  end
+
   it 'redirects a bookmark to its content' do
     EM.synchrony do
       VCR.use_cassette 'bookmark' do

@@ -115,6 +115,12 @@ class Viso < Sinatra::Base
       format.json do
         fetch_and_render_drop slug
       end
+
+      # Defult mime type always has the lowest precedence. A request with the
+      # header `Accept: */*` will match the first non-default format.
+      format.on('*/*') do
+        fetch_and_render_content slug, filename
+      end
     }
   end
 
