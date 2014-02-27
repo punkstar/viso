@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
   <meta charset="utf-8">
   <title><%= escape_html drop.name %></title>
 
@@ -17,7 +18,6 @@
   <%= include_stylesheets :new_viso %>
 
   <%= include_javascripts :new_viso %>
-
   
 </head>
 
@@ -28,6 +28,8 @@
     <% unless drop.subscribed? %>
       <a href="https://itunes.apple.com/us/app/cloud/id417602904?mt=12" class="brand">Share with CloudApp</a>
     <% end %>
+    
+    <a href="https://itunes.apple.com/us/app/cloud/id417602904?mt=12" class="brand">Share with CloudApp</a>
     
     <h2><strong><%= escape_html drop.basename %></strong><%= escape_html drop.extension %></h2>
 
