@@ -3,3 +3,4 @@ public/assets
 .rspec
 public/images/emoji
 .assets.env
+.env
