@@ -1,0 +1,16 @@
+<header id="header">
+  <% unless drop.subscribed? %>
+    <h1><a href="https://itunes.apple.com/us/app/cloud/id417602904?mt=12">Simple sharing</a></h1>
+  <% end %>
+
+  <h2><%= escape_html drop.name %></h2>
+
+  <a class="embed" href="<%= drop.content_url %>">Direct link</a>
+</header>
+
+<section id="content">
+  <video controls autoplay>
+    <source src="<%= drop.content_url %>" />
+    <p>Could not load video.</p>
+  </video>
+</section>

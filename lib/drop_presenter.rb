@@ -33,6 +33,8 @@ private
   def template_name
     if pending?
       :new_waiting
+    elsif video?
+      :video
     elsif image?
       if beta?
         :new_image
@@ -57,6 +59,8 @@ private
   def body_id
     if pending?
       'waiting'
+    elsif video?
+      'video'
     elsif image?
       'image'
     elsif text?
